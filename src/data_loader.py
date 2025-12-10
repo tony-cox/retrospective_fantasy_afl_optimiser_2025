@@ -4,7 +4,7 @@ Data loader module for fetching and parsing AFL Fantasy data.
 
 import json
 import requests
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Tuple
 from .models import Player, Team
 
 
@@ -117,7 +117,7 @@ class DataLoader:
         
         return self.teams
     
-    def load_all(self) -> tuple[List[Player], Dict[int, Team]]:
+    def load_all(self) -> Tuple[List[Player], Dict[int, Team]]:
         """
         Fetch and parse all data (players and teams).
         

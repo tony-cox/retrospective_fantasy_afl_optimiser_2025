@@ -29,7 +29,7 @@ class FantasyOptimizer:
         
         Args:
             players: List of available players.
-            salary_cap: Maximum total cost in cents (default $10M).
+            salary_cap: Maximum total cost in dollars (default $10M).
             squad_size: Target squad size (default 30).
         """
         self.players = players

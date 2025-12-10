@@ -65,7 +65,7 @@ class Squad:
     
     # Fantasy AFL constraints
     MAX_SQUAD_SIZE: int = 30
-    SALARY_CAP: int = 10_000_000  # $10M in cents
+    SALARY_CAP: int = 10_000_000  # $10M in dollars
     
     def __init__(self):
         """Initialize an empty squad."""

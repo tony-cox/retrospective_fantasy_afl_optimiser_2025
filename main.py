@@ -66,7 +66,7 @@ def main():
         '--salary-cap',
         type=int,
         default=10_000_000,
-        help='Salary cap in cents (default: 10,000,000 = $10M)'
+        help='Salary cap in dollars (default: 10,000,000 = $10M)'
     )
     parser.add_argument(
         '--squad-size',
