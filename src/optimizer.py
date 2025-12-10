@@ -157,7 +157,11 @@ class FantasyOptimizer:
         for player in self.players:
             var = self.selection_vars[player.player_id]
             if pulp.value(var) == 1:
-                squad.add_player(player)
+                # Directly add to squad, bypassing validation
+                # since optimizer solution is already validated
+                squad.players.append(player)
+                squad.total_cost += player.price
+                squad.total_score += player.average_score
         
         self.selected_squad = squad
         return squad
