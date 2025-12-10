@@ -3,7 +3,7 @@ Data models for AFL Fantasy Optimizer.
 """
 
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, List
 
 
 @dataclass
@@ -69,7 +69,7 @@ class Squad:
     
     def __init__(self):
         """Initialize an empty squad."""
-        self.players: list[Player] = []
+        self.players: List[Player] = []
         self.total_cost: int = 0
         self.total_score: float = 0.0
     

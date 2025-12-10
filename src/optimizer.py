@@ -3,7 +3,7 @@ Integer Programming optimizer for AFL Fantasy squad selection.
 """
 
 import pulp
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Any
 from .models import Player, Squad
 
 
@@ -166,7 +166,7 @@ class FantasyOptimizer:
         self.selected_squad = squad
         return squad
     
-    def get_solution_summary(self) -> Dict[str, any]:
+    def get_solution_summary(self) -> Dict[str, Any]:
         """
         Get a summary of the optimization solution.
         
