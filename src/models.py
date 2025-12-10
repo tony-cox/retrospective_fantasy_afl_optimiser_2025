@@ -59,13 +59,9 @@ class Team:
         )
 
 
-@dataclass
+
 class Squad:
     """Represents a fantasy AFL squad with constraints."""
-    
-    players: list[Player]
-    total_cost: int
-    total_score: float
     
     # Fantasy AFL constraints
     MAX_SQUAD_SIZE: int = 30
@@ -73,9 +69,9 @@ class Squad:
     
     def __init__(self):
         """Initialize an empty squad."""
-        self.players = []
-        self.total_cost = 0
-        self.total_score = 0.0
+        self.players: list[Player] = []
+        self.total_cost: int = 0
+        self.total_score: float = 0.0
     
     def add_player(self, player: Player) -> bool:
         """
