@@ -19,6 +19,10 @@ dist/
 .mypy_cache/
 .ruff_cache/
 
+# Outputs (generated artifacts)
+output/*
+!output/.gitkeep
+
 # IDE
 .idea/
 .vscode/
