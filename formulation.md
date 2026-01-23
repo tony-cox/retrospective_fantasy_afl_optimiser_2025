@@ -1,11 +1,11 @@
 ---
 title: Retro Fantasy AFL Optimiser Formulation
-date: \\today
+date: \today
 header-includes:
-  - \\usepackage{mathtools}
-  - \\usepackage{amssymb}
-  - \\usepackage{booktabs}
-  - \\usepackage{siunitx}
+  - \usepackage{mathtools}
+  - \usepackage{amssymb}
+  - \usepackage{booktabs}
+  - \usepackage{siunitx}
 numbersections: true
 ---
 
@@ -16,6 +16,10 @@ numbersections: true
 \newpage
 
 # Sets
+
+Let $P$, subscripted by $p$, be the set of players.
+
+Let $R = \{1,2,\ldots,24\}$, subscripted by $r$, be the set of rounds.
 
 \newpage
 
