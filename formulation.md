@@ -13,9 +13,9 @@ numbersections: true
 
 # Description
 
-This model retrospectively determines the optimal AFL Fantasy team selection and trade sequence across the 2025 season.
+This model retrospectively determines the optimal AFL Fantasy team selection, captain choice, and trade sequence across the 2025 season.
 
-For each round $r \in R$, it chooses which players $p \in P$ are in the squad and allocates them to the required on-field and bench slots (defence, midfield, ruck, forward, plus a bench utility slot). The objective is to maximise the total realised points scored by the on-field players across all rounds.
+For each round $r \in R$, it chooses which players $p \in P$ are in the squad and allocates them to the required on-field and bench slots (defence, midfield, ruck, forward, plus a bench utility slot). It also selects exactly one captain per round. The objective is to maximise the total realised points scored by the on-field players across all rounds, with the captain's score counted twice.
 
 The model respects:
 
@@ -23,6 +23,7 @@ The model respects:
 - **Position eligibility**: a player may only be assigned to a position (F/M/U/D) if they are eligible for that position; players may be eligible for multiple positions.
 - **Trade limits**: between consecutive rounds, at most two players may be traded in (and at most two traded out).
 - **Budget / bank**: the initial bank is salary cap minus the cost of the starting squad, the bank balance is carried forward and updated each round using the round-$r$ prices of traded-out and traded-in players, and the bank is never allowed to be negative.
+- **Captaincy**: exactly one on-field selected player is designated as captain each round, and their score is doubled.
 
 This formulation is designed to be implemented as a mixed-integer linear program (MILP).
 
@@ -94,14 +95,16 @@ Let $\mathrm{in}_{p,r}$ be a binary decision variable indicating whether player 
 
 Let $\mathrm{out}_{p,r}$ be a binary decision variable indicating whether player $p$ is traded out of the team in round $r$ (present in round $r-1$ but not in round $r$).
 
+Let $z_{p,r}$ be a binary decision variable indicating whether player $p$ is selected as captain in round $r$ (1 if captain, 0 otherwise).
+
 \newpage
 
 # Objective Function
 
-Maximise the total points scored by the on-field selected players across all rounds:
+Maximise the total points scored by the on-field selected players across all rounds, with the captain's score doubled:
 
 $$
-\text{Maximise} \quad \sum_{r \in R} \sum_{p \in P} s_{p,r} \cdot \left(x^{F,\mathrm{on}}_{p,r} + x^{M,\mathrm{on}}_{p,r} + x^{U,\mathrm{on}}_{p,r} + x^{D,\mathrm{on}}_{p,r}\right)
+\text{Maximise} \quad \sum_{r \in R} \sum_{p \in P} s_{p,r} \cdot \left(x^{F,\mathrm{on}}_{p,r} + x^{M,\mathrm{on}}_{p,r} + x^{U,\mathrm{on}}_{p,r} + x^{D,\mathrm{on}}_{p,r} + z_{p,r}\right)
 $$
 
 \newpage
@@ -198,6 +201,12 @@ Overall selection must match positional selection:
 
 $$
 x_{p,r} = x^{F,\mathrm{on}}_{p,r} + x^{M,\mathrm{on}}_{p,r} + x^{U,\mathrm{on}}_{p,r} + x^{D,\mathrm{on}}_{p,r} + x^{F,\mathrm{bench}}_{p,r} + x^{M,\mathrm{bench}}_{p,r} + x^{U,\mathrm{bench}}_{p,r} + x^{D,\mathrm{bench}}_{p,r} + x^{Q,\mathrm{bench}}_{p,r} \quad \forall p \in P, \forall r \in R
+$$
+
+A player can occupy at most one lineup slot in a given round:
+
+$$
+x^{F,\mathrm{on}}_{p,r} + x^{M,\mathrm{on}}_{p,r} + x^{U,\mathrm{on}}_{p,r} + x^{D,\mathrm{on}}_{p,r} + x^{F,\mathrm{bench}}_{p,r} + x^{M,\mathrm{bench}}_{p,r} + x^{U,\mathrm{bench}}_{p,r} + x^{D,\mathrm{bench}}_{p,r} + x^{Q,\mathrm{bench}}_{p,r} \le 1 \quad \forall p \in P, \forall r \in R
 $$
 
 ## Maximum Team Changes Per Round
@@ -312,6 +321,24 @@ $$
 x^{D,\mathrm{bench}}_{p,r} \le e^{D}_p \quad \forall p \in P, \forall r \in R
 $$
 
+Bench utility is unconstrained by lineup position, but still must use an eligible player:
+
+$$
+x^{Q,\mathrm{bench}}_{p,r} \le e^{F}_p + e^{M}_p + e^{U}_p + e^{D}_p \quad \forall p \in P, \forall r \in R
+$$
+
 \newpage
 
-# Notes / Implementation Mapping
+## Captaincy
+
+Exactly one captain must be selected each round:
+
+$$
+\sum_{p \in P} z_{p,r} = 1 \quad \forall r \in R
+$$
+
+The captain must be selected on-field in that round:
+
+$$
+z_{p,r} \le x^{F,\mathrm{on}}_{p,r} + x^{M,\mathrm{on}}_{p,r} + x^{U,\mathrm{on}}_{p,r} + x^{D,\mathrm{on}}_{p,r} \quad \forall p \in P, \forall r \in R
+$$
