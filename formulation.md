@@ -13,6 +13,19 @@ numbersections: true
 
 # Description
 
+This model retrospectively determines the optimal AFL Fantasy team selection and trade sequence across the 2025 season.
+
+For each round $r \in R$, it chooses which players $p \in P$ are in the squad and allocates them to the required on-field and bench slots (defence, midfield, ruck, forward, plus a bench utility slot). The objective is to maximise the total realised points scored by the on-field players across all rounds.
+
+The model respects:
+
+- **Positional structure**: each round has fixed counts for on-field and bench positional slots, plus exactly one bench utility.
+- **Position eligibility**: a player may only be assigned to a position (F/M/U/D) if they are eligible for that position; players may be eligible for multiple positions.
+- **Trade limits**: between consecutive rounds, at most two players may be traded in (and at most two traded out).
+- **Budget / bank**: the initial bank is salary cap minus the cost of the starting squad, the bank balance is carried forward and updated each round using the round-$r$ prices of traded-out and traded-in players, and the bank is never allowed to be negative.
+
+This formulation is designed to be implemented as a mixed-integer linear program (MILP).
+
 \newpage
 
 # Sets
@@ -75,7 +88,7 @@ Let $x^{D,\mathrm{bench}}_{p,r}$ be a binary decision variable indicating whethe
 
 Let $x^{Q,\mathrm{bench}}_{p,r}$ be a binary decision variable indicating whether player $p$ is selected in the bench utility position in round $r$ (1 if selected, 0 otherwise).
 
-Let $b_r$ be a continuous decision variable representing the amount of cash in the bank at the end of round $r$.
+Let $b_r$ be a continuous decision variable representing the amount of cash in the bank in round $r$.
 
 Let $\mathrm{in}_{p,r}$ be a binary decision variable indicating whether player $p$ is traded into the team in round $r$ (present in round $r$ but not in round $r-1$).
 
@@ -191,20 +204,14 @@ $$
 
 Between consecutive rounds, at most two players may differ in the selected team (players may change positions freely; this constraint applies only to $x_{p,r}$).
 
-To express this linearly, introduce auxiliary binary variables $\delta_{p,r}$ indicating whether player $p$ changes selection status between rounds $r-1$ and $r$:
+Using the trade indicators, this is enforced by limiting the number of trade-ins (equivalently trade-outs) each round:
 
 $$
-\delta_{p,r} \ge x_{p,r} - x_{p,r-1} \quad \forall p \in P, \forall r \in R \setminus \{1\}
+\sum_{p \in P} \mathrm{in}_{p,r} \le 2 \quad \forall r \in R \setminus \{1\}
 $$
 
 $$
-\delta_{p,r} \ge x_{p,r-1} - x_{p,r} \quad \forall p \in P, \forall r \in R \setminus \{1\}
-$$
-
-Then limit the number of changes per round:
-
-$$
-\sum_{p \in P} \delta_{p,r} \le 4 \quad \forall r \in R \setminus \{1\}
+\sum_{p \in P} \mathrm{out}_{p,r} \le 2 \quad \forall r \in R \setminus \{1\}
 $$
 
 \newpage
