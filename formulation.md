@@ -37,6 +37,14 @@ Let $s_{p,r}$ be the (known) number of points scored by player $p$ in round $r$.
 
 Let $c_{p,r}$ be the (known) price of player $p$ in round $r$.
 
+Let $e^{F}_p$ be a binary parameter indicating whether player $p$ is eligible to be selected as a forward (1 if eligible, 0 otherwise).
+
+Let $e^{M}_p$ be a binary parameter indicating whether player $p$ is eligible to be selected as a midfielder (1 if eligible, 0 otherwise).
+
+Let $e^{U}_p$ be a binary parameter indicating whether player $p$ is eligible to be selected as a ruck (1 if eligible, 0 otherwise).
+
+Let $e^{D}_p$ be a binary parameter indicating whether player $p$ is eligible to be selected as a defender (1 if eligible, 0 otherwise).
+
 \newpage
 
 # Constants
@@ -67,6 +75,12 @@ Let $x^{D,\mathrm{bench}}_{p,r}$ be a binary decision variable indicating whethe
 
 Let $x^{Q,\mathrm{bench}}_{p,r}$ be a binary decision variable indicating whether player $p$ is selected in the bench utility position in round $r$ (1 if selected, 0 otherwise).
 
+Let $b_r$ be a continuous decision variable representing the amount of cash in the bank at the end of round $r$.
+
+Let $\mathrm{in}_{p,r}$ be a binary decision variable indicating whether player $p$ is traded into the team in round $r$ (present in round $r$ but not in round $r-1$).
+
+Let $\mathrm{out}_{p,r}$ be a binary decision variable indicating whether player $p$ is traded out of the team in round $r$ (present in round $r-1$ but not in round $r$).
+
 \newpage
 
 # Objective Function
@@ -81,12 +95,88 @@ $$
 
 # Constraints
 
-## Starting Team Salary Cap
+## Initial Bank Balance
 
-The total price of the starting team (round 1) must be at or under the salary cap:
+Cash in the bank in round 1 is the salary cap minus the total price of the selected starting team:
 
 $$
-\sum_{p \in P} c_{p,1} \cdot x_{p,1} \le \mathrm{SALARY\_CAP}
+b_1 = \mathrm{SALARY\_CAP} - \sum_{p \in P} c_{p,1} \cdot x_{p,1}
+$$
+
+## Bank Non-negativity
+
+The bank balance cannot be negative in any round:
+
+$$
+b_r \ge 0 \quad \forall r \in R
+$$
+
+## Bank Balance Recurrence
+
+The bank balance carries forward between rounds and is adjusted by the round-$r$ prices of players traded out and traded in:
+
+$$
+b_r = b_{r-1} + \sum_{p \in P} c_{p,r} \cdot \mathrm{out}_{p,r} - \sum_{p \in P} c_{p,r} \cdot \mathrm{in}_{p,r}
+\quad \forall r \in R \setminus \{1\}
+$$
+
+## Trade Indicator Linking
+
+Trade-in and trade-out indicators are linked to changes in overall selection $x_{p,r}$. The following constraints linearise:
+
+- $\mathrm{in}_{p,r} = 1$ iff $(x_{p,r-1}, x_{p,r}) = (0,1)$
+- $\mathrm{out}_{p,r} = 1$ iff $(x_{p,r-1}, x_{p,r}) = (1,0)$
+
+**Lower bounds (force the indicator to switch on when a change occurs):**
+
+If the player was not selected in $r-1$ but is selected in $r$, then $x_{p,r} - x_{p,r-1} = 1$, which forces $\mathrm{in}_{p,r} \ge 1$.
+
+This is the "trigger" constraint for trade-ins.
+
+$$
+\mathrm{in}_{p,r} \ge x_{p,r} - x_{p,r-1} \quad \forall p \in P, \forall r \in R \setminus \{1\}
+$$
+
+If the player was selected in $r-1$ but is not selected in $r$, then $x_{p,r-1} - x_{p,r} = 1$, which forces $\mathrm{out}_{p,r} \ge 1$.
+
+This is the "trigger" constraint for trade-outs.
+
+$$
+\mathrm{out}_{p,r} \ge x_{p,r-1} - x_{p,r} \quad \forall p \in P, \forall r \in R \setminus \{1\}
+$$
+
+**Upper bounds (prevent false positives / enforce the correct direction of change):**
+
+A trade-in can only occur if the player is selected in round $r$.
+
+This prevents $\mathrm{in}_{p,r}=1$ when the player is not actually in the round-$r$ team.
+
+$$
+\mathrm{in}_{p,r} \le x_{p,r} \quad \forall p \in P, \forall r \in R \setminus \{1\}
+$$
+
+A trade-in can only occur if the player was not selected in round $r-1$.
+
+This prevents $\mathrm{in}_{p,r}=1$ when the player was already owned in round $r-1$ (i.e. no trade-in happened).
+
+$$
+\mathrm{in}_{p,r} \le 1 - x_{p,r-1} \quad \forall p \in P, \forall r \in R \setminus \{1\}
+$$
+
+A trade-out can only occur if the player was selected in round $r-1$.
+
+This prevents $\mathrm{out}_{p,r}=1$ when the player wasn't owned in round $r-1$.
+
+$$
+\mathrm{out}_{p,r} \le x_{p,r-1} \quad \forall p \in P, \forall r \in R \setminus \{1\}
+$$
+
+A trade-out can only occur if the player is not selected in round $r$.
+
+This prevents $\mathrm{out}_{p,r}=1$ when the player is still owned in round $r$.
+
+$$
+\mathrm{out}_{p,r} \le 1 - x_{p,r} \quad \forall p \in P, \forall r \in R \setminus \{1\}
 $$
 
 ## Linking Constraints
@@ -175,6 +265,44 @@ Bench utility:
 
 $$
 \sum_{p \in P} x^{Q,\mathrm{bench}}_{p,r} = 1 \quad \forall r \in R
+$$
+
+\newpage
+
+## Position Eligibility
+
+Players can only be selected into a position if they are eligible for that position (eligibility may be multi-position):
+
+$$
+x^{F,\mathrm{on}}_{p,r} \le e^{F}_p \quad \forall p \in P, \forall r \in R
+$$
+
+$$
+x^{F,\mathrm{bench}}_{p,r} \le e^{F}_p \quad \forall p \in P, \forall r \in R
+$$
+
+$$
+x^{M,\mathrm{on}}_{p,r} \le e^{M}_p \quad \forall p \in P, \forall r \in R
+$$
+
+$$
+x^{M,\mathrm{bench}}_{p,r} \le e^{M}_p \quad \forall p \in P, \forall r \in R
+$$
+
+$$
+x^{U,\mathrm{on}}_{p,r} \le e^{U}_p \quad \forall p \in P, \forall r \in R
+$$
+
+$$
+x^{U,\mathrm{bench}}_{p,r} \le e^{U}_p \quad \forall p \in P, \forall r \in R
+$$
+
+$$
+x^{D,\mathrm{on}}_{p,r} \le e^{D}_p \quad \forall p \in P, \forall r \in R
+$$
+
+$$
+x^{D,\mathrm{bench}}_{p,r} \le e^{D}_p \quad \forall p \in P, \forall r \in R
 $$
 
 \newpage
