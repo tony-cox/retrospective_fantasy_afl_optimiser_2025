@@ -13,17 +13,17 @@ numbersections: true
 
 # Description
 
-This model retrospectively determines the optimal AFL Fantasy team selection, captain choice, and trade sequence across the 2025 season.
+This model retrospectively determines the optimal AFL Fantasy team selection, captain choice, and trade sequence across a past season.
 
-For each round $r \in R$, it chooses which players $p \in P$ are in the squad and allocates them to the required on-field and bench slots (defence, midfield, ruck, forward, plus a bench utility slot). It also selects exactly one captain per round. The objective is to maximise the total realised points scored by the on-field players across all rounds, with the captain's score counted twice.
+For each round $r \in R$, it chooses which players $p \in P$ are in the squad and allocates them to the required on-field and bench slots by position $k \in K$ (plus a bench utility slot). It also selects exactly one captain per round. The objective is to maximise the total realised points scored by the counted on-field players across all rounds, with the captain's counted score doubled.
 
 The model respects:
 
-- **Positional structure**: each round has fixed counts for on-field and bench positional slots, plus exactly one bench utility.
-- **Position eligibility**: a player may only be assigned to a position (F/M/U/D) if they are eligible for that position; players may be eligible for multiple positions.
+- **Positional structure**: each round has required counts for on-field and bench positional slots by position ($n^{\mathrm{on}}_{k,r}$ and $n^{\mathrm{bench}}_{k,r}$), plus $\mathrm{UTILITY\_BENCH\_COUNT}$ bench utility slots.
+- **Position eligibility**: a player may only be assigned to a position in $K$ (DEF/MID/RUC/FWD) if they are eligible for that position in that round.
 - **Trade limits**: between consecutive rounds, at most $T_r$ players may be traded in (and at most $T_r$ traded out).
-- **Budget / bank**: the initial bank is salary cap minus the cost of the starting squad, the bank balance is carried forward and updated each round using the round-$r$ prices of traded-out and traded-in players, and the bank is never allowed to be negative.
-- **Scoring (bye rounds)**: in each round, exactly $N_r$ on-field players are chosen to have their scores counted (all 22 in normal rounds, best 18 in bye rounds).
+- **Budget / bank**: the initial bank is salary cap minus the cost of the starting squad; the bank balance is carried forward and updated each round using the round-$r$ prices of traded-out and traded-in players; and the bank is constrained to be non-negative via its domain ($b_r \in \mathbb{R}_{\ge 0}$).
+- **Scoring (bye rounds)**: in each round, exactly $N_r$ on-field players are chosen to have their scores counted.
 - **Captaincy**: exactly one of the counted on-field players is designated as captain each round, and their counted score is doubled.
 
 This formulation is designed to be implemented as a mixed-integer linear program (MILP).
@@ -34,68 +34,57 @@ This formulation is designed to be implemented as a mixed-integer linear program
 
 Let $P$, subscripted by $p$, be the set of players.
 
-Let $R = \{1,2,\ldots,24\}$, subscripted by $r$, be the set of rounds.
+Let $R$, subscripted by $r$, be the set of rounds.
 
+Let $K = \{\mathrm{DEF}, \mathrm{MID}, \mathrm{RUC}, \mathrm{FWD}\}$, subscripted by $k$, be the set of positions.
 
 \newpage
 
 # Parameters (Vectors)
 
-Let $s_{p,r}$ be the (known) number of points scored by player $p$ in round $r$.
+Let $s_{p,r} \in \mathbb{R}$ be the (known) number of points scored by player $p$ in round $r$.
 
-Let $c_{p,r}$ be the (known) price of player $p$ in round $r$.
+Let $c_{p,r} \in \mathbb{R}_{\ge 0}$ be the (known) price of player $p$ in round $r$.
 
-Let $e^{F}_{p,r}$ be a binary parameter indicating whether player $p$ is eligible to be selected as a forward in round $r$ (1 if eligible, 0 otherwise).
+Let $e_{p,k,r} \in \{0,1\}$ be a binary parameter indicating whether player $p$ is eligible to be selected in position $k$ in round $r$ (1 if eligible, 0 otherwise).
 
-Let $e^{M}_{p,r}$ be a binary parameter indicating whether player $p$ is eligible to be selected as a midfielder in round $r$ (1 if eligible, 0 otherwise).
+Let $n^{\mathrm{on}}_{k,r} \in \mathbb{Z}_{\ge 0}$ be the (known) number of on-field players required in position $k$ in round $r$.
 
-Let $e^{U}_{p,r}$ be a binary parameter indicating whether player $p$ is eligible to be selected as a ruck in round $r$ (1 if eligible, 0 otherwise).
+Let $n^{\mathrm{bench}}_{k,r} \in \mathbb{Z}_{\ge 0}$ be the (known) number of bench players required in position $k$ in round $r$.
 
-Let $e^{D}_{p,r}$ be a binary parameter indicating whether player $p$ is eligible to be selected as a defender in round $r$ (1 if eligible, 0 otherwise).
+Let $T_r \in \mathbb{Z}_{\ge 0}$ be the (known) maximum number of trades allowed in round $r$.
 
-Let $T_r$ be the (known) maximum number of trades allowed in round $r$.
-
-Let $N_r$ be the (known) number of on-field players whose scores count toward the team total in round $r$ (e.g. $N_r=22$ in normal rounds and $N_r=18$ in bye rounds).
+Let $N_r \in \mathbb{Z}_{\ge 0}$ be the (known) number of on-field players whose scores count toward the team total in round $r$ (e.g. $N_r=22$ in normal rounds and $N_r=18$ in bye rounds).
 
 \newpage
 
 # Constants
 
-Let $\mathrm{SALARY\_CAP}$ be the starting salary cap.
+Let $\mathrm{SALARY\_CAP} \in \mathbb{R}_{\ge 0}$ be the starting salary cap.
+
+Let $\mathrm{UTILITY\_BENCH\_COUNT} \in \mathbb{Z}_{\ge 0}$ be the number of bench utility slots.
 
 \newpage
 
 # Decision Variables
 
-Let $x_{p,r}$ be a binary decision variable indicating whether player $p$ is selected in the team (in any position, on-field or bench) in round $r$ (1 if selected, 0 otherwise).
+Let $x_{p,r} \in \{0,1\}$ be a binary decision variable indicating whether player $p$ is selected in the team (in any position, on-field or bench) in round $r$.
 
-Let $x^{F,\mathrm{on}}_{p,r}$ be a binary decision variable indicating whether player $p$ is selected as an on-field forward in round $r$ (1 if selected, 0 otherwise).
+Let $x^{\mathrm{on}}_{p,k,r} \in \{0,1\}$ be a binary decision variable indicating whether player $p$ is selected on-field in position $k$ in round $r$.
 
-Let $x^{M,\mathrm{on}}_{p,r}$ be a binary decision variable indicating whether player $p$ is selected as an on-field midfielder in round $r$ (1 if selected, 0 otherwise).
+Let $x^{\mathrm{bench}}_{p,k,r} \in \{0,1\}$ be a binary decision variable indicating whether player $p$ is selected on the bench in position $k$ in round $r$.
 
-Let $x^{U,\mathrm{on}}_{p,r}$ be a binary decision variable indicating whether player $p$ is selected as an on-field ruck in round $r$ (1 if selected, 0 otherwise).
+Let $x^{Q,\mathrm{bench}}_{p,r} \in \{0,1\}$ be a binary decision variable indicating whether player $p$ is selected in the bench utility position in round $r$.
 
-Let $x^{D,\mathrm{on}}_{p,r}$ be a binary decision variable indicating whether player $p$ is selected as an on-field defender in round $r$ (1 if selected, 0 otherwise).
+Let $b_r \in \mathbb{R}_{\ge 0}$ be a continuous decision variable representing the amount of cash in the bank in round $r$.
 
-Let $x^{F,\mathrm{bench}}_{p,r}$ be a binary decision variable indicating whether player $p$ is selected as a bench forward in round $r$ (1 if selected, 0 otherwise).
+Let $\mathrm{in}_{p,r} \in \{0,1\}$ be a binary decision variable indicating whether player $p$ is traded into the team in round $r$.
 
-Let $x^{M,\mathrm{bench}}_{p,r}$ be a binary decision variable indicating whether player $p$ is selected as a bench midfielder in round $r$ (1 if selected, 0 otherwise).
+Let $\mathrm{out}_{p,r} \in \{0,1\}$ be a binary decision variable indicating whether player $p$ is traded out of the team in round $r$.
 
-Let $x^{U,\mathrm{bench}}_{p,r}$ be a binary decision variable indicating whether player $p$ is selected as a bench ruck in round $r$ (1 if selected, 0 otherwise).
+Let $z_{p,r} \in \{0,1\}$ be a binary decision variable indicating whether player $p$ is selected as captain in round $r$.
 
-Let $x^{D,\mathrm{bench}}_{p,r}$ be a binary decision variable indicating whether player $p$ is selected as a bench defender in round $r$ (1 if selected, 0 otherwise).
-
-Let $x^{Q,\mathrm{bench}}_{p,r}$ be a binary decision variable indicating whether player $p$ is selected in the bench utility position in round $r$ (1 if selected, 0 otherwise).
-
-Let $b_r$ be a continuous decision variable representing the amount of cash in the bank in round $r$.
-
-Let $\mathrm{in}_{p,r}$ be a binary decision variable indicating whether player $p$ is traded into the team in round $r$ (present in round $r$ but not in round $r-1$).
-
-Let $\mathrm{out}_{p,r}$ be a binary decision variable indicating whether player $p$ is traded out of the team in round $r$ (present in round $r-1$ but not in round $r$).
-
-Let $z_{p,r}$ be a binary decision variable indicating whether player $p$ is selected as captain in round $r$ (1 if captain, 0 otherwise).
-
-Let $y_{p,r}$ be a binary decision variable indicating whether player $p$'s score is counted towards the team total in round $r$ (1 if counted, 0 otherwise).
+Let $y_{p,r} \in \{0,1\}$ be a binary decision variable indicating whether player $p$'s score is counted towards the team total in round $r$.
 
 \newpage
 
@@ -117,14 +106,6 @@ Cash in the bank in round 1 is the salary cap minus the total price of the selec
 
 $$
 b_1 = \mathrm{SALARY\_CAP} - \sum_{p \in P} c_{p,1} \cdot x_{p,1}
-$$
-
-## Bank Non-negativity
-
-The bank balance cannot be negative in any round:
-
-$$
-b_r \ge 0 \quad \forall r \in R
 $$
 
 ## Bank Balance Recurrence
@@ -200,14 +181,16 @@ $$
 Overall selection must match positional selection:
 
 $$
-x_{p,r} = x^{F,\mathrm{on}}_{p,r} + x^{M,\mathrm{on}}_{p,r} + x^{U,\mathrm{on}}_{p,r} + x^{D,\mathrm{on}}_{p,r} + x^{F,\mathrm{bench}}_{p,r} + x^{M,\mathrm{bench}}_{p,r} + x^{U,\mathrm{bench}}_{p,r} + x^{D,\mathrm{bench}}_{p,r} + x^{Q,\mathrm{bench}}_{p,r} \quad \forall p \in P, \forall r \in R
+x_{p,r} = \sum_{k \in K} x^{\mathrm{on}}_{p,k,r} + \sum_{k \in K} x^{\mathrm{bench}}_{p,k,r} + x^{Q,\mathrm{bench}}_{p,r} \quad \forall p \in P, \forall r \in R
 $$
 
 A player can occupy at most one lineup slot in a given round:
 
 $$
-x^{F,\mathrm{on}}_{p,r} + x^{M,\mathrm{on}}_{p,r} + x^{U,\mathrm{on}}_{p,r} + x^{D,\mathrm{on}}_{p,r} + x^{F,\mathrm{bench}}_{p,r} + x^{M,\mathrm{bench}}_{p,r} + x^{U,\mathrm{bench}}_{p,r} + x^{D,\mathrm{bench}}_{p,r} + x^{Q,\mathrm{bench}}_{p,r} \le 1 \quad \forall p \in P, \forall r \in R
+\sum_{k \in K} x^{\mathrm{on}}_{p,k,r} + \sum_{k \in K} x^{\mathrm{bench}}_{p,k,r} + x^{Q,\mathrm{bench}}_{p,r} \le 1 \quad \forall p \in P, \forall r \in R
 $$
+
+\newpage
 
 ## Maximum Team Changes Per Round
 
@@ -229,58 +212,22 @@ $$
 
 The team must have the following positional structure in every round.
 
-On-field defenders:
+On-field positions:
 
 $$
-\sum_{p \in P} x^{D,\mathrm{on}}_{p,r} = 6 \quad \forall r \in R
+\sum_{p \in P} x^{\mathrm{on}}_{p,k,r} = n^{\mathrm{on}}_{k,r} \quad \forall k \in K, \forall r \in R
 $$
 
-Bench defenders:
+Bench positions:
 
 $$
-\sum_{p \in P} x^{D,\mathrm{bench}}_{p,r} = 2 \quad \forall r \in R
-$$
-
-On-field midfielders:
-
-$$
-\sum_{p \in P} x^{M,\mathrm{on}}_{p,r} = 8 \quad \forall r \in R
-$$
-
-Bench midfielders:
-
-$$
-\sum_{p \in P} x^{M,\mathrm{bench}}_{p,r} = 2 \quad \forall r \in R
-$$
-
-On-field rucks:
-
-$$
-\sum_{p \in P} x^{U,\mathrm{on}}_{p,r} = 2 \quad \forall r \in R
-$$
-
-Bench rucks:
-
-$$
-\sum_{p \in P} x^{U,\mathrm{bench}}_{p,r} = 1 \quad \forall r \in R
-$$
-
-On-field forwards:
-
-$$
-\sum_{p \in P} x^{F,\mathrm{on}}_{p,r} = 6 \quad \forall r \in R
-$$
-
-Bench forwards:
-
-$$
-\sum_{p \in P} x^{F,\mathrm{bench}}_{p,r} = 2 \quad \forall r \in R
+\sum_{p \in P} x^{\mathrm{bench}}_{p,k,r} = n^{\mathrm{bench}}_{k,r} \quad \forall k \in K, \forall r \in R
 $$
 
 Bench utility:
 
 $$
-\sum_{p \in P} x^{Q,\mathrm{bench}}_{p,r} = 1 \quad \forall r \in R
+\sum_{p \in P} x^{Q,\mathrm{bench}}_{p,r} = \mathrm{UTILITY\_BENCH\_COUNT} \quad \forall r \in R
 $$
 
 \newpage
@@ -290,41 +237,17 @@ $$
 Players can only be selected into a position if they are eligible for that position (eligibility may be multi-position):
 
 $$
-x^{F,\mathrm{on}}_{p,r} \le e^{F}_{p,r} \quad \forall p \in P, \forall r \in R
+x^{\mathrm{on}}_{p,k,r} \le e_{p,k,r} \quad \forall p \in P, \forall k \in K, \forall r \in R
 $$
 
 $$
-x^{F,\mathrm{bench}}_{p,r} \le e^{F}_{p,r} \quad \forall p \in P, \forall r \in R
-$$
-
-$$
-x^{M,\mathrm{on}}_{p,r} \le e^{M}_{p,r} \quad \forall p \in P, \forall r \in R
-$$
-
-$$
-x^{M,\mathrm{bench}}_{p,r} \le e^{M}_{p,r} \quad \forall p \in P, \forall r \in R
-$$
-
-$$
-x^{U,\mathrm{on}}_{p,r} \le e^{U}_{p,r} \quad \forall p \in P, \forall r \in R
-$$
-
-$$
-x^{U,\mathrm{bench}}_{p,r} \le e^{U}_{p,r} \quad \forall p \in P, \forall r \in R
-$$
-
-$$
-x^{D,\mathrm{on}}_{p,r} \le e^{D}_{p,r} \quad \forall p in P, \forall r \in R
-$$
-
-$$
-x^{D,\mathrm{bench}}_{p,r} \le e^{D}_{p,r} \quad \forall p in P, \forall r \in R
+x^{\mathrm{bench}}_{p,k,r} \le e_{p,k,r} \quad \forall p \in P, \forall k \in K, \forall r \in R
 $$
 
 Bench utility is unconstrained by lineup position, but still must use an eligible player in that round:
 
 $$
-x^{Q,\mathrm{bench}}_{p,r} \le e^{F}_{p,r} + e^{M}_{p,r} + e^{U}_{p,r} + e^{D}_{p,r} \quad \forall p \in P, \forall r \in R
+x^{Q,\mathrm{bench}}_{p,r} \le \sum_{k \in K} e_{p,k,r} \quad \forall p \in P, \forall r \in R
 $$
 
 \newpage
@@ -340,7 +263,7 @@ $$
 A player's score can only be counted if they are selected on-field in that round:
 
 $$
-y_{p,r} \le x^{F,\mathrm{on}}_{p,r} + x^{M,\mathrm{on}}_{p,r} + x^{U,\mathrm{on}}_{p,r} + x^{D,\mathrm{on}}_{p,r} \quad \forall p \in P, \forall r \in R
+y_{p,r} \le \sum_{k \in K} x^{\mathrm{on}}_{p,k,r} \quad \forall p \in P, \forall r \in R
 $$
 
 ## Captaincy
