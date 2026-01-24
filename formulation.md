@@ -52,13 +52,13 @@ Let $s_{p,r}$ be the (known) number of points scored by player $p$ in round $r$.
 
 Let $c_{p,r}$ be the (known) price of player $p$ in round $r$.
 
-Let $e^{F}_p$ be a binary parameter indicating whether player $p$ is eligible to be selected as a forward (1 if eligible, 0 otherwise).
+Let $e^{F}_{p,r}$ be a binary parameter indicating whether player $p$ is eligible to be selected as a forward in round $r$ (1 if eligible, 0 otherwise).
 
-Let $e^{M}_p$ be a binary parameter indicating whether player $p$ is eligible to be selected as a midfielder (1 if eligible, 0 otherwise).
+Let $e^{M}_{p,r}$ be a binary parameter indicating whether player $p$ is eligible to be selected as a midfielder in round $r$ (1 if eligible, 0 otherwise).
 
-Let $e^{U}_p$ be a binary parameter indicating whether player $p$ is eligible to be selected as a ruck (1 if eligible, 0 otherwise).
+Let $e^{U}_{p,r}$ be a binary parameter indicating whether player $p$ is eligible to be selected as a ruck in round $r$ (1 if eligible, 0 otherwise).
 
-Let $e^{D}_p$ be a binary parameter indicating whether player $p$ is eligible to be selected as a defender (1 if eligible, 0 otherwise).
+Let $e^{D}_{p,r}$ be a binary parameter indicating whether player $p$ is eligible to be selected as a defender in round $r$ (1 if eligible, 0 otherwise).
 
 Let $T_r$ be the (known) maximum number of trades allowed in round $r$.
 
@@ -223,11 +223,11 @@ Between consecutive rounds, at most $T_r$ players may be traded into the team (a
 Using the trade indicators, this is enforced by limiting the number of trade-ins (equivalently trade-outs) each round:
 
 $$
-\sum_{p \in P} \mathrm{in}_{p,r} \le T_r \quad \forall r \in R \setminus \{1\}
+\sum_{p \in P} \mathrm{in}_{p,r} \le T_r \quad \forall r in R \setminus \{1\}
 $$
 
 $$
-\sum_{p \in P} \mathrm{out}_{p,r} \le T_r \quad \forall r \in R \setminus \{1\}
+\sum_{p \in P} \mathrm{out}_{p,r} \le T_r \quad \forall r in R \setminus \{1\}
 $$
 
 \newpage
@@ -297,41 +297,41 @@ $$
 Players can only be selected into a position if they are eligible for that position (eligibility may be multi-position):
 
 $$
-x^{F,\mathrm{on}}_{p,r} \le e^{F}_p \quad \forall p \in P, \forall r \in R
+x^{F,\mathrm{on}}_{p,r} \le e^{F}_{p,r} \quad \forall p \in P, \forall r \in R
 $$
 
 $$
-x^{F,\mathrm{bench}}_{p,r} \le e^{F}_p \quad \forall p \in P, \forall r \in R
+x^{F,\mathrm{bench}}_{p,r} \le e^{F}_{p,r} \quad \forall p \in P, \forall r \in R
 $$
 
 $$
-x^{M,\mathrm{on}}_{p,r} \le e^{M}_p \quad \forall p \in P, \forall r \in R
+x^{M,\mathrm{on}}_{p,r} \le e^{M}_{p,r} \quad \forall p \in P, \forall r \in R
 $$
 
 $$
-x^{M,\mathrm{bench}}_{p,r} \le e^{M}_p \quad \forall p \in P, \forall r \in R
+x^{M,\mathrm{bench}}_{p,r} \le e^{M}_{p,r} \quad \forall p \in P, \forall r \in R
 $$
 
 $$
-x^{U,\mathrm{on}}_{p,r} \le e^{U}_p \quad \forall p \in P, \forall r \in R
+x^{U,\mathrm{on}}_{p,r} \le e^{U}_{p,r} \quad \forall p \in P, \forall r \in R
 $$
 
 $$
-x^{U,\mathrm{bench}}_{p,r} \le e^{U}_p \quad \forall p \in P, \forall r \in R
+x^{U,\mathrm{bench}}_{p,r} \le e^{U}_{p,r} \quad \forall p \in P, \forall r \in R
 $$
 
 $$
-x^{D,\mathrm{on}}_{p,r} \le e^{D}_p \quad \forall p \in P, \forall r \in R
+x^{D,\mathrm{on}}_{p,r} \le e^{D}_{p,r} \quad \forall p \in P, \forall r \in R
 $$
 
 $$
-x^{D,\mathrm{bench}}_{p,r} \le e^{D}_p \quad \forall p \in P, \forall r \in R
+x^{D,\mathrm{bench}}_{p,r} \le e^{D}_{p,r} \quad \forall p \in P, \forall r \in R
 $$
 
-Bench utility is unconstrained by lineup position, but still must use an eligible player:
+Bench utility is unconstrained by lineup position, but still must use an eligible player in that round:
 
 $$
-x^{Q,\mathrm{bench}}_{p,r} \le e^{F}_p + e^{M}_p + e^{U}_p + e^{D}_p \quad \forall p \in P, \forall r \in R
+x^{Q,\mathrm{bench}}_{p,r} \le e^{F}_{p,r} + e^{M}_{p,r} + e^{U}_{p,r} + e^{D}_{p,r} \quad \forall p \in P, \forall r \in R
 $$
 
 \newpage
