@@ -21,9 +21,10 @@ The model respects:
 
 - **Positional structure**: each round has fixed counts for on-field and bench positional slots, plus exactly one bench utility.
 - **Position eligibility**: a player may only be assigned to a position (F/M/U/D) if they are eligible for that position; players may be eligible for multiple positions.
-- **Trade limits**: between consecutive rounds, at most two players may be traded in (and at most two traded out).
+- **Trade limits**: between consecutive rounds, at most $T_r$ players may be traded in (and at most $T_r$ traded out).
 - **Budget / bank**: the initial bank is salary cap minus the cost of the starting squad, the bank balance is carried forward and updated each round using the round-$r$ prices of traded-out and traded-in players, and the bank is never allowed to be negative.
-- **Captaincy**: exactly one on-field selected player is designated as captain each round, and their score is doubled.
+- **Scoring (bye rounds)**: in each round, exactly $N_r$ on-field players are chosen to have their scores counted (all 22 in normal rounds, best 18 in bye rounds).
+- **Captaincy**: exactly one of the counted on-field players is designated as captain each round, and their counted score is doubled.
 
 This formulation is designed to be implemented as a mixed-integer linear program (MILP).
 
@@ -58,6 +59,10 @@ Let $e^{M}_p$ be a binary parameter indicating whether player $p$ is eligible to
 Let $e^{U}_p$ be a binary parameter indicating whether player $p$ is eligible to be selected as a ruck (1 if eligible, 0 otherwise).
 
 Let $e^{D}_p$ be a binary parameter indicating whether player $p$ is eligible to be selected as a defender (1 if eligible, 0 otherwise).
+
+Let $T_r$ be the (known) maximum number of trades allowed in round $r$.
+
+Let $N_r$ be the (known) number of on-field players whose scores count toward the team total in round $r$ (e.g. $N_r=22$ in normal rounds and $N_r=18$ in bye rounds).
 
 \newpage
 
@@ -97,14 +102,16 @@ Let $\mathrm{out}_{p,r}$ be a binary decision variable indicating whether player
 
 Let $z_{p,r}$ be a binary decision variable indicating whether player $p$ is selected as captain in round $r$ (1 if captain, 0 otherwise).
 
+Let $y_{p,r}$ be a binary decision variable indicating whether player $p$'s score is counted towards the team total in round $r$ (1 if counted, 0 otherwise).
+
 \newpage
 
 # Objective Function
 
-Maximise the total points scored by the on-field selected players across all rounds, with the captain's score doubled:
+Maximise the total points scored by the counted on-field players across all rounds, with the captain's counted score doubled:
 
 $$
-\text{Maximise} \quad \sum_{r \in R} \sum_{p \in P} s_{p,r} \cdot \left(x^{F,\mathrm{on}}_{p,r} + x^{M,\mathrm{on}}_{p,r} + x^{U,\mathrm{on}}_{p,r} + x^{D,\mathrm{on}}_{p,r} + z_{p,r}\right)
+\text{Maximise} \quad \sum_{r \in R} \sum_{p \in P} s_{p,r} \cdot \left(y_{p,r} + z_{p,r}\right)
 $$
 
 \newpage
@@ -211,16 +218,16 @@ $$
 
 ## Maximum Team Changes Per Round
 
-Between consecutive rounds, at most two players may differ in the selected team (players may change positions freely; this constraint applies only to $x_{p,r}$).
+Between consecutive rounds, at most $T_r$ players may be traded into the team (and at most $T_r$ traded out) between rounds $r-1$ and $r$.
 
 Using the trade indicators, this is enforced by limiting the number of trade-ins (equivalently trade-outs) each round:
 
 $$
-\sum_{p \in P} \mathrm{in}_{p,r} \le 2 \quad \forall r \in R \setminus \{1\}
+\sum_{p \in P} \mathrm{in}_{p,r} \le T_r \quad \forall r \in R \setminus \{1\}
 $$
 
 $$
-\sum_{p \in P} \mathrm{out}_{p,r} \le 2 \quad \forall r \in R \setminus \{1\}
+\sum_{p \in P} \mathrm{out}_{p,r} \le T_r \quad \forall r \in R \setminus \{1\}
 $$
 
 \newpage
@@ -329,6 +336,20 @@ $$
 
 \newpage
 
+## Scoring Selection (Bye Rounds)
+
+In each round, select which on-field players have their scores counted, up to $N_r$:
+
+$$
+\sum_{p \in P} y_{p,r} = N_r \quad \forall r \in R
+$$
+
+A player's score can only be counted if they are selected on-field in that round:
+
+$$
+y_{p,r} \le x^{F,\mathrm{on}}_{p,r} + x^{M,\mathrm{on}}_{p,r} + x^{U,\mathrm{on}}_{p,r} + x^{D,\mathrm{on}}_{p,r} \quad \forall p \in P, \forall r \in R
+$$
+
 ## Captaincy
 
 Exactly one captain must be selected each round:
@@ -337,8 +358,8 @@ $$
 \sum_{p \in P} z_{p,r} = 1 \quad \forall r \in R
 $$
 
-The captain must be selected on-field in that round:
+The captain must be one of the counted on-field players in that round:
 
 $$
-z_{p,r} \le x^{F,\mathrm{on}}_{p,r} + x^{M,\mathrm{on}}_{p,r} + x^{U,\mathrm{on}}_{p,r} + x^{D,\mathrm{on}}_{p,r} \quad \forall p \in P, \forall r \in R
+z_{p,r} \le y_{p,r} \quad \forall p \in P, \forall r \in R
 $$
