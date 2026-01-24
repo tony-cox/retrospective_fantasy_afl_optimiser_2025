@@ -36,13 +36,6 @@ Let $P$, subscripted by $p$, be the set of players.
 
 Let $R = \{1,2,\ldots,24\}$, subscripted by $r$, be the set of rounds.
 
-Let $F \subseteq P$ be the set of forwards.
-
-Let $M \subseteq P$ be the set of midfielders.
-
-Let $U \subseteq P$ be the set of rucks.
-
-Let $D \subseteq P$ be the set of defenders.
 
 \newpage
 
@@ -223,11 +216,11 @@ Between consecutive rounds, at most $T_r$ players may be traded into the team (a
 Using the trade indicators, this is enforced by limiting the number of trade-ins (equivalently trade-outs) each round:
 
 $$
-\sum_{p \in P} \mathrm{in}_{p,r} \le T_r \quad \forall r in R \setminus \{1\}
+\sum_{p \in P} \mathrm{in}_{p,r} \le T_r \quad \forall r \in R \setminus \{1\}
 $$
 
 $$
-\sum_{p \in P} \mathrm{out}_{p,r} \le T_r \quad \forall r in R \setminus \{1\}
+\sum_{p \in P} \mathrm{out}_{p,r} \le T_r \quad \forall r \in R \setminus \{1\}
 $$
 
 \newpage
@@ -321,11 +314,11 @@ x^{U,\mathrm{bench}}_{p,r} \le e^{U}_{p,r} \quad \forall p \in P, \forall r \in 
 $$
 
 $$
-x^{D,\mathrm{on}}_{p,r} \le e^{D}_{p,r} \quad \forall p \in P, \forall r \in R
+x^{D,\mathrm{on}}_{p,r} \le e^{D}_{p,r} \quad \forall p in P, \forall r \in R
 $$
 
 $$
-x^{D,\mathrm{bench}}_{p,r} \le e^{D}_{p,r} \quad \forall p \in P, \forall r \in R
+x^{D,\mathrm{bench}}_{p,r} \le e^{D}_{p,r} \quad \forall p in P, \forall r \in R
 $$
 
 Bench utility is unconstrained by lineup position, but still must use an eligible player in that round:
