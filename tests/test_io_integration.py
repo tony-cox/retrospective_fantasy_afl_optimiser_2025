@@ -65,7 +65,7 @@ def test_load_players_from_json_applies_position_updates_by_round(tmp_path: Path
     assert p1.get_round(12).eligible_positions == frozenset({Position.FWD, Position.MID, Position.DEF})
 
 
-def test_load_players_from_json_raises_on_unmatched_update_names_in_strict_mode(tmp_path: Path) -> None:
+def test_load_players_from_json_raises_on_unmatched_update_names(tmp_path: Path) -> None:
     players_json = [
         {
             "id": 1,
@@ -86,6 +86,6 @@ def test_load_players_from_json_raises_on_unmatched_update_names_in_strict_mode(
     )
 
     with pytest.raises(ValueError) as ei:
-        load_players_from_json(json_path, position_updates_csv=updates_csv, strict_update_name_matching=True)
+        load_players_from_json(json_path, position_updates_csv=updates_csv)
 
     assert "NOT PRESENT" in str(ei.value)

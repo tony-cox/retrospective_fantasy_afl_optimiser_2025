@@ -5,40 +5,16 @@ from pathlib import Path
 from retro_fantasy.main import load_players
 
 
-def _print_mismatch_dump(label: str, names: list[str]) -> None:
-    if not names:
-        print(f"{label}: none")
-        return
-
-    print(f"{label}: {len(names)}")
-    for n in names:
-        print(f"  - {n}")
-
-
 def main() -> None:
     repo_root = Path(__file__).resolve().parent
     data_dir = repo_root / "data"
-    output_dir = repo_root / "output"
 
-    players, missing_updates = load_players(
+    players = load_players(
         players_json_path=data_dir / "players_final.json",
         position_updates_csv_path=data_dir / "position_updates.csv",
-        strict_update_name_matching=False,
     )
 
     print(f"Loaded {len(players)} players")
-
-    print("\nUnmatched player names in position_updates.csv (ignored in this run):")
-    _print_mismatch_dump("- position_updates.csv", missing_updates)
-
-    # Write a simple dump file for convenience.
-    output_dir.mkdir(parents=True, exist_ok=True)
-    dump_path = output_dir / "position_update_name_mismatches.txt"
-    dump_lines: list[str] = []
-    dump_lines.append("position_updates.csv mismatches:")
-    dump_lines += [f"- {n}" for n in missing_updates]
-    dump_path.write_text("\n".join(dump_lines), encoding="utf-8")
-    print(f"\nWrote mismatch dump to: {dump_path}")
 
     # Print a small sample to verify eligibility updates look sensible.
     sample_names = [

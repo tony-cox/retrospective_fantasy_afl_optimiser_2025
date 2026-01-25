@@ -97,34 +97,24 @@ def read_position_updates_csv(path: Path) -> Dict[str, list[tuple[int, Position]
 
 def validate_update_names(
     *,
-    update_map: Mapping[str, Position],
+    update_names: Iterable[str],
     json_names: Iterable[str],
     source_label: str,
     close_match_cutoff: float = 0.6,
     close_match_n: int = 3,
-    raise_on_missing: bool = True,
-) -> list[str]:
-    """Validate that all CSV update names exist in the JSON player set.
+) -> None:
+    """Validate that all update CSV player names exist in the JSON player set.
 
-    Parameters
-    ----------
-    raise_on_missing:
-        If True (default), raise ValueError when any names are unmatched.
-        If False, return the list of unmatched names.
-
-    Returns
-    -------
-    list[str]
-        The unmatched names (empty if all matched).
+    Raises
+    ------
+    ValueError
+        If any update names aren't present in ``json_names``.
     """
 
     json_names_set = set(json_names)
-    missing_names = sorted(set(update_map.keys()) - json_names_set)
+    missing_names = sorted(set(update_names) - json_names_set)
     if not missing_names:
-        return []
-
-    if not raise_on_missing:
-        return missing_names
+        return
 
     hints: list[str] = []
     for name in missing_names:
@@ -154,30 +144,8 @@ def load_players_from_json(
     position_code_map: Mapping[int, Position] = DEFAULT_POSITION_CODE_MAP,
     include_round0: bool = False,
     position_updates_csv: str | Path | None = None,
-    strict_update_name_matching: bool = True,
 ) -> Dict[int, Player]:
-    """Load players from ``players_final.json`` and apply round-based eligibility updates.
-
-    Eligibility update file
-    -----------------------
-    If ``position_updates_csv`` is provided, it is expected to be a CSV with columns:
-    ``player, initial_position, add_position, round``.
-
-    Each row indicates that from ``round`` onward, that player's eligible positions
-    include both (a) whatever they already had, and (b) the ``add_position``.
-
-    Defensive validation
-    --------------------
-    We validate that every player name listed in the update CSV exists in the
-    JSON data. If not, we raise with close-match suggestions.
-
-    Parameters
-    ----------
-    strict_update_name_matching:
-        If True (default), raise an error if any player names in the update CSVs
-        do not match a player name in the JSON.
-        If False, print a warning and ignore those update rows.
-    """
+    """Load players from ``players_final.json`` and apply round-based eligibility updates."""
 
     path = Path(path)
     raw: list[dict[str, Any]] = json.loads(path.read_text(encoding="utf-8"))
@@ -190,16 +158,11 @@ def load_players_from_json(
         f"{rec.get('first_name', '')} {rec.get('last_name', '')}".strip() for rec in raw
     }
 
-    missing_updates = validate_update_names(
-        update_map={name: Position.DEF for name in position_updates.keys()},
+    validate_update_names(
+        update_names=position_updates.keys(),
         json_names=json_names,
         source_label="position_updates_csv",
-        raise_on_missing=strict_update_name_matching,
     )
-
-    if not strict_update_name_matching:
-        for n in missing_updates:
-            position_updates.pop(n, None)
 
     players: Dict[int, Player] = {}
 
@@ -267,46 +230,3 @@ def load_players_from_json(
 
     return players
 
-
-def load_players_from_json_with_warnings(
-    path: str | Path,
-    *,
-    position_code_map: Mapping[int, Position] = DEFAULT_POSITION_CODE_MAP,
-    include_round0: bool = False,
-    position_updates_csv: str | Path | None = None,
-) -> tuple[Dict[int, Player], list[str]]:
-    """Like :func:`load_players_from_json`, but returns unmatched-name list.
-
-    This always runs in non-strict mode (unmatched update rows are ignored),
-    but returns the unmatched names so callers (e.g. ``run.py``) can log them.
-    """
-
-    path = Path(path)
-    raw: list[dict[str, Any]] = json.loads(path.read_text(encoding="utf-8"))
-
-    position_updates: Dict[str, list[tuple[int, Position]]] = {}
-    if position_updates_csv is not None:
-        position_updates = read_position_updates_csv(Path(position_updates_csv))
-
-    json_names: set[str] = {
-        f"{rec.get('first_name', '')} {rec.get('last_name', '')}".strip() for rec in raw
-    }
-
-    # validate_update_names expects Mapping[str, Position]; we just need its key checking.
-    fake_map = {name: Position.DEF for name in position_updates.keys()}
-    missing = validate_update_names(
-        update_map=fake_map,
-        json_names=json_names,
-        source_label="position_updates_csv",
-        raise_on_missing=False,
-    )
-
-    players = load_players_from_json(
-        path,
-        position_code_map=position_code_map,
-        include_round0=include_round0,
-        position_updates_csv=position_updates_csv,
-        strict_update_name_matching=False,
-    )
-
-    return players, missing
