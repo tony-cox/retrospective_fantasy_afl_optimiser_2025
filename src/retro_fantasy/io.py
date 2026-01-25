@@ -80,6 +80,49 @@ def read_position_update_csv(path: Path) -> Dict[str, Position]:
     return updates
 
 
+def validate_update_names(
+    *,
+    update_map: Mapping[str, Position],
+    json_names: Iterable[str],
+    source_label: str,
+    close_match_cutoff: float = 0.6,
+    close_match_n: int = 3,
+) -> None:
+    """Validate that all CSV update names exist in the JSON player set.
+
+    Raises
+    ------
+    ValueError
+        If any names in ``update_map`` aren't present in ``json_names``.
+    """
+
+    json_names_set = set(json_names)
+    missing_names = sorted(set(update_map.keys()) - json_names_set)
+    if not missing_names:
+        return
+
+    hints: list[str] = []
+    for name in missing_names:
+        candidates = difflib.get_close_matches(
+            name,
+            sorted(json_names_set),
+            n=close_match_n,
+            cutoff=close_match_cutoff,
+        )
+        if candidates:
+            hints.append(f"- {name}  (did you mean: {', '.join(candidates)})")
+        else:
+            hints.append(f"- {name}")
+
+    raise ValueError(
+        "One or more player names in the position update CSV did not match any player name "
+        "in players_final.json. Fix spelling/casing so they match exactly.\n"
+        f"Source: {source_label}\n"
+        "Unmatched names:\n"
+        + "\n".join(hints)
+    )
+
+
 def load_players_from_json(
     path: str | Path,
     *,
@@ -122,29 +165,16 @@ def load_players_from_json(
         f"{rec.get('first_name', '')} {rec.get('last_name', '')}".strip() for rec in raw
     }
 
-    def _validate_update_names(update_map: Mapping[str, Position], source_label: str) -> None:
-        missing_names = sorted(set(update_map.keys()) - json_names)
-        if not missing_names:
-            return
-
-        hints: list[str] = []
-        for name in missing_names:
-            candidates = difflib.get_close_matches(name, sorted(json_names), n=3, cutoff=0.6)
-            if candidates:
-                hints.append(f"- {name}  (did you mean: {', '.join(candidates)})")
-            else:
-                hints.append(f"- {name}")
-
-        raise ValueError(
-            "One or more player names in the position update CSV did not match any player name "
-            "in players_final.json. Fix spelling/casing so they match exactly.\n"
-            f"Source: {source_label}\n"
-            "Unmatched names:\n"
-            + "\n".join(hints)
-        )
-
-    _validate_update_names(round6_updates, "position_update_round_6_csv")
-    _validate_update_names(round12_updates, "position_update_round_12_csv")
+    validate_update_names(
+        update_map=round6_updates,
+        json_names=json_names,
+        source_label="position_update_round_6_csv",
+    )
+    validate_update_names(
+        update_map=round12_updates,
+        json_names=json_names,
+        source_label="position_update_round_12_csv",
+    )
 
     players: Dict[int, Player] = {}
 
