@@ -1,5 +1,5 @@
 """retro_fantasy package."""
 
-from .main import hello
+from .main import load_players
 
-__all__ = ["hello"]
+__all__ = ["load_players"]
