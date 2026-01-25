@@ -19,7 +19,7 @@ For each round $r \in R$, it chooses which players $p \in P$ are in the squad an
 
 The model respects:
 
-- **Positional structure**: each round has required counts for on-field and bench positional slots by position ($n^{\mathrm{on}}_{k,r}$ and $n^{\mathrm{bench}}_{k,r}$), plus $\mathrm{UTILITY\_BENCH\_COUNT}$ bench utility slots.
+- **Positional structure**: each round has required counts for on-field and bench positional slots by position ($n^{\mathrm{on}}_{k}$ and $n^{\mathrm{bench}}_{k}$), plus $\mathrm{UTILITY\_BENCH\_COUNT}$ bench utility slots.
 - **Position eligibility**: a player may only be assigned to a position in $K$ (DEF/MID/RUC/FWD) if they are eligible for that position in that round.
 - **Trade limits**: between consecutive rounds, at most $T_r$ players may be traded in (and at most $T_r$ traded out).
 - **Budget / bank**: the initial bank is salary cap minus the cost of the starting squad; the bank balance is carried forward and updated each round using the round-$r$ prices of traded-out and traded-in players; and the bank is constrained to be non-negative via its domain ($b_r \in \mathbb{R}_{\ge 0}$).
@@ -48,9 +48,9 @@ Let $c_{p,r} \in \mathbb{R}_{\ge 0}$ be the (known) price of player $p$ in round
 
 Let $e_{p,k,r} \in \{0,1\}$ be a binary parameter indicating whether player $p$ is eligible to be selected in position $k$ in round $r$ (1 if eligible, 0 otherwise).
 
-Let $n^{\mathrm{on}}_{k,r} \in \mathbb{Z}_{\ge 0}$ be the (known) number of on-field players required in position $k$ in round $r$.
+Let $n^{\mathrm{on}}_{k} \in \mathbb{Z}_{\ge 0}$ be the (known) number of on-field players required in position $k$.
 
-Let $n^{\mathrm{bench}}_{k,r} \in \mathbb{Z}_{\ge 0}$ be the (known) number of bench players required in position $k$ in round $r$.
+Let $n^{\mathrm{bench}}_{k} \in \mathbb{Z}_{\ge 0}$ be the (known) number of bench players required in position $k$.
 
 Let $T_r \in \mathbb{Z}_{\ge 0}$ be the (known) maximum number of trades allowed in round $r$.
 
@@ -215,13 +215,13 @@ The team must have the following positional structure in every round.
 On-field positions:
 
 $$
-\sum_{p \in P} x^{\mathrm{on}}_{p,k,r} = n^{\mathrm{on}}_{k,r} \quad \forall k \in K, \forall r \in R
+\sum_{p \in P} x^{\mathrm{on}}_{p,k,r} = n^{\mathrm{on}}_{k} \quad \forall k \in K, \forall r \in R
 $$
 
 Bench positions:
 
 $$
-\sum_{p \in P} x^{\mathrm{bench}}_{p,k,r} = n^{\mathrm{bench}}_{k,r} \quad \forall k \in K, \forall r \in R
+\sum_{p \in P} x^{\mathrm{bench}}_{p,k,r} = n^{\mathrm{bench}}_{k} \quad \forall k \in K, \forall r \in R
 $$
 
 Bench utility:
@@ -247,7 +247,7 @@ $$
 Bench utility is unconstrained by lineup position, but still must use an eligible player in that round:
 
 $$
-x^{Q,\mathrm{bench}}_{p,r} \le \sum_{k \in K} e_{p,k,r} \quad \forall p \in P, \forall r \in R
+x^{Q,\mathrm{bench}}_{p,r} \le \sum_{k \in K} e_{p,k,r} \quad \forall p in P, \forall r \in R
 $$
 
 \newpage
