@@ -27,5 +27,5 @@ def test_formulate_problem_returns_pulp_problem() -> None:
     # Objective is set (currently a placeholder 0 expression)
     assert problem.objective is not None
 
-    # No constraints yet
+    # Constraints still not implemented
     assert len(problem.constraints) == 0
