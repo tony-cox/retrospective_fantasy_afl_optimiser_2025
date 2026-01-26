@@ -195,3 +195,28 @@ def test_model_input_data_squad_size_helpers() -> None:
     assert data.on_field_size == 22
     assert data.bench_size == 8
     assert data.squad_size == 30
+
+
+def test_model_input_data_score_and_price_missing_round_returns_defaults() -> None:
+    rules = TeamStructureRules(
+        on_field_required={p: 0 for p in Position.__members__.values()},
+        bench_required={p: 0 for p in Position.__members__.values()},
+        salary_cap=999.0,
+        utility_bench_count=0,
+    )
+    rounds = {1: Round(number=1, max_trades=0, counted_onfield_players=22), 2: Round(number=2, max_trades=0, counted_onfield_players=22)}
+
+    player = Player(player_id=1, first_name="A", last_name="B", original_positions=frozenset({Position.DEF}))
+    player.by_round[1] = PlayerRoundInfo(
+        round_number=1,
+        score=10.0,
+        price=123.0,
+        eligible_positions=frozenset({Position.DEF}),
+    )
+
+    data = ModelInputData(players={1: player}, rounds=rounds, team_rules=rules)
+
+    # Round 2 is missing from player.by_round -> defaults
+    assert data.score(1, 2) == 0.0
+    assert data.price(1, 2) == 999.0
+    assert data.eligible_positions(1, 2) == frozenset({Position.DEF})

@@ -171,19 +171,46 @@ class ModelInputData:
     # --- Common parameter lookups ---
 
     def score(self, player_id: int, round_number: int) -> float:
-        """Known score s[p,r]."""
+        """Known score s[p,r].
 
-        return self.players[player_id].get_round(round_number).score
+        If the player has no data for that round, assume 0.
+        """
+
+        player = self.players[player_id]
+        info = player.by_round.get(round_number)
+        if info is None:
+            return 0.0
+        return info.score
 
     def price(self, player_id: int, round_number: int) -> float:
-        """Known price c[p,r]."""
+        """Known price c[p,r].
 
-        return self.players[player_id].get_round(round_number).price
+        If the player has no price for that round (i.e. no data), treat them as
+        prohibitively expensive by returning the full salary cap.
+        """
+
+        player = self.players[player_id]
+        info = player.by_round.get(round_number)
+        if info is None:
+            return float(self.salary_cap)
+        return info.price
 
     def eligible_positions(self, player_id: int, round_number: int) -> FrozenSet[Position]:
-        """Eligible positions for player p in round r."""
+        """Eligible positions for player p in round r.
 
-        return self.players[player_id].get_round(round_number).eligible_positions
+        If the player has no round data, fall back to their original positions.
+        This keeps eligibility non-empty and matches how eligibility updates are
+        defined (positions are only ever added).
+        """
+
+        player = self.players[player_id]
+        info = player.by_round.get(round_number)
+        if info is None:
+            if player.original_positions:
+                return player.original_positions
+            # Extremely defensive: should never happen because loader enforces non-empty.
+            return frozenset({Position.DEF})
+        return info.eligible_positions
 
     def is_eligible(self, player_id: int, position: Position, round_number: int) -> bool:
         """Binary eligibility e[p,k,r] as a bool."""
