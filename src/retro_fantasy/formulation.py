@@ -307,6 +307,61 @@ def _build_objective_captain_bonus_expression(
 
 
 # ============================================================================
+# Linking Constraints
+# ============================================================================
+
+
+def _add_linking_constraints(
+    problem: pulp.LpProblem,
+    model_input_data: ModelInputData,
+    decision_variables: DecisionVariables,
+) -> None:
+    """Linking Constraints section."""
+
+    _add_linking_constraints_overall_selection_equals_positional_selection(problem, model_input_data, decision_variables)
+    _add_linking_constraints_at_most_one_slot_per_player_per_round(problem, model_input_data, decision_variables)
+
+
+def _add_linking_constraints_overall_selection_equals_positional_selection(
+    problem: pulp.LpProblem,
+    model_input_data: ModelInputData,
+    decision_variables: DecisionVariables,
+) -> None:
+    """Linking constraint: overall selection equals sum of positional selections.
+
+    In the full model, x_selected is a helper indicating whether the player is
+    in the squad at all in round r.
+
+    Given we also enforce "at most one slot per player per round", we can link
+    x_selected to the slot indicator via equality.
+    """
+
+    for p in model_input_data.player_ids:
+        for r in model_input_data.idx_round:
+            slot_sum = pulp.lpSum(
+                decision_variables.y_onfield[(p, k, r)] + decision_variables.y_bench[(p, k, r)]
+                for k in model_input_data.positions
+            ) + decision_variables.y_utility[(p, r)]
+            problem += decision_variables.x_selected[(p, r)] == slot_sum, f"link_x_equals_positions_{p}_{r}"
+
+
+def _add_linking_constraints_at_most_one_slot_per_player_per_round(
+    problem: pulp.LpProblem,
+    model_input_data: ModelInputData,
+    decision_variables: DecisionVariables,
+) -> None:
+    """Linking constraint: each player occupies at most one slot per round."""
+
+    for p in model_input_data.player_ids:
+        for r in model_input_data.idx_round:
+            slot_sum = pulp.lpSum(
+                decision_variables.y_onfield[(p, k, r)] + decision_variables.y_bench[(p, k, r)]
+                for k in model_input_data.positions
+            ) + decision_variables.y_utility[(p, r)]
+            problem += slot_sum <= 1, f"link_at_most_one_slot_{p}_{r}"
+
+
+# ============================================================================
 # Second-level orchestrator: Constraints
 # ============================================================================
 
@@ -410,9 +465,23 @@ def _add_trade_indicator_linking_lower_bound_constraints(
     model_input_data: ModelInputData,
     decision_variables: DecisionVariables,
 ) -> None:
-    """Trade Indicator Linking: lower bounds (trigger constraints)."""
+    """Trade Indicator Linking: lower bounds (trigger constraints).
 
-    _ = (problem, model_input_data, decision_variables)
+    traded_in[p,r] >= x[p,r] - x[p,r-1]
+    traded_out[p,r] >= x[p,r-1] - x[p,r]
+    """
+
+    for p in model_input_data.player_ids:
+        for r in model_input_data.idx_round_excluding_1:
+            problem += (
+                decision_variables.traded_in[(p, r)]
+                >= decision_variables.x_selected[(p, r)] - decision_variables.x_selected[(p, r - 1)]
+            ), f"trade_link_lb_in_{p}_{r}"
+
+            problem += (
+                decision_variables.traded_out[(p, r)]
+                >= decision_variables.x_selected[(p, r - 1)] - decision_variables.x_selected[(p, r)]
+            ), f"trade_link_lb_out_{p}_{r}"
 
 
 def _add_trade_indicator_linking_upper_bound_constraints(
@@ -441,9 +510,13 @@ def _add_trade_indicator_linking_upper_bound_trade_in_requires_selected_constrai
     model_input_data: ModelInputData,
     decision_variables: DecisionVariables,
 ) -> None:
-    """Trade Indicator Linking upper bound: in[p,r] <= x[p,r]."""
+    """Trade Indicator Linking upper bound: traded_in[p,r] <= x[p,r]."""
 
-    _ = (problem, model_input_data, decision_variables)
+    for p in model_input_data.player_ids:
+        for r in model_input_data.idx_round_excluding_1:
+            problem += (
+                decision_variables.traded_in[(p, r)] <= decision_variables.x_selected[(p, r)]
+            ), f"trade_link_ub_in_requires_selected_{p}_{r}"
 
 
 def _add_trade_indicator_linking_upper_bound_trade_in_requires_not_previously_selected_constraints(
@@ -451,9 +524,13 @@ def _add_trade_indicator_linking_upper_bound_trade_in_requires_not_previously_se
     model_input_data: ModelInputData,
     decision_variables: DecisionVariables,
 ) -> None:
-    """Trade Indicator Linking upper bound: in[p,r] <= 1 - x[p,r-1]."""
+    """Trade Indicator Linking upper bound: traded_in[p,r] <= 1 - x[p,r-1]."""
 
-    _ = (problem, model_input_data, decision_variables)
+    for p in model_input_data.player_ids:
+        for r in model_input_data.idx_round_excluding_1:
+            problem += (
+                decision_variables.traded_in[(p, r)] <= 1 - decision_variables.x_selected[(p, r - 1)]
+            ), f"trade_link_ub_in_requires_not_prev_{p}_{r}"
 
 
 def _add_trade_indicator_linking_upper_bound_trade_out_requires_previously_selected_constraints(
@@ -461,9 +538,13 @@ def _add_trade_indicator_linking_upper_bound_trade_out_requires_previously_selec
     model_input_data: ModelInputData,
     decision_variables: DecisionVariables,
 ) -> None:
-    """Trade Indicator Linking upper bound: out[p,r] <= x[p,r-1]."""
+    """Trade Indicator Linking upper bound: traded_out[p,r] <= x[p,r-1]."""
 
-    _ = (problem, model_input_data, decision_variables)
+    for p in model_input_data.player_ids:
+        for r in model_input_data.idx_round_excluding_1:
+            problem += (
+                decision_variables.traded_out[(p, r)] <= decision_variables.x_selected[(p, r - 1)]
+            ), f"trade_link_ub_out_requires_prev_{p}_{r}"
 
 
 def _add_trade_indicator_linking_upper_bound_trade_out_requires_not_selected_constraints(
@@ -471,59 +552,13 @@ def _add_trade_indicator_linking_upper_bound_trade_out_requires_not_selected_con
     model_input_data: ModelInputData,
     decision_variables: DecisionVariables,
 ) -> None:
-    """Trade Indicator Linking upper bound: out[p,r] <= 1 - x[p,r]."""
-
-    _ = (problem, model_input_data, decision_variables)
-
-
-def _add_linking_constraints(
-    problem: pulp.LpProblem,
-    model_input_data: ModelInputData,
-    decision_variables: DecisionVariables,
-) -> None:
-    """Linking Constraints section."""
-
-    _add_linking_constraints_overall_selection_equals_positional_selection(problem, model_input_data, decision_variables)
-    _add_linking_constraints_at_most_one_slot_per_player_per_round(problem, model_input_data, decision_variables)
-
-
-def _add_linking_constraints_overall_selection_equals_positional_selection(
-    problem: pulp.LpProblem,
-    model_input_data: ModelInputData,
-    decision_variables: DecisionVariables,
-) -> None:
-    """Linking constraint: overall selection equals sum of positional selections.
-
-    In the full model, x_selected is a helper indicating whether the player is
-    in the squad at all in round r.
-
-    Given we also enforce "at most one slot per player per round", we can link
-    x_selected to the slot indicator via equality.
-    """
+    """Trade Indicator Linking upper bound: traded_out[p,r] <= 1 - x[p,r]."""
 
     for p in model_input_data.player_ids:
-        for r in model_input_data.idx_round:
-            slot_sum = pulp.lpSum(
-                decision_variables.y_onfield[(p, k, r)] + decision_variables.y_bench[(p, k, r)]
-                for k in model_input_data.positions
-            ) + decision_variables.y_utility[(p, r)]
-            problem += decision_variables.x_selected[(p, r)] == slot_sum, f"link_x_equals_positions_{p}_{r}"
-
-
-def _add_linking_constraints_at_most_one_slot_per_player_per_round(
-    problem: pulp.LpProblem,
-    model_input_data: ModelInputData,
-    decision_variables: DecisionVariables,
-) -> None:
-    """Linking constraint: each player occupies at most one slot per round."""
-
-    for p in model_input_data.player_ids:
-        for r in model_input_data.idx_round:
-            slot_sum = pulp.lpSum(
-                decision_variables.y_onfield[(p, k, r)] + decision_variables.y_bench[(p, k, r)]
-                for k in model_input_data.positions
-            ) + decision_variables.y_utility[(p, r)]
-            problem += slot_sum <= 1, f"link_at_most_one_slot_{p}_{r}"
+        for r in model_input_data.idx_round_excluding_1:
+            problem += (
+                decision_variables.traded_out[(p, r)] <= 1 - decision_variables.x_selected[(p, r)]
+            ), f"trade_link_ub_out_requires_not_selected_{p}_{r}"
 
 
 def _add_maximum_team_changes_per_round_constraints(
@@ -542,9 +577,11 @@ def _add_maximum_team_changes_trade_in_limit_constraints(
     model_input_data: ModelInputData,
     decision_variables: DecisionVariables,
 ) -> None:
-    """Maximum Team Changes: sum_p in[p,r] <= T_r for r>1."""
+    """Maximum Team Changes: sum_p traded_in[p,r] <= max_trades[r] for r>1."""
 
-    _ = (problem, model_input_data, decision_variables)
+    for r in model_input_data.idx_round_excluding_1:
+        expr = pulp.lpSum(decision_variables.traded_in[(p, r)] for p in model_input_data.player_ids)
+        problem += expr <= model_input_data.max_trades(r), f"max_trades_in_{r}"
 
 
 def _add_maximum_team_changes_trade_out_limit_constraints(
@@ -552,9 +589,11 @@ def _add_maximum_team_changes_trade_out_limit_constraints(
     model_input_data: ModelInputData,
     decision_variables: DecisionVariables,
 ) -> None:
-    """Maximum Team Changes: sum_p out[p,r] <= T_r for r>1."""
+    """Maximum Team Changes: sum_p traded_out[p,r] <= max_trades[r] for r>1."""
 
-    _ = (problem, model_input_data, decision_variables)
+    for r in model_input_data.idx_round_excluding_1:
+        expr = pulp.lpSum(decision_variables.traded_out[(p, r)] for p in model_input_data.player_ids)
+        problem += expr <= model_input_data.max_trades(r), f"max_trades_out_{r}"
 
 
 def _add_positional_structure_constraints(
