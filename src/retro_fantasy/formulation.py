@@ -460,7 +460,15 @@ def _add_linking_constraints_overall_selection_equals_positional_selection(
 ) -> None:
     """Linking constraint: overall selection equals sum of positional selections."""
 
-    _ = (problem, model_input_data, decision_variables)
+    for p in model_input_data.player_ids:
+        for r in model_input_data.idx_round:
+            pos_sum = pulp.lpSum(
+                decision_variables.y_onfield[(p, k, r)] + decision_variables.y_bench[(p, k, r)]
+                for k in model_input_data.positions
+            ) + decision_variables.y_utility[(p, r)]
+            problem += (
+                decision_variables.x_selected[(p, r)] == pos_sum
+            ), f"link_x_equals_positions_{p}_{r}"
 
 
 def _add_linking_constraints_at_most_one_slot_per_player_per_round(
@@ -470,7 +478,13 @@ def _add_linking_constraints_at_most_one_slot_per_player_per_round(
 ) -> None:
     """Linking constraint: each player occupies at most one slot per round."""
 
-    _ = (problem, model_input_data, decision_variables)
+    for p in model_input_data.player_ids:
+        for r in model_input_data.idx_round:
+            slot_sum = pulp.lpSum(
+                decision_variables.y_onfield[(p, k, r)] + decision_variables.y_bench[(p, k, r)]
+                for k in model_input_data.positions
+            ) + decision_variables.y_utility[(p, r)]
+            problem += slot_sum <= 1, f"link_at_most_one_slot_{p}_{r}"
 
 
 def _add_maximum_team_changes_per_round_constraints(
@@ -523,7 +537,13 @@ def _add_positional_structure_on_field_constraints(
 ) -> None:
     """Positional Structure: on-field exact counts per position."""
 
-    _ = (problem, model_input_data, decision_variables)
+    for r in model_input_data.idx_round:
+        for k in model_input_data.positions:
+            required = model_input_data.on_field_required(k)
+            expr = pulp.lpSum(
+                decision_variables.y_onfield[(p, k, r)] for p in model_input_data.player_ids
+            )
+            problem += expr == required, f"pos_onfield_count_{k.value}_{r}"
 
 
 def _add_positional_structure_bench_constraints(
@@ -533,7 +553,13 @@ def _add_positional_structure_bench_constraints(
 ) -> None:
     """Positional Structure: bench exact counts per position."""
 
-    _ = (problem, model_input_data, decision_variables)
+    for r in model_input_data.idx_round:
+        for k in model_input_data.positions:
+            required = model_input_data.bench_required(k)
+            expr = pulp.lpSum(
+                decision_variables.y_bench[(p, k, r)] for p in model_input_data.player_ids
+            )
+            problem += expr == required, f"pos_bench_count_{k.value}_{r}"
 
 
 def _add_positional_structure_utility_bench_constraints(
@@ -543,7 +569,9 @@ def _add_positional_structure_utility_bench_constraints(
 ) -> None:
     """Positional Structure: bench utility exact count."""
 
-    _ = (problem, model_input_data, decision_variables)
+    for r in model_input_data.idx_round:
+        expr = pulp.lpSum(decision_variables.y_utility[(p, r)] for p in model_input_data.player_ids)
+        problem += expr == model_input_data.utility_bench_count, f"pos_utility_count_{r}"
 
 
 def _add_position_eligibility_constraints(
@@ -606,7 +634,9 @@ def _add_scoring_selection_count_constraints(
 ) -> None:
     """Scoring Selection: count exactly N_r scores each round."""
 
-    _ = (problem, model_input_data, decision_variables)
+    for r in model_input_data.idx_round:
+        expr = pulp.lpSum(decision_variables.scored[(p, r)] for p in model_input_data.player_ids)
+        problem += expr == model_input_data.counted_onfield_players(r), f"score_count_{r}"
 
 
 def _add_scoring_selection_only_if_on_field_constraints(
@@ -616,7 +646,10 @@ def _add_scoring_selection_only_if_on_field_constraints(
 ) -> None:
     """Scoring Selection: only count scores for on-field selected players."""
 
-    _ = (problem, model_input_data, decision_variables)
+    for p in model_input_data.player_ids:
+        for r in model_input_data.idx_round:
+            onfield_sum = pulp.lpSum(decision_variables.y_onfield[(p, k, r)] for k in model_input_data.positions)
+            problem += decision_variables.scored[(p, r)] <= onfield_sum, f"score_only_if_onfield_{p}_{r}"
 
 
 def _add_captaincy_constraints(
@@ -637,7 +670,9 @@ def _add_captaincy_exactly_one_constraints(
 ) -> None:
     """Captaincy: exactly one captain each round."""
 
-    _ = (problem, model_input_data, decision_variables)
+    for r in model_input_data.idx_round:
+        expr = pulp.lpSum(decision_variables.captain[(p, r)] for p in model_input_data.player_ids)
+        problem += expr == 1, f"captain_exactly_one_{r}"
 
 
 def _add_captaincy_must_be_counted_constraints(
@@ -647,4 +682,8 @@ def _add_captaincy_must_be_counted_constraints(
 ) -> None:
     """Captaincy: captain must be one of the counted on-field players."""
 
-    _ = (problem, model_input_data, decision_variables)
+    for p in model_input_data.player_ids:
+        for r in model_input_data.idx_round:
+            problem += (
+                decision_variables.captain[(p, r)] <= decision_variables.scored[(p, r)]
+            ), f"captain_requires_scored_{p}_{r}"

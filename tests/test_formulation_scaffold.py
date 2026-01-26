@@ -35,5 +35,5 @@ def test_formulate_problem_returns_pulp_problem() -> None:
     # Objective is set
     assert problem.objective is not None
 
-    # Constraints still not implemented
-    assert len(problem.constraints) == 0
+    # Constraints are now partially implemented (minimal bounded model pieces)
+    assert len(problem.constraints) > 0
