@@ -101,3 +101,70 @@ def test_minimal_model_with_three_players_select_two_picks_best_two_and_best_cap
 
     # Objective: (10+8) + captain bonus 10 = 28
     assert pulp.value(problem.objective) == 28.0
+
+
+def test_minimal_model_two_rounds_team_changes_due_to_scoring() -> None:
+    # Two rounds, pick 1 on-field DEF per round, count 1 score per round.
+    # Scores are constructed so that the best player in round 1 is different to round 2.
+
+    rules = TeamStructureRules(
+        on_field_required={Position.DEF: 1, Position.MID: 0, Position.RUC: 0, Position.FWD: 0},
+        bench_required={Position.DEF: 0, Position.MID: 0, Position.RUC: 0, Position.FWD: 0},
+        salary_cap=0.0,
+        utility_bench_count=0,
+    )
+
+    rounds = {
+        1: Round(number=1, max_trades=2, counted_onfield_players=1),
+        2: Round(number=2, max_trades=2, counted_onfield_players=1),
+    }
+
+    # p1 best in round 1, p2 best in round 2
+    p1 = Player(player_id=1, first_name="A", last_name="A")
+    p1.by_round[1] = PlayerRoundInfo(round_number=1, score=10.0, price=0.0, eligible_positions=frozenset({Position.DEF}))
+    p1.by_round[2] = PlayerRoundInfo(round_number=2, score=1.0, price=0.0, eligible_positions=frozenset({Position.DEF}))
+
+    p2 = Player(player_id=2, first_name="B", last_name="B")
+    p2.by_round[1] = PlayerRoundInfo(round_number=1, score=2.0, price=0.0, eligible_positions=frozenset({Position.DEF}))
+    p2.by_round[2] = PlayerRoundInfo(round_number=2, score=9.0, price=0.0, eligible_positions=frozenset({Position.DEF}))
+
+    p3 = Player(player_id=3, first_name="C", last_name="C")
+    p3.by_round[1] = PlayerRoundInfo(round_number=1, score=0.5, price=0.0, eligible_positions=frozenset({Position.DEF}))
+    p3.by_round[2] = PlayerRoundInfo(round_number=2, score=0.5, price=0.0, eligible_positions=frozenset({Position.DEF}))
+
+    data = ModelInputData(players={1: p1, 2: p2, 3: p3}, rounds=rounds, team_rules=rules)
+
+    problem = pulp.LpProblem("min_model_2_rounds", pulp.LpMaximize)
+    dvs = create_decision_variables(problem, data)
+
+    add_objective(problem, data, dvs)
+    add_constraints(problem, data, dvs)
+
+    status = problem.solve(pulp.PULP_CBC_CMD(msg=False))
+    assert pulp.LpStatus[status] == "Optimal"
+
+    # Round 1: choose p1
+    assert dvs.y_onfield[(1, Position.DEF, 1)].value() == 1
+    assert dvs.scored[(1, 1)].value() == 1
+    assert dvs.captain[(1, 1)].value() == 1
+
+    assert dvs.y_onfield[(2, Position.DEF, 1)].value() == 0
+    assert dvs.scored[(2, 1)].value() == 0
+    assert dvs.captain[(2, 1)].value() == 0
+
+    # Round 2: choose p2
+    assert dvs.y_onfield[(2, Position.DEF, 2)].value() == 1
+    assert dvs.scored[(2, 2)].value() == 1
+    assert dvs.captain[(2, 2)].value() == 1
+
+    assert dvs.y_onfield[(1, Position.DEF, 2)].value() == 0
+    assert dvs.scored[(1, 2)].value() == 0
+    assert dvs.captain[(1, 2)].value() == 0
+
+    # Assert the on-field team changes between rounds
+    assert dvs.y_onfield[(1, Position.DEF, 1)].value() != dvs.y_onfield[(1, Position.DEF, 2)].value()
+    assert dvs.y_onfield[(2, Position.DEF, 1)].value() != dvs.y_onfield[(2, Position.DEF, 2)].value()
+
+    # Objective: (10 + 9) + (captain bonus 10 + 9) = 38
+    assert pulp.value(problem.objective) == 38.0
+
