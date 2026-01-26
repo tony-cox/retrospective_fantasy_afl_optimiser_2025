@@ -458,17 +458,22 @@ def _add_linking_constraints_overall_selection_equals_positional_selection(
     model_input_data: ModelInputData,
     decision_variables: DecisionVariables,
 ) -> None:
-    """Linking constraint: overall selection equals sum of positional selections."""
+    """Linking constraint: overall selection equals sum of positional selections.
+
+    In the full model, x_selected is a helper indicating whether the player is
+    in the squad at all in round r.
+
+    Given we also enforce "at most one slot per player per round", we can link
+    x_selected to the slot indicator via equality.
+    """
 
     for p in model_input_data.player_ids:
         for r in model_input_data.idx_round:
-            pos_sum = pulp.lpSum(
+            slot_sum = pulp.lpSum(
                 decision_variables.y_onfield[(p, k, r)] + decision_variables.y_bench[(p, k, r)]
                 for k in model_input_data.positions
             ) + decision_variables.y_utility[(p, r)]
-            problem += (
-                decision_variables.x_selected[(p, r)] == pos_sum
-            ), f"link_x_equals_positions_{p}_{r}"
+            problem += decision_variables.x_selected[(p, r)] == slot_sum, f"link_x_equals_positions_{p}_{r}"
 
 
 def _add_linking_constraints_at_most_one_slot_per_player_per_round(
@@ -593,7 +598,16 @@ def _add_position_eligibility_on_field_constraints(
 ) -> None:
     """Position Eligibility: enforce on-field eligibility by position."""
 
-    _ = (problem, model_input_data, decision_variables)
+    for p in model_input_data.player_ids:
+        for r in model_input_data.idx_round:
+            eligible_positions = model_input_data.eligible_positions(p, r)
+            for k in model_input_data.positions:
+                # If player isn't eligible for k in round r, y_onfield must be 0.
+                if k in eligible_positions:
+                    continue
+                problem += (
+                    decision_variables.y_onfield[(p, k, r)] == 0
+                ), f"elig_onfield_{p}_{k.value}_{r}"
 
 
 def _add_position_eligibility_bench_constraints(
@@ -603,7 +617,15 @@ def _add_position_eligibility_bench_constraints(
 ) -> None:
     """Position Eligibility: enforce bench eligibility by position."""
 
-    _ = (problem, model_input_data, decision_variables)
+    for p in model_input_data.player_ids:
+        for r in model_input_data.idx_round:
+            eligible_positions = model_input_data.eligible_positions(p, r)
+            for k in model_input_data.positions:
+                if k in eligible_positions:
+                    continue
+                problem += (
+                    decision_variables.y_bench[(p, k, r)] == 0
+                ), f"elig_bench_{p}_{k.value}_{r}"
 
 
 def _add_position_eligibility_utility_bench_constraints(
@@ -611,7 +633,7 @@ def _add_position_eligibility_utility_bench_constraints(
     model_input_data: ModelInputData,
     decision_variables: DecisionVariables,
 ) -> None:
-    """Position Eligibility: utility bench must use a player eligible for any position."""
+    """Position Eligibility: utility bench has no position eligibility restriction."""
 
     _ = (problem, model_input_data, decision_variables)
 

@@ -168,3 +168,222 @@ def test_minimal_model_two_rounds_team_changes_due_to_scoring() -> None:
     # Objective: (10 + 9) + (captain bonus 10 + 9) = 38
     assert pulp.value(problem.objective) == 38.0
 
+
+def test_position_eligibility_prevents_ineligible_player_from_being_selected_in_position() -> None:
+    # Need 1 DEF on-field. Player 1 scores highest but is MID-only; player 2 is DEF-only.
+    # With eligibility constraints, player 2 must be chosen at DEF.
+
+    rules = TeamStructureRules(
+        on_field_required={Position.DEF: 1, Position.MID: 0, Position.RUC: 0, Position.FWD: 0},
+        bench_required={Position.DEF: 0, Position.MID: 0, Position.RUC: 0, Position.FWD: 0},
+        salary_cap=0.0,
+        utility_bench_count=0,
+    )
+
+    rounds = {1: Round(number=1, max_trades=2, counted_onfield_players=1)}
+
+    p1 = Player(player_id=1, first_name="A", last_name="A")
+    p1.by_round[1] = PlayerRoundInfo(round_number=1, score=100.0, price=0.0, eligible_positions=frozenset({Position.MID}))
+
+    p2 = Player(player_id=2, first_name="B", last_name="B")
+    p2.by_round[1] = PlayerRoundInfo(round_number=1, score=1.0, price=0.0, eligible_positions=frozenset({Position.DEF}))
+
+    data = ModelInputData(players={1: p1, 2: p2}, rounds=rounds, team_rules=rules)
+
+    problem = pulp.LpProblem("elig_integration", pulp.LpMaximize)
+    dvs = create_decision_variables(problem, data)
+
+    add_objective(problem, data, dvs)
+    add_constraints(problem, data, dvs)
+
+    status = problem.solve(pulp.PULP_CBC_CMD(msg=False))
+    assert pulp.LpStatus[status] == "Optimal"
+
+    # Player 1 cannot be placed at DEF due to eligibility
+    assert dvs.y_onfield[(1, Position.DEF, 1)].value() == 0
+
+    # Player 2 must fill DEF slot
+    assert dvs.y_onfield[(2, Position.DEF, 1)].value() == 1
+    assert dvs.scored[(2, 1)].value() == 1
+    assert dvs.captain[(2, 1)].value() == 1
+
+
+def test_dual_position_player_can_fill_either_required_position() -> None:
+    # Require 1 DEF and 1 MID on-field. Player 1 is DEF/MID eligible.
+    # Player 2 is DEF-only. Player 3 is MID-only.
+    # The dual-position player should be used to fill the position where it yields feasibility.
+
+    rules = TeamStructureRules(
+        on_field_required={Position.DEF: 1, Position.MID: 1, Position.RUC: 0, Position.FWD: 0},
+        bench_required={Position.DEF: 0, Position.MID: 0, Position.RUC: 0, Position.FWD: 0},
+        salary_cap=0.0,
+        utility_bench_count=0,
+    )
+
+    rounds = {1: Round(number=1, max_trades=2, counted_onfield_players=2)}
+
+    # Dual position, good score
+    p1 = Player(player_id=1, first_name="DPP", last_name="One")
+    p1.by_round[1] = PlayerRoundInfo(
+        round_number=1,
+        score=50.0,
+        price=0.0,
+        eligible_positions=frozenset({Position.DEF, Position.MID}),
+    )
+
+    # Specialists
+    p2 = Player(player_id=2, first_name="Def", last_name="Only")
+    p2.by_round[1] = PlayerRoundInfo(round_number=1, score=10.0, price=0.0, eligible_positions=frozenset({Position.DEF}))
+
+    p3 = Player(player_id=3, first_name="Mid", last_name="Only")
+    p3.by_round[1] = PlayerRoundInfo(round_number=1, score=9.0, price=0.0, eligible_positions=frozenset({Position.MID}))
+
+    data = ModelInputData(players={1: p1, 2: p2, 3: p3}, rounds=rounds, team_rules=rules)
+
+    problem = pulp.LpProblem("dpp_either", pulp.LpMaximize)
+    dvs = create_decision_variables(problem, data)
+
+    add_objective(problem, data, dvs)
+    add_constraints(problem, data, dvs)
+
+    status = problem.solve(pulp.PULP_CBC_CMD(msg=False))
+    assert pulp.LpStatus[status] == "Optimal"
+
+    # Must select exactly 2 on-field players: one DEF and one MID.
+    # The DPP player must be selected on-field, in either DEF or MID.
+    assert (
+        dvs.y_onfield[(1, Position.DEF, 1)].value() + dvs.y_onfield[(1, Position.MID, 1)].value()
+    ) == 1
+
+    # Exactly one DEF slot and one MID slot are filled.
+    assert (
+        dvs.y_onfield[(1, Position.DEF, 1)].value() + dvs.y_onfield[(2, Position.DEF, 1)].value() + dvs.y_onfield[(3, Position.DEF, 1)].value()
+    ) == 1
+    assert (
+        dvs.y_onfield[(1, Position.MID, 1)].value() + dvs.y_onfield[(2, Position.MID, 1)].value() + dvs.y_onfield[(3, Position.MID, 1)].value()
+    ) == 1
+
+    # And DPP can't be placed on bench/utility given those are all zero.
+    assert dvs.y_utility[(1, 1)].value() == 0
+
+
+def test_dual_position_player_cannot_be_selected_in_two_positions_same_round() -> None:
+    # Require 1 DEF and 1 MID. Only one available player eligible for both (DPP).
+    # Since the player can only occupy one slot per round, the problem should be infeasible.
+
+    rules = TeamStructureRules(
+        on_field_required={Position.DEF: 1, Position.MID: 1, Position.RUC: 0, Position.FWD: 0},
+        bench_required={Position.DEF: 0, Position.MID: 0, Position.RUC: 0, Position.FWD: 0},
+        salary_cap=0.0,
+        utility_bench_count=0,
+    )
+
+    rounds = {1: Round(number=1, max_trades=2, counted_onfield_players=1)}
+
+    p1 = Player(player_id=1, first_name="DPP", last_name="Only")
+    p1.by_round[1] = PlayerRoundInfo(
+        round_number=1,
+        score=50.0,
+        price=0.0,
+        eligible_positions=frozenset({Position.DEF, Position.MID}),
+    )
+
+    data = ModelInputData(players={1: p1}, rounds=rounds, team_rules=rules)
+
+    problem = pulp.LpProblem("dpp_not_both", pulp.LpMaximize)
+    dvs = create_decision_variables(problem, data)
+
+    add_objective(problem, data, dvs)
+    add_constraints(problem, data, dvs)
+
+    status = problem.solve(pulp.PULP_CBC_CMD(msg=False))
+
+    # With only one player available, you can't fill both a DEF and MID slot.
+    assert pulp.LpStatus[status] == "Infeasible"
+
+
+def test_bench_positional_requirement_selects_expected_bench_player() -> None:
+    # Require 1 on-field DEF (so we can have 1 scored player and 1 captain),
+    # and also require 1 bench DEF slot.
+
+    rules = TeamStructureRules(
+        on_field_required={Position.DEF: 1, Position.MID: 0, Position.RUC: 0, Position.FWD: 0},
+        bench_required={Position.DEF: 1, Position.MID: 0, Position.RUC: 0, Position.FWD: 0},
+        salary_cap=0.0,
+        utility_bench_count=0,
+    )
+
+    rounds = {1: Round(number=1, max_trades=2, counted_onfield_players=1)}
+
+    p1 = Player(player_id=1, first_name="A", last_name="A")
+    p1.by_round[1] = PlayerRoundInfo(round_number=1, score=10.0, price=0.0, eligible_positions=frozenset({Position.DEF}))
+
+    p2 = Player(player_id=2, first_name="B", last_name="B")
+    p2.by_round[1] = PlayerRoundInfo(round_number=1, score=1.0, price=0.0, eligible_positions=frozenset({Position.DEF}))
+
+    data = ModelInputData(players={1: p1, 2: p2}, rounds=rounds, team_rules=rules)
+
+    problem = pulp.LpProblem("bench_def", pulp.LpMaximize)
+    dvs = create_decision_variables(problem, data)
+
+    add_objective(problem, data, dvs)
+    add_constraints(problem, data, dvs)
+
+    status = problem.solve(pulp.PULP_CBC_CMD(msg=False))
+    assert pulp.LpStatus[status] == "Optimal"
+
+    # Exactly one on-field DEF and one bench DEF.
+    assert dvs.y_onfield[(1, Position.DEF, 1)].value() + dvs.y_onfield[(2, Position.DEF, 1)].value() == 1
+    assert dvs.y_bench[(1, Position.DEF, 1)].value() + dvs.y_bench[(2, Position.DEF, 1)].value() == 1
+
+    # With two DEF-only players and two slots, both players must be selected in exactly one slot each.
+    assert dvs.x_selected[(1, 1)].value() == 1
+    assert dvs.x_selected[(2, 1)].value() == 1
+
+
+def test_utility_bench_requirement_selects_exactly_one_utility_player() -> None:
+    # Require 1 on-field DEF (so we can have 1 scored player and 1 captain),
+    # and also require 1 bench utility slot.
+
+    rules = TeamStructureRules(
+        on_field_required={Position.DEF: 1, Position.MID: 0, Position.RUC: 0, Position.FWD: 0},
+        bench_required={Position.DEF: 0, Position.MID: 0, Position.RUC: 0, Position.FWD: 0},
+        salary_cap=0.0,
+        utility_bench_count=1,
+    )
+
+    rounds = {1: Round(number=1, max_trades=2, counted_onfield_players=1)}
+
+    p1 = Player(player_id=1, first_name="A", last_name="A")
+    p1.by_round[1] = PlayerRoundInfo(round_number=1, score=10.0, price=0.0, eligible_positions=frozenset({Position.DEF}))
+
+    p2 = Player(player_id=2, first_name="B", last_name="B")
+    p2.by_round[1] = PlayerRoundInfo(round_number=1, score=1.0, price=0.0, eligible_positions=frozenset({Position.MID}))
+
+    data = ModelInputData(players={1: p1, 2: p2}, rounds=rounds, team_rules=rules)
+
+    problem = pulp.LpProblem("bench_util", pulp.LpMaximize)
+    dvs = create_decision_variables(problem, data)
+
+    add_objective(problem, data, dvs)
+    add_constraints(problem, data, dvs)
+
+    status = problem.solve(pulp.PULP_CBC_CMD(msg=False))
+    assert pulp.LpStatus[status] == "Optimal"
+
+    # One on-field DEF must be filled.
+    assert dvs.y_onfield[(1, Position.DEF, 1)].value() + dvs.y_onfield[(2, Position.DEF, 1)].value() == 1
+
+    # Exactly one utility slot filled.
+    util_sum = dvs.y_utility[(1, 1)].value() + dvs.y_utility[(2, 1)].value()
+    assert util_sum == 1
+
+    # Ensure no player occupies more than one slot.
+    for pid in (1, 2):
+        slot_sum = (
+            dvs.y_utility[(pid, 1)].value()
+            + sum(dvs.y_onfield[(pid, pos, 1)].value() for pos in Position)
+            + sum(dvs.y_bench[(pid, pos, 1)].value() for pos in Position)
+        )
+        assert slot_sum <= 1
+
