@@ -23,5 +23,9 @@ def test_formulate_problem_returns_pulp_problem() -> None:
     assert isinstance(problem, pulp.LpProblem)
     assert problem.name == "retro_fantasy"
     assert problem.sense == pulp.LpMaximize
-    # No objective/constraints yet
+
+    # Objective is set (currently a placeholder 0 expression)
+    assert problem.objective is not None
+
+    # No constraints yet
     assert len(problem.constraints) == 0
