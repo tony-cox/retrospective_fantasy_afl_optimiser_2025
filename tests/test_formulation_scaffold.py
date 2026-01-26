@@ -1,6 +1,6 @@
 import pulp
 
-from retro_fantasy.data import ModelInputData, Player, Position, Round, TeamStructureRules
+from retro_fantasy.data import ModelInputData, Player, PlayerRoundInfo, Position, Round, TeamStructureRules
 from retro_fantasy.formulation import formulate_problem
 
 
@@ -12,8 +12,16 @@ def test_formulate_problem_returns_pulp_problem() -> None:
         utility_bench_count=0,
     )
 
+    player = Player(player_id=1, first_name="A", last_name="B")
+    player.by_round[1] = PlayerRoundInfo(
+        round_number=1,
+        score=0.0,
+        price=0.0,
+        eligible_positions=frozenset({Position.DEF}),
+    )
+
     data = ModelInputData(
-        players={1: Player(player_id=1, first_name="A", last_name="B")},
+        players={1: player},
         rounds={1: Round(number=1, max_trades=2, counted_onfield_players=22)},
         team_rules=rules,
     )
@@ -24,7 +32,7 @@ def test_formulate_problem_returns_pulp_problem() -> None:
     assert problem.name == "retro_fantasy"
     assert problem.sense == pulp.LpMaximize
 
-    # Objective is set (currently a placeholder 0 expression)
+    # Objective is set
     assert problem.objective is not None
 
     # Constraints still not implemented

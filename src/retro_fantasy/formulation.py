@@ -270,18 +270,17 @@ def _build_objective_base_scoring_expression(
 ) -> pulp.LpAffineExpression:
     """Build the base scoring term of the objective.
 
-    Intended to represent:
-        sum_{r in R} sum_{p in P} s[p,r] * y[p,r]
-
-    Notes
-    -----
-    We return an expression instead of directly adding to the problem so the
-    full objective can be assembled once (PuLP overwrites the objective if you
-    add multiple objectives).
+    Represents:
+        sum_{r in R} sum_{p in P} s[p,r] * scored[p,r]
     """
 
-    _ = (problem, model_input_data, decision_variables)
-    return pulp.LpAffineExpression()
+    _ = problem
+
+    terms: list[pulp.LpAffineExpression] = []
+    for (player_id, round_number), scored_var in decision_variables.scored.items():
+        terms.append(model_input_data.score(player_id, round_number) * scored_var)
+
+    return pulp.lpSum(terms)
 
 
 def _build_objective_captain_bonus_expression(
@@ -291,17 +290,20 @@ def _build_objective_captain_bonus_expression(
 ) -> pulp.LpAffineExpression:
     """Build the captain bonus term of the objective.
 
-    Intended to represent:
-        sum_{r in R} sum_{p in P} s[p,r] * z[p,r]
+    Represents:
+        sum_{r in R} sum_{p in P} s[p,r] * captain[p,r]
 
-    Notes
-    -----
-    In the formulation, the captain's counted score is doubled by adding this
-    extra term on top of the base counted scoring.
+    Adding this term to the base scoring term doubles the captain's counted
+    score (assuming constraints later enforce captain implies scored).
     """
 
-    _ = (problem, model_input_data, decision_variables)
-    return pulp.LpAffineExpression()
+    _ = problem
+
+    terms: list[pulp.LpAffineExpression] = []
+    for (player_id, round_number), captain_var in decision_variables.captain.items():
+        terms.append(model_input_data.score(player_id, round_number) * captain_var)
+
+    return pulp.lpSum(terms)
 
 
 # ============================================================================
