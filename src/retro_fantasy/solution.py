@@ -28,10 +28,7 @@ class RoundTradeSummary:
 class RoundSummary:
     round_number: int
     total_team_points: float
-    captain_player_id: int
     captain_player_name: str
-    captain_raw_score: float
-    captain_bonus_points: float
 
 
 @dataclass(frozen=True, slots=True)
@@ -99,19 +96,20 @@ def build_solution_summary(
     # Build per-round details.
     rounds: Dict[int, RoundDetail] = {}
 
+    # Sorting helpers
+    position_order: dict[Optional[str], int] = {pos.value: i for i, pos in enumerate(Position.__members__.values())}
+    position_order[None] = len(position_order)  # utility bench (no position) last
+    slot_order: dict[str, int] = {"on_field": 0, "bench": 1, "utility_bench": 2}
+
     for r in model_input_data.idx_round:
         # Captain and scoring.
-        captain_player_id = -1
         captain_player_name = ""
-        captain_raw_score = 0.0
         captain_bonus = 0.0
 
         for p in model_input_data.player_ids:
             if _is_selected(decision_vars.captain[(p, r)]):
-                captain_player_id = p
                 captain_player_name = model_input_data.players[p].name
-                captain_raw_score = float(model_input_data.score(p, r))
-                captain_bonus = captain_raw_score
+                captain_bonus = float(model_input_data.score(p, r))
                 break
 
         total_team_points = 0.0
@@ -123,10 +121,7 @@ def build_solution_summary(
         summary = RoundSummary(
             round_number=r,
             total_team_points=total_team_points,
-            captain_player_id=captain_player_id,
             captain_player_name=captain_player_name,
-            captain_raw_score=captain_raw_score,
-            captain_bonus_points=captain_bonus,
         )
 
         # Team listing for the round: everyone selected in any slot.
@@ -164,6 +159,14 @@ def build_solution_summary(
                     score=float(model_input_data.score(p, r)),
                 )
             )
+
+        team_entries.sort(
+            key=lambda e: (
+                position_order.get(e.position, 999),
+                slot_order.get(e.slot, 999),
+                -e.price,
+            )
+        )
 
         rounds[r] = RoundDetail(summary=summary, trades=trades_by_round.get(r), team=team_entries)
 
