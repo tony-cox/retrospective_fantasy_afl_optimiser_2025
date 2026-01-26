@@ -196,3 +196,4 @@ Next steps are to:
 - Implement the optimisation model in code based on the formulation
 - Solve the 2025 season end-to-end and commit the resulting output artefacts to `output/`
 - Add `discussion.md` with interpretation of the optimal solution and commentary against the strategy questions above
+- Handle players only being made available from certain rounds onward (e.g., mid-season draftees)

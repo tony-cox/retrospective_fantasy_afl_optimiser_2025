@@ -10,6 +10,9 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = { file = "LICENSE" }
 authors = [{ name = "Tony Whitfield" }]
+dependencies = [
+    "pulp>=2.7",
+]
 
 [project.optional-dependencies]
 dev = [
