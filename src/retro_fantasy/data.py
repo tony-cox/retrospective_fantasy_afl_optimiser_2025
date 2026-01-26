@@ -10,7 +10,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Dict, FrozenSet, Iterable, Mapping, Optional
+from functools import cached_property
+from typing import Dict, FrozenSet, Iterable, Mapping, Optional, Sequence
 
 
 class Position(str, Enum):
@@ -122,9 +123,14 @@ class TeamStructureRules:
         return sum(self.on_field_required.values()) + sum(self.bench_required.values()) + self.utility_bench_count
 
 
-@dataclass(slots=True)
+@dataclass
 class ModelInputData:
-    """Top-level container for all model input data."""
+    """Top-level container for all model input data.
+
+    This class is frequently queried by the MILP formulation. To keep the
+    formulation code clean (and avoid repeatedly building the same derived
+    lists), we provide a set of memoised helpers.
+    """
 
     players: Dict[int, Player]
     rounds: Dict[int, Round]
@@ -136,5 +142,140 @@ class ModelInputData:
         if not self.rounds:
             raise ValueError("ModelInputData.rounds cannot be empty")
 
+    # --- Core index sets (memoised) ---
+
+    @cached_property
+    def player_ids(self) -> Sequence[int]:
+        """Sorted player IDs (P)."""
+
+        return tuple(sorted(self.players))
+
+    @cached_property
+    def round_numbers(self) -> Sequence[int]:
+        """Sorted round numbers (R)."""
+
+        return tuple(sorted(self.rounds))
+
+    @cached_property
+    def rounds_excluding_1(self) -> Sequence[int]:
+        """Sorted round numbers excluding round 1 (R \\ {1})."""
+
+        return tuple(r for r in self.round_numbers if r != 1)
+
+    @cached_property
+    def positions(self) -> Sequence[Position]:
+        """The position set K = {DEF, MID, RUC, FWD}."""
+
+        return tuple(Position)
+
+    # --- Common parameter lookups ---
+
+    def score(self, player_id: int, round_number: int) -> float:
+        """Known score s[p,r]."""
+
+        return self.players[player_id].get_round(round_number).score
+
+    def price(self, player_id: int, round_number: int) -> float:
+        """Known price c[p,r]."""
+
+        return self.players[player_id].get_round(round_number).price
+
+    def eligible_positions(self, player_id: int, round_number: int) -> FrozenSet[Position]:
+        """Eligible positions for player p in round r."""
+
+        return self.players[player_id].get_round(round_number).eligible_positions
+
+    def is_eligible(self, player_id: int, position: Position, round_number: int) -> bool:
+        """Binary eligibility e[p,k,r] as a bool."""
+
+        return position in self.eligible_positions(player_id, round_number)
+
+    # --- Team structure / round-level rule accessors ---
+
+    @property
+    def salary_cap(self) -> float:
+        return self.team_rules.salary_cap
+
+    @property
+    def utility_bench_count(self) -> int:
+        return self.team_rules.utility_bench_count
+
+    def on_field_required(self, position: Position) -> int:
+        return int(self.team_rules.on_field_required[position])
+
+    def bench_required(self, position: Position) -> int:
+        return int(self.team_rules.bench_required[position])
+
+    def max_trades(self, round_number: int) -> int:
+        return int(self.rounds[round_number].max_trades)
+
+    def counted_onfield_players(self, round_number: int) -> int:
+        return int(self.rounds[round_number].counted_onfield_players)
+
+    # --- Derived index tuples used frequently by the formulation ---
+
+    @cached_property
+    def idx_player_round(self) -> Sequence[tuple[int, int]]:
+        """All (p,r) pairs for p in P, r in R."""
+
+        return tuple((p, r) for p in self.player_ids for r in self.round_numbers)
+
+    @cached_property
+    def idx_player_round_excluding_1(self) -> Sequence[tuple[int, int]]:
+        """All (p,r) pairs for p in P, r in R \\ {1}."""
+
+        return tuple((p, r) for p in self.player_ids for r in self.rounds_excluding_1)
+
+    @cached_property
+    def idx_player_position_round(self) -> Sequence[tuple[int, Position, int]]:
+        """All (p,k,r) triples for p in P, k in K, r in R."""
+
+        return tuple((p, k, r) for p in self.player_ids for k in self.positions for r in self.round_numbers)
+
+    @cached_property
+    def idx_round(self) -> Sequence[int]:
+        """All round numbers r in R (sorted)."""
+
+        return self.round_numbers
+
+    @cached_property
+    def idx_round_excluding_1(self) -> Sequence[int]:
+        """All round numbers r in R \\ {1} (sorted)."""
+
+        return self.rounds_excluding_1
+
+    @cached_property
+    def eligibility_map(self) -> Mapping[tuple[int, Position, int], bool]:
+        """Eligibility map e[p,k,r] as a boolean mapping.
+
+        Keys are (player_id, position, round_number).
+        """
+
+        return {
+            (p, k, r): self.is_eligible(p, k, r)
+            for p in self.player_ids
+            for k in self.positions
+            for r in self.round_numbers
+        }
+
+    @property
+    def on_field_size(self) -> int:
+        """Total number of on-field slots implied by rules (typically 22)."""
+
+        return sum(self.team_rules.on_field_required.values())
+
+    @property
+    def bench_size(self) -> int:
+        """Total number of bench slots implied by rules (bench positions + utility)."""
+
+        return sum(self.team_rules.bench_required.values()) + self.team_rules.utility_bench_count
+
+    @property
+    def squad_size(self) -> int:
+        """Total squad size implied by rules (on-field + bench)."""
+
+        return self.team_rules.squad_size
+
     def iter_round_numbers(self) -> Iterable[int]:
-        return (r for r in sorted(self.rounds))
+        # Backwards-compatible generator-style API.
+        return (r for r in self.round_numbers)
