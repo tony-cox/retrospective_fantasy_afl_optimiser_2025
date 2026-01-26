@@ -181,7 +181,7 @@ $$
 Overall selection must match positional selection:
 
 $$
-x_{p,r} = \sum_{k \in K} x^{\mathrm{on}}_{p,k,r} + \sum_{k \in K} x^{\mathrm{bench}}_{p,k,r} + x^{Q,\mathrm{bench}}_{p,r} \quad \forall p \in P, \forall r \in R
+x_{p,r} = \sum_{k \in K} x^{\mathrm{on}}_{p,k,r} + \sum_{k \in K} x^{\mathrm{bench}}_{p,k,r} + x^{Q,\mathrm{bench}}_{p,r} \quad \forall p in P, \forall r \in R
 $$
 
 A player can occupy at most one lineup slot in a given round:
@@ -242,12 +242,6 @@ $$
 
 $$
 x^{\mathrm{bench}}_{p,k,r} \le e_{p,k,r} \quad \forall p \in P, \forall k \in K, \forall r \in R
-$$
-
-Bench utility is unconstrained by lineup position, but still must use an eligible player in that round:
-
-$$
-x^{Q,\mathrm{bench}}_{p,r} \le \sum_{k \in K} e_{p,k,r} \quad \forall p in P, \forall r \in R
 $$
 
 \newpage

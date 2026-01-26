@@ -661,7 +661,6 @@ def _add_position_eligibility_constraints(
 
     _add_position_eligibility_on_field_constraints(problem, model_input_data, decision_variables)
     _add_position_eligibility_bench_constraints(problem, model_input_data, decision_variables)
-    _add_position_eligibility_utility_bench_constraints(problem, model_input_data, decision_variables)
 
 
 def _add_position_eligibility_on_field_constraints(
@@ -700,15 +699,6 @@ def _add_position_eligibility_bench_constraints(
                     decision_variables.y_bench[(p, k, r)] == 0
                 ), f"elig_bench_{p}_{k.value}_{r}"
 
-
-def _add_position_eligibility_utility_bench_constraints(
-    problem: pulp.LpProblem,
-    model_input_data: ModelInputData,
-    decision_variables: DecisionVariables,
-) -> None:
-    """Position Eligibility: utility bench has no position eligibility restriction."""
-
-    _ = (problem, model_input_data, decision_variables)
 
 
 def _add_scoring_selection_constraints(
