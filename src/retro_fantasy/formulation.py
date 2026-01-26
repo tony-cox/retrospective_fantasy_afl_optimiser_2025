@@ -345,9 +345,22 @@ def _add_initial_bank_balance_constraints(
     model_input_data: ModelInputData,
     decision_variables: DecisionVariables,
 ) -> None:
-    """Initial Bank Balance constraints."""
+    """Initial Bank Balance constraints.
 
-    _ = (problem, model_input_data, decision_variables)
+    bank[1] = salary_cap - sum_p price[p,1] * x_selected[p,1]
+    """
+
+    if 1 not in model_input_data.round_numbers:
+        return
+
+    r = 1
+    total_spend = pulp.lpSum(
+        model_input_data.price(p, r) * decision_variables.x_selected[(p, r)] for p in model_input_data.player_ids
+    )
+
+    problem += (
+        decision_variables.bank[r] == model_input_data.salary_cap - total_spend
+    ), "bank_initial_round_1"
 
 
 def _add_bank_balance_recurrence_constraints(
@@ -355,9 +368,30 @@ def _add_bank_balance_recurrence_constraints(
     model_input_data: ModelInputData,
     decision_variables: DecisionVariables,
 ) -> None:
-    """Bank Balance Recurrence constraints."""
+    """Bank Balance Recurrence constraints.
 
-    _ = (problem, model_input_data, decision_variables)
+    For r > 1:
+        bank[r] = bank[r-1]
+                  + sum_p price[p,r] * traded_out[p,r]
+                  - sum_p price[p,r] * traded_in[p,r]
+
+    Notes
+    -----
+    This uses the round-r price for both sold and bought players, matching the
+    formulation.
+    """
+
+    for r in model_input_data.idx_round_excluding_1:
+        sold_value = pulp.lpSum(
+            model_input_data.price(p, r) * decision_variables.traded_out[(p, r)] for p in model_input_data.player_ids
+        )
+        bought_cost = pulp.lpSum(
+            model_input_data.price(p, r) * decision_variables.traded_in[(p, r)] for p in model_input_data.player_ids
+        )
+
+        problem += (
+            decision_variables.bank[r] == decision_variables.bank[r - 1] + sold_value - bought_cost
+        ), f"bank_recurrence_{r}"
 
 
 def _add_trade_indicator_linking_constraints(
