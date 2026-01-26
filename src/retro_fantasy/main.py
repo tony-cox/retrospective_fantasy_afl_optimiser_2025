@@ -35,12 +35,14 @@ def load_players(
     *,
     players_json_path: str | Path,
     position_updates_csv_path: str | Path,
+    squad_id_filter: frozenset[int] | None = None,
 ) -> Dict[int, Player]:
     """Load player data for the optimiser."""
 
     return load_players_from_json(
         players_json_path,
         position_updates_csv=position_updates_csv_path,
+        squad_id_filter=squad_id_filter,
     )
 
 
@@ -159,57 +161,39 @@ def solve_retro_fantasy(
     *,
     players_json_path: str | Path,
     position_updates_csv_path: str | Path,
-    salary_cap: float = 17_500_000.0,
-    utility_bench_count: int = 1,
+    team_rules: TeamStructureRules,
+    rounds: Mapping[int, Round],
+    squad_id_filter: frozenset[int] | None = None,
     time_limit_seconds: int | None = None,
     solve: bool = True,
     enable_solver_output: bool = False,
     log_level: int | None = logging.INFO,
 ) -> SolveResult:
-    """Top-level entrypoint: load production data, formulate, and solve.
+    """Top-level entrypoint: load player data, formulate, and solve.
 
-    Returns a small structured result to make it easier for `run.py` and future
-    analysis code to consume.
-
-    Parameters
-    ----------
-    enable_solver_output:
-        If True, enable solver output (CBC/PuLP) to stdout.
-
-    log_level:
-        If not None, configure logging to this level.
+    The caller supplies all season configuration (team rules and rounds). This
+    makes it easy to swap configurations (e.g. smaller problems) without code
+    changes.
 
     Notes
     -----
     Players may be missing score/price data for some rounds (e.g. added
     mid-season). Missing scores are treated as 0 and missing prices as the full
     salary cap (prohibitively expensive) via :class:`retro_fantasy.data.ModelInputData`.
-
-    Solving the full-season model can take a long time depending on solver
-    configuration and machine specs. Use ``time_limit_seconds`` for a bounded
-    solve (useful for smoke tests), or ``solve=False`` to only build the model.
     """
 
     if log_level is not None:
         configure_logging(level=log_level)
 
     logger.info("Loading players from JSON: %s", players_json_path)
-    players = load_players(players_json_path=players_json_path, position_updates_csv_path=position_updates_csv_path)
+    players = load_players(
+        players_json_path=players_json_path,
+        position_updates_csv_path=position_updates_csv_path,
+        squad_id_filter=squad_id_filter,
+    )
     logger.info("Loaded %d players", len(players))
 
-    logger.info("Inferring season rounds from dataset")
-    season_rounds: set[int] = set()
-    for p in players.values():
-        season_rounds.update(r for r in p.by_round.keys() if r >= 1)
-
-    if not season_rounds:
-        raise ValueError("No season rounds (>=1) found in player data")
-
-    logger.info("Season rounds inferred: %d rounds (min=%d, max=%d)", len(season_rounds), min(season_rounds), max(season_rounds))
-
-    logger.info("Building team rules and round rules")
-    team_rules = build_default_team_rules(salary_cap=salary_cap, utility_bench_count=utility_bench_count)
-    rounds = build_default_rounds(round_numbers=season_rounds)
+    logger.info("Using provided rounds: %d rounds (min=%d, max=%d)", len(rounds), min(rounds), max(rounds))
 
     logger.info(
         "Team structure: onfield=%d, bench=%d (utility=%d), squad=%d, salary_cap=%s",
@@ -227,9 +211,13 @@ def solve_retro_fantasy(
     problem = formulate_problem(model_input_data)
     logger.info("Problem built: variables=%d constraints=%d", len(problem.variables()), len(problem.constraints))
 
-    logger.info("Solving with CBC (time_limit_seconds=%s, solver_output=%s)", time_limit_seconds, enable_solver_output)
-
     summarise_problem(problem)
+
+    if not solve:
+        logger.info("Skipping solve (solve=False)")
+        return SolveResult(status="NotSolved", objective_value=0.0, problem=problem)
+
+    logger.info("Solving with CBC (time_limit_seconds=%s, solver_output=%s)", time_limit_seconds, enable_solver_output)
 
     solver = (
         pulp.PULP_CBC_CMD(msg=enable_solver_output, timeLimit=time_limit_seconds)

@@ -17,7 +17,7 @@ import json
 from pathlib import Path
 from typing import Any, Dict, FrozenSet, Iterable, Mapping, Optional, cast
 
-from retro_fantasy.data import Player, PlayerRoundInfo, Position
+from retro_fantasy.data import Player, PlayerRoundInfo, Position, Round, TeamStructureRules
 
 
 # Pragmatic default mapping for AFL Fantasy position codes found in the JSON.
@@ -144,8 +144,17 @@ def load_players_from_json(
     position_code_map: Mapping[int, Position] = DEFAULT_POSITION_CODE_MAP,
     include_round0: bool = False,
     position_updates_csv: str | Path | None = None,
+    squad_id_filter: FrozenSet[int] | None = None,
 ) -> Dict[int, Player]:
-    """Load players from ``players_final.json`` and apply round-based eligibility updates."""
+    """Load players from ``players_final.json`` and apply round-based eligibility updates.
+
+    Parameters
+    ----------
+    squad_id_filter:
+        If provided, only players whose ``squad_id`` is in this set are loaded.
+        This is applied during the single pass over the JSON records, so excluded
+        players are never instantiated.
+    """
 
     path = Path(path)
     raw: list[dict[str, Any]] = json.loads(path.read_text(encoding="utf-8"))
@@ -154,19 +163,14 @@ def load_players_from_json(
     if position_updates_csv is not None:
         position_updates = read_position_updates_csv(Path(position_updates_csv))
 
-    json_names: set[str] = {
-        f"{rec.get('first_name', '')} {rec.get('last_name', '')}".strip() for rec in raw
-    }
-
-    validate_update_names(
-        update_names=position_updates.keys(),
-        json_names=json_names,
-        source_label="position_updates_csv",
-    )
-
     players: Dict[int, Player] = {}
 
     for rec in raw:
+        squad_id = rec.get("squad_id")
+        if squad_id_filter is not None:
+            if squad_id is None or int(squad_id) not in squad_id_filter:
+                continue
+
         pid = int(rec["id"])
 
         original = parse_positions_from_codes(
@@ -187,7 +191,7 @@ def load_players_from_json(
             player_id=pid,
             first_name=str(rec.get("first_name", "")),
             last_name=str(rec.get("last_name", "")),
-            squad_id=rec.get("squad_id"),
+            squad_id=squad_id,
             original_positions=base_positions,
         )
 
@@ -228,5 +232,92 @@ def load_players_from_json(
 
         players[pid] = player
 
+    # Validate position update CSV names.
+    # If we're loading the full dataset, validate against all JSON names.
+    # If we're loading a filtered subset (e.g. a couple of squads for a small model),
+    # it's expected that the update CSV contains many names outside the subset, so
+    # we intentionally skip this validation.
+    if position_updates_csv is not None and squad_id_filter is None:
+        json_names: set[str] = {p.name for p in players.values()}
+        validate_update_names(
+            update_names=position_updates.keys(),
+            json_names=json_names,
+            source_label="position_updates_csv",
+        )
+
     return players
 
+
+def load_team_rules_from_json(path: str | Path) -> TeamStructureRules:
+    """Load :class:`~retro_fantasy.data.TeamStructureRules` from JSON."""
+
+    path = Path(path)
+    raw = json.loads(path.read_text(encoding="utf-8"))
+
+    salary_cap = float(raw["salary_cap"])
+    utility_bench_count = int(raw.get("utility_bench_count", 0))
+
+    def _parse_counts(obj: Mapping[str, Any], field_name: str) -> Dict[Position, int]:
+        counts: Dict[Position, int] = {}
+        for pos in Position.__members__.values():
+            try:
+                counts[pos] = int(obj[pos.value])
+            except KeyError as e:
+                raise ValueError(f"{field_name} missing key {pos.value!r}") from e
+        return counts
+
+    on_field_required = _parse_counts(raw["on_field_required"], "on_field_required")
+    bench_required = _parse_counts(raw["bench_required"], "bench_required")
+
+    return TeamStructureRules(
+        on_field_required=on_field_required,
+        bench_required=bench_required,
+        salary_cap=salary_cap,
+        utility_bench_count=utility_bench_count,
+    )
+
+
+def load_rounds_from_json(path: str | Path, *, num_rounds: int | None = None) -> Dict[int, Round]:
+    """Load rounds from JSON.
+
+    Expected format: a list of objects like:
+        {"number": 1, "max_trades": 2, "counted_onfield_players": 22}
+
+    Parameters
+    ----------
+    num_rounds:
+        If provided, only rounds 1..num_rounds (inclusive) are returned.
+        Rounds are assumed to start at 1.
+    """
+
+    path = Path(path)
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(raw, list):
+        raise ValueError("rounds.json must be a JSON list")
+
+    if num_rounds is not None and num_rounds < 1:
+        raise ValueError("num_rounds must be >= 1")
+
+    rounds: Dict[int, Round] = {}
+    for rec in raw:
+        if not isinstance(rec, dict):
+            continue
+        number = int(rec["number"])
+        if num_rounds is not None and number > num_rounds:
+            continue
+
+        r = Round(
+            number=number,
+            max_trades=int(rec.get("max_trades", 2)),
+            counted_onfield_players=int(rec.get("counted_onfield_players", 22)),
+        )
+        rounds[r.number] = r
+
+    if not rounds:
+        raise ValueError("No rounds loaded from rounds.json")
+
+    # If filtering, ensure we didn't accidentally exclude round 1.
+    if num_rounds is not None and 1 not in rounds:
+        raise ValueError("rounds.json did not contain round 1, but rounds are required to start from 1")
+
+    return rounds

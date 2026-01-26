@@ -1,0 +1,16 @@
+{
+  "salary_cap": 17500000.0,
+  "utility_bench_count": 1,
+  "on_field_required": {
+    "DEF": 6,
+    "MID": 8,
+    "RUC": 2,
+    "FWD": 6
+  },
+  "bench_required": {
+    "DEF": 2,
+    "MID": 2,
+    "RUC": 1,
+    "FWD": 2
+  }
+}
