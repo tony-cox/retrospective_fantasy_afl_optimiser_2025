@@ -72,8 +72,8 @@ class DecisionVariables:
 # ============================================================================
 
 
-def formulate_problem(model_input_data: ModelInputData) -> pulp.LpProblem:
-    """Create the PuLP optimisation problem.
+def formulate_problem(model_input_data: ModelInputData) -> tuple[pulp.LpProblem, DecisionVariables]:
+    """Create the PuLP optimisation problem and its decision variables.
 
     Parameters
     ----------
@@ -93,7 +93,7 @@ def formulate_problem(model_input_data: ModelInputData) -> pulp.LpProblem:
     add_objective(problem, model_input_data, decision_variables)
     add_constraints(problem, model_input_data, decision_variables)
 
-    return problem
+    return problem, decision_variables
 
 
 # ============================================================================
@@ -698,7 +698,6 @@ def _add_position_eligibility_bench_constraints(
                 problem += (
                     decision_variables.y_bench[(p, k, r)] == 0
                 ), f"elig_bench_{p}_{k.value}_{r}"
-
 
 
 def _add_scoring_selection_constraints(

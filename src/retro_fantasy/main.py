@@ -8,7 +8,7 @@ from typing import Dict, Iterable, Mapping, Sequence
 import pulp
 
 from retro_fantasy.data import ModelInputData, Player, Position, Round, TeamStructureRules
-from retro_fantasy.formulation import formulate_problem
+from retro_fantasy.formulation import DecisionVariables, formulate_problem
 from retro_fantasy.io import load_players_from_json
 
 
@@ -99,6 +99,8 @@ class SolveResult:
     status: str
     objective_value: float
     problem: pulp.LpProblem
+    model_input_data: ModelInputData
+    decision_variables: DecisionVariables
 
 
 def summarise_problem(problem: pulp.LpProblem, *, max_name_examples: int = 5) -> None:
@@ -208,14 +210,20 @@ def solve_retro_fantasy(
     model_input_data = build_model_input_data(players=players, team_rules=team_rules, rounds=rounds)
 
     logger.info("Formulating PuLP problem")
-    problem = formulate_problem(model_input_data)
+    problem, decision_variables = formulate_problem(model_input_data)
     logger.info("Problem built: variables=%d constraints=%d", len(problem.variables()), len(problem.constraints))
 
     summarise_problem(problem)
 
     if not solve:
         logger.info("Skipping solve (solve=False)")
-        return SolveResult(status="NotSolved", objective_value=0.0, problem=problem)
+        return SolveResult(
+            status="NotSolved",
+            objective_value=0.0,
+            problem=problem,
+            model_input_data=model_input_data,
+            decision_variables=decision_variables,
+        )
 
     logger.info("Solving with CBC (time_limit_seconds=%s, solver_output=%s)", time_limit_seconds, enable_solver_output)
 
@@ -231,4 +239,10 @@ def solve_retro_fantasy(
     obj = float(pulp.value(problem.objective) or 0.0)
     logger.info("Solve complete: status=%s objective=%s", status, obj)
 
-    return SolveResult(status=status, objective_value=obj, problem=problem)
+    return SolveResult(
+        status=status,
+        objective_value=obj,
+        problem=problem,
+        model_input_data=model_input_data,
+        decision_variables=decision_variables,
+    )

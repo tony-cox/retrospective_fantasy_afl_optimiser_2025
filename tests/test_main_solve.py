@@ -28,7 +28,7 @@ def test_formulate_and_solve_end_to_end_from_model_input_data() -> None:
 
     data = build_model_input_data(players={1: p1, 2: p2}, team_rules=team_rules, rounds=rounds)
 
-    problem = formulate_problem(data)
+    problem, _decision_variables = formulate_problem(data)
     status_code = problem.solve(pulp.PULP_CBC_CMD(msg=False))
 
     assert pulp.LpStatus[status_code] == "Optimal"

@@ -26,7 +26,7 @@ def test_formulate_problem_returns_pulp_problem() -> None:
         team_rules=rules,
     )
 
-    problem = formulate_problem(data)
+    problem, decision_variables = formulate_problem(data)
 
     assert isinstance(problem, pulp.LpProblem)
     assert problem.name == "retro_fantasy"
@@ -37,3 +37,6 @@ def test_formulate_problem_returns_pulp_problem() -> None:
 
     # Constraints are now partially implemented (minimal bounded model pieces)
     assert len(problem.constraints) > 0
+
+    # Sanity: decision variable container returned
+    assert decision_variables is not None
