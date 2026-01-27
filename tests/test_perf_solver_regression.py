@@ -25,7 +25,8 @@ def test_filtered_production_scenario_no_objective_degradation_and_no_large_slow
     -----------------
     1) We still solve to *Optimal* on a deterministic, filtered production scenario.
     2) The optimal objective value (and full solution fingerprint) does not change.
-    3) Median wall time does not regress beyond an allowed ratio vs baseline.
+    3) The formulated problem size is stable (variables/constraints and basic breakdowns).
+    4) Median wall time does not regress beyond an allowed ratio vs baseline.
 
     Notes
     -----
@@ -64,10 +65,12 @@ def test_filtered_production_scenario_no_objective_degradation_and_no_large_slow
     if update_baseline or baseline_missing or baseline_uninitialised:
         baseline = make_baseline(scenario, median_result)
         write_baseline(baseline_path, baseline)
+        pm = median_result.problem_metrics
         pytest.skip(
             "Perf baseline "
             f"{'updated' if update_baseline else 'created'} at: {baseline_path} "
-            f"(median_solve_seconds={median_result.solve_seconds:.3f})"
+            f"(median_solve_seconds={median_result.solve_seconds:.3f}, "
+            f"vars={pm.num_variables}, cons={pm.num_constraints})"
         )
 
     baseline = load_baseline(baseline_path)
@@ -76,6 +79,12 @@ def test_filtered_production_scenario_no_objective_degradation_and_no_large_slow
     assert median_result.status == baseline.status
     assert median_result.objective_value == pytest.approx(baseline.objective_value, abs=1e-6)
     assert median_result.solution_fingerprint == baseline.solution_fingerprint
+
+    # Problem-size guardrails: detect unexpected shrink/growth.
+    assert median_result.problem_metrics.num_variables == baseline.problem_metrics.num_variables
+    assert median_result.problem_metrics.num_constraints == baseline.problem_metrics.num_constraints
+    assert median_result.problem_metrics.variable_categories == baseline.problem_metrics.variable_categories
+    assert median_result.problem_metrics.constraint_senses == baseline.problem_metrics.constraint_senses
 
     # Performance guardrail: no large regressions (ratio-based).
     max_ratio = float(pytestconfig.getoption("--perf-max-regression-ratio"))

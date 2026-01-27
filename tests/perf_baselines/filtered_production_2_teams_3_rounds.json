@@ -1,8 +1,24 @@
 {
-  "created_utc": "2026-01-27T06:09:15.215036+00:00",
-  "median_solve_seconds": 8.397175200050697,
+  "created_utc": "2026-01-27T06:16:44.498707+00:00",
+  "median_solve_seconds": 8.37756310007535,
   "objective_value": 5589.0,
   "platform": "Windows 10 (AMD64)",
+  "problem_metrics": {
+    "constraint_senses": {
+      "<=": 1517,
+      "=": 1791,
+      ">=": 356,
+      "other": 0
+    },
+    "num_constraints": 3664,
+    "num_variables": 3563,
+    "variable_categories": {
+      "Binary": 0,
+      "Continuous": 3,
+      "Integer": 3560,
+      "Other": 0
+    }
+  },
   "pulp": "3.3.0",
   "python": "3.11.9",
   "scenario": {
