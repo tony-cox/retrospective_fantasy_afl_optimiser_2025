@@ -1,0 +1,20 @@
+{
+  "created_utc": "2026-01-27T06:09:15.215036+00:00",
+  "median_solve_seconds": 8.397175200050697,
+  "objective_value": 5589.0,
+  "platform": "Windows 10 (AMD64)",
+  "pulp": "3.3.0",
+  "python": "3.11.9",
+  "scenario": {
+    "data_filter_json_path": "C:\\Users\\Tony.Whitfield\\git\\retrospective_fantasy_afl_optimiser_2025\\data\\data_filter.json",
+    "name": "filtered_production_2_teams_3_rounds",
+    "players_json_path": "C:\\Users\\Tony.Whitfield\\git\\retrospective_fantasy_afl_optimiser_2025\\data\\players_final.json",
+    "position_updates_csv_path": "C:\\Users\\Tony.Whitfield\\git\\retrospective_fantasy_afl_optimiser_2025\\data\\position_updates.csv",
+    "repeats": 3,
+    "rounds_json_path": "C:\\Users\\Tony.Whitfield\\git\\retrospective_fantasy_afl_optimiser_2025\\data\\rounds.json",
+    "team_rules_json_path": "C:\\Users\\Tony.Whitfield\\git\\retrospective_fantasy_afl_optimiser_2025\\data\\team_rules.json"
+  },
+  "solution_fingerprint": "7d5197bdcaef2370a258abbf2e74e3fece6992e0d02b7a8cd95d3518a8cfb801",
+  "solver": "CBC (via PuLP)",
+  "status": "Optimal"
+}
