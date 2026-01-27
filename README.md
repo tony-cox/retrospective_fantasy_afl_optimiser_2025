@@ -108,9 +108,12 @@ Even if you don’t have an operations research background, the plain-language d
 The 2025 season data used by the model lives in `data/`:
 - `players_final.json`: players, scores, and prices by round
 - `position_updates.csv`: DPP (position eligibility) changes and the round they take effect
+- `team_rules.json`: squad structure rules and salary cap
+- `rounds.json`: trading/bye-round scoring parameters by round
+- `data_filter.json`: optional filters for solving smaller instances
 
 ### Outputs and write-up
-- Outputs (solution artefacts) will be written to `output/`.
+- Solver outputs are written to `output/` (ignored by git).
 - A future write-up interpreting the optimal solution and discussing the questions above will be in `discussion.md`.
 
 ### Code
@@ -177,23 +180,43 @@ python run.py
 
 (Windows PowerShell users can run the same command.)
 
-This loads the production data in `data/` and prints a small sample of players/rounds to sanity-check that:
-- JSON parsing works
-- position updates are being applied from the correct round onward
+By default this loads the production-style inputs from `data/`, applies any filters from `data/data_filter.json`, formulates the MILP, solves it, and writes a `output/solution.json`.
 
 ---
 
 ## Status / roadmap
 
-This repository currently includes:
-- The mathematical formulation (`formulation.md`)
-- The 2025 input datasets under `data/`
-- Python code for loading/validating the input data
-- A basic runner script (`run.py`) for sanity-checking the loader
-- A growing test suite (pytest)
+### Current status (implemented)
 
-Next steps are to:
-- Implement the optimisation model in code based on the formulation
-- Solve the 2025 season end-to-end and commit the resulting output artefacts to `output/`
-- Add `discussion.md` with interpretation of the optimal solution and commentary against the strategy questions above
-- Handle players only being made available from certain rounds onward (e.g., mid-season draftees)
+- ✅ **Input pipeline**: production-style data loading from `data/` (players, prices/scores, and positional updates).
+- ✅ **Full MILP implemented in code** (PuLP): team selection (on-field + bench + utility), bye-round “best N” scoring selection, captaincy, trades per round, and bank balance dynamics.
+- ✅ **Solution export**: writes a structured `output/solution.json` with per-round team composition, trades, scoring, bank balance, and captain.
+- ✅ **Test suite**: unit tests for data loading and key model-building pieces, plus integration tests across small instances.
+
+### Known limitation (work in progress)
+
+The model solves quickly for **small filtered instances** (e.g., ~2 teams across a few rounds), but **solve time grows sharply** as player count and round count increase. For larger instances (e.g., multiple teams across most/all rounds), the solver can stall for a long time.
+
+This is expected behaviour for large MILPs, but there are several optimisation tactics we can apply.
+
+### Roadmap (next steps)
+
+**Performance / scalability**
+- Add stronger bounds and tightening constraints (e.g., optional upper bound on bank balance, tighter linking bounds, and removing symmetry where possible).
+- Pre-solve reductions:
+  - prune players that are never affordable or never selectable in any required slot for the filtered rounds
+  - prune dominated players per position/round (optional, with care)
+- Add solver configuration and diagnostics:
+  - time limits, MIP gap targets, logging, and deterministic seeds
+  - ability to switch solvers (CBC default, but allow HiGHS / OR-Tools / Gurobi if installed)
+- Consider decomposition approaches if needed (e.g., restrict candidate pools per round; rolling-horizon variants as “near-optimal” heuristics).
+
+**Real-season run**
+- Run on the full 2025 dataset (all teams, all rounds) with a pragmatic time limit.
+- Commit the resulting `output/solution.json` artefacts.
+
+**Write-up**
+- Add `discussion.md` interpreting the optimal solution against the strategy questions above.
+
+**Data realism**
+- Further handle real-world availability edge cases (players entering mid-season, missing rounds, injuries as “not selectable”, etc.).
