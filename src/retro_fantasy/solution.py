@@ -131,13 +131,13 @@ def build_solution_summary(
             pos: Optional[Position] = None
 
             for k in model_input_data.positions:
-                if _is_selected(decision_vars.y_onfield[(p, k, r)]):
+                if _is_selected(decision_vars.y_onfield.get((p, k, r), 0)):
                     slot = "on_field"
                     pos = k
                     break
             if slot is None:
                 for k in model_input_data.positions:
-                    if _is_selected(decision_vars.y_bench[(p, k, r)]):
+                    if _is_selected(decision_vars.y_bench.get((p, k, r), 0)):
                         slot = "bench"
                         pos = k
                         break

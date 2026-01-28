@@ -38,6 +38,16 @@ Let $R$, subscripted by $r$, be the set of rounds.
 
 Let $K = \{\mathrm{DEF}, \mathrm{MID}, \mathrm{RUC}, \mathrm{FWD}\}$, subscripted by $k$, be the set of positions.
 
+Define the eligibility-filtered index set:
+
+$$
+E = \{(p,k,r) \in P \times K \times R : e_{p,k,r} = 1\}
+$$
+
+This set contains exactly the (player, position, round) tuples for which the player is eligible for that position in that round.
+
+In the implementation, positional decision variables are only created for indices in $E$. This reduces the number of binary variables and removes the need for explicit eligibility constraints.
+
 \newpage
 
 # Parameters (Vectors)
@@ -73,6 +83,11 @@ Let $x_{p,r} \in \{0,1\}$ be a binary decision variable indicating whether playe
 Let $x^{\mathrm{on}}_{p,k,r} \in \{0,1\}$ be a binary decision variable indicating whether player $p$ is selected on-field in position $k$ in round $r$.
 
 Let $x^{\mathrm{bench}}_{p,k,r} \in \{0,1\}$ be a binary decision variable indicating whether player $p$ is selected on the bench in position $k$ in round $r$.
+
+**Domain note (mirrors the implementation):**
+
+- $x^{\mathrm{on}}_{p,k,r}$ and $x^{\mathrm{bench}}_{p,k,r}$ only exist for $(p,k,r) \in E$.
+- For $(p,k,r) \notin E$, these variables are treated as structurally fixed to $0$ (i.e. they are not created at all).
 
 Let $x^{Q,\mathrm{bench}}_{p,r} \in \{0,1\}$ be a binary decision variable indicating whether player $p$ is selected in the bench utility position in round $r$.
 
@@ -139,7 +154,7 @@ If the player was selected in $r-1$ but is not selected in $r$, then $x_{p,r-1} 
 This is the "trigger" constraint for trade-outs.
 
 $$
-\mathrm{out}_{p,r} \ge x_{p,r-1} - x_{p,r} \quad \forall p \in P, \forall r \in R \setminus \{1\}
+\mathrm{out}_{p,r} \ge x_{p,r-1} - x_{p,r} \quad \forall p in P, \forall r in R \setminus \{1\}
 $$
 
 **Upper bounds (prevent false positives / enforce the correct direction of change):**
@@ -181,7 +196,7 @@ $$
 Overall selection must match positional selection:
 
 $$
-x_{p,r} = \sum_{k \in K} x^{\mathrm{on}}_{p,k,r} + \sum_{k \in K} x^{\mathrm{bench}}_{p,k,r} + x^{Q,\mathrm{bench}}_{p,r} \quad \forall p in P, \forall r \in R
+x_{p,r} = \sum_{k \in K} x^{\mathrm{on}}_{p,k,r} + \sum_{k \in K} x^{\mathrm{bench}}_{p,k,r} + x^{Q,\mathrm{bench}}_{p,r} \quad \forall p \in P, \forall r \in R
 $$
 
 A player can occupy at most one lineup slot in a given round:
@@ -234,15 +249,21 @@ $$
 
 ## Position Eligibility
 
-Players can only be selected into a position if they are eligible for that position (eligibility may be multi-position):
+Position eligibility is enforced structurally by the index set $E$.
+
+Because $x^{\mathrm{on}}_{p,k,r}$ and $x^{\mathrm{bench}}_{p,k,r}$ are only defined for eligible triples $(p,k,r) \in E$, it is impossible for the model to assign a player to a position they are not eligible for in that round.
+
+Equivalently, you can view the implementation as implicitly enforcing:
 
 $$
-x^{\mathrm{on}}_{p,k,r} \le e_{p,k,r} \quad \forall p \in P, \forall k \in K, \forall r \in R
+x^{\mathrm{on}}_{p,k,r} = 0 \quad \forall (p,k,r) \notin E
 $$
 
 $$
-x^{\mathrm{bench}}_{p,k,r} \le e_{p,k,r} \quad \forall p \in P, \forall k \in K, \forall r \in R
+x^{\mathrm{bench}}_{p,k,r} = 0 \quad \forall (p,k,r) \notin E
 $$
+
+and therefore explicit constraints of the form $x^{\mathrm{on}}_{p,k,r} \le e_{p,k,r}$ are not required.
 
 \newpage
 

@@ -156,19 +156,21 @@ def _create_positional_selection_decision_variables(
 
     Notes
     -----
-    We create the full cross-product variable families here for now.
-    Eligibility and slot-count constraints will later constrain feasible
-    combinations.
+    We only create (p,k,r) variables when player p is actually eligible for
+    position k in round r.
+
+    This is a strong model-tightening step: it reduces the number of binary
+    variables and can make separate position-eligibility constraints redundant.
     """
 
     y_onfield = {
         (p, k, r): pulp.LpVariable(f"y_onfield_{p}_{k.value}_{r}", lowBound=0, upBound=1, cat=pulp.LpBinary)
-        for (p, k, r) in model_input_data.idx_player_position_round
+        for (p, k, r) in model_input_data.idx_eligible_player_position_round
     }
 
     y_bench = {
         (p, k, r): pulp.LpVariable(f"y_bench_{p}_{k.value}_{r}", lowBound=0, upBound=1, cat=pulp.LpBinary)
-        for (p, k, r) in model_input_data.idx_player_position_round
+        for (p, k, r) in model_input_data.idx_eligible_player_position_round
     }
 
     y_utility = {
@@ -327,21 +329,18 @@ def _add_linking_constraints_overall_selection_equals_positional_selection(
     model_input_data: ModelInputData,
     decision_variables: DecisionVariables,
 ) -> None:
-    """Linking constraint: overall selection equals sum of positional selections.
-
-    In the full model, x_selected is a helper indicating whether the player is
-    in the squad at all in round r.
-
-    Given we also enforce "at most one slot per player per round", we can link
-    x_selected to the slot indicator via equality.
-    """
+    """Linking constraint: overall selection equals sum of positional selections."""
 
     for p in model_input_data.player_ids:
         for r in model_input_data.idx_round:
-            slot_sum = pulp.lpSum(
-                decision_variables.y_onfield[(p, k, r)] + decision_variables.y_bench[(p, k, r)]
-                for k in model_input_data.positions
-            ) + decision_variables.y_utility[(p, r)]
+            # Sum only over variables that exist (eligibility-filtered).
+            slot_sum = (
+                pulp.lpSum(
+                    decision_variables.y_onfield.get((p, k, r), 0) + decision_variables.y_bench.get((p, k, r), 0)
+                    for k in model_input_data.positions
+                )
+                + decision_variables.y_utility[(p, r)]
+            )
             problem += decision_variables.x_selected[(p, r)] == slot_sum, f"link_x_equals_positions_{p}_{r}"
 
 
@@ -354,10 +353,13 @@ def _add_linking_constraints_at_most_one_slot_per_player_per_round(
 
     for p in model_input_data.player_ids:
         for r in model_input_data.idx_round:
-            slot_sum = pulp.lpSum(
-                decision_variables.y_onfield[(p, k, r)] + decision_variables.y_bench[(p, k, r)]
-                for k in model_input_data.positions
-            ) + decision_variables.y_utility[(p, r)]
+            slot_sum = (
+                pulp.lpSum(
+                    decision_variables.y_onfield.get((p, k, r), 0) + decision_variables.y_bench.get((p, k, r), 0)
+                    for k in model_input_data.positions
+                )
+                + decision_variables.y_utility[(p, r)]
+            )
             problem += slot_sum <= 1, f"link_at_most_one_slot_{p}_{r}"
 
 
@@ -387,8 +389,6 @@ def add_constraints(
     _add_maximum_team_changes_per_round_constraints(problem, model_input_data, decision_variables)
 
     _add_positional_structure_constraints(problem, model_input_data, decision_variables)
-
-    _add_position_eligibility_constraints(problem, model_input_data, decision_variables)
 
     _add_scoring_selection_constraints(problem, model_input_data, decision_variables)
 
@@ -619,7 +619,7 @@ def _add_positional_structure_on_field_constraints(
         for k in model_input_data.positions:
             required = model_input_data.on_field_required(k)
             expr = pulp.lpSum(
-                decision_variables.y_onfield[(p, k, r)] for p in model_input_data.player_ids
+                decision_variables.y_onfield.get((p, k, r), 0) for p in model_input_data.player_ids
             )
             problem += expr == required, f"pos_onfield_count_{k.value}_{r}"
 
@@ -635,7 +635,7 @@ def _add_positional_structure_bench_constraints(
         for k in model_input_data.positions:
             required = model_input_data.bench_required(k)
             expr = pulp.lpSum(
-                decision_variables.y_bench[(p, k, r)] for p in model_input_data.player_ids
+                decision_variables.y_bench.get((p, k, r), 0) for p in model_input_data.player_ids
             )
             problem += expr == required, f"pos_bench_count_{k.value}_{r}"
 
@@ -650,54 +650,6 @@ def _add_positional_structure_utility_bench_constraints(
     for r in model_input_data.idx_round:
         expr = pulp.lpSum(decision_variables.y_utility[(p, r)] for p in model_input_data.player_ids)
         problem += expr == model_input_data.utility_bench_count, f"pos_utility_count_{r}"
-
-
-def _add_position_eligibility_constraints(
-    problem: pulp.LpProblem,
-    model_input_data: ModelInputData,
-    decision_variables: DecisionVariables,
-) -> None:
-    """Position Eligibility section."""
-
-    _add_position_eligibility_on_field_constraints(problem, model_input_data, decision_variables)
-    _add_position_eligibility_bench_constraints(problem, model_input_data, decision_variables)
-
-
-def _add_position_eligibility_on_field_constraints(
-    problem: pulp.LpProblem,
-    model_input_data: ModelInputData,
-    decision_variables: DecisionVariables,
-) -> None:
-    """Position Eligibility: enforce on-field eligibility by position."""
-
-    for p in model_input_data.player_ids:
-        for r in model_input_data.idx_round:
-            eligible_positions = model_input_data.eligible_positions(p, r)
-            for k in model_input_data.positions:
-                # If player isn't eligible for k in round r, y_onfield must be 0.
-                if k in eligible_positions:
-                    continue
-                problem += (
-                    decision_variables.y_onfield[(p, k, r)] == 0
-                ), f"elig_onfield_{p}_{k.value}_{r}"
-
-
-def _add_position_eligibility_bench_constraints(
-    problem: pulp.LpProblem,
-    model_input_data: ModelInputData,
-    decision_variables: DecisionVariables,
-) -> None:
-    """Position Eligibility: enforce bench eligibility by position."""
-
-    for p in model_input_data.player_ids:
-        for r in model_input_data.idx_round:
-            eligible_positions = model_input_data.eligible_positions(p, r)
-            for k in model_input_data.positions:
-                if k in eligible_positions:
-                    continue
-                problem += (
-                    decision_variables.y_bench[(p, k, r)] == 0
-                ), f"elig_bench_{p}_{k.value}_{r}"
 
 
 def _add_scoring_selection_constraints(
@@ -732,7 +684,9 @@ def _add_scoring_selection_only_if_on_field_constraints(
 
     for p in model_input_data.player_ids:
         for r in model_input_data.idx_round:
-            onfield_sum = pulp.lpSum(decision_variables.y_onfield[(p, k, r)] for k in model_input_data.positions)
+            onfield_sum = pulp.lpSum(
+                decision_variables.y_onfield.get((p, k, r), 0) for k in model_input_data.positions
+            )
             problem += decision_variables.scored[(p, r)] <= onfield_sum, f"score_only_if_onfield_{p}_{r}"
 
 

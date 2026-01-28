@@ -84,7 +84,8 @@ def test_create_positional_selection_decision_variables_keys() -> None:
 
     y_on, y_bench, y_util = _create_positional_selection_decision_variables(problem, data)
 
-    expected_pkr = {(1, k, r) for k in Position for r in (1, 2)}
+    # Minimal player is DEF-only in both rounds.
+    expected_pkr = {(1, Position.DEF, 1), (1, Position.DEF, 2)}
     assert set(y_on.keys()) == expected_pkr
     assert set(y_bench.keys()) == expected_pkr
 
@@ -118,7 +119,10 @@ def test_create_decision_variables_orchestrator_smoke() -> None:
     # Smoke checks: orchestrator wires fields into the container
     assert len(dvs.x_selected) == 2
     assert len(dvs.bank) == 2
-    assert len(dvs.y_onfield) == len(Position) * 2
+
+    # Positional vars are eligibility-filtered (player is DEF-only)
+    assert len(dvs.y_onfield) == 2
+    assert len(dvs.y_bench) == 2
 
 
 def test_model_input_data_empty_players_raises() -> None:

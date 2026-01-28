@@ -306,3 +306,16 @@ class ModelInputData:
     def iter_round_numbers(self) -> Iterable[int]:
         # Backwards-compatible generator-style API.
         return (r for r in self.round_numbers)
+
+    @cached_property
+    def idx_eligible_player_position_round(self) -> Sequence[tuple[int, Position, int]]:
+        """All (p,k,r) triples where player p is eligible for position k in round r."""
+
+        # Using eligibility_map avoids repeated PlayerRoundInfo lookups.
+        # We iterate the existing full index but filter down to eligible only.
+        return tuple(
+            (p, k, r)
+            for (p, k, r) in self.idx_player_position_round
+            if self.eligibility_map[(p, k, r)]
+        )
+

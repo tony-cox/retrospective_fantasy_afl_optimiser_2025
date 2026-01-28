@@ -1,21 +1,21 @@
 {
-  "created_utc": "2026-01-27T06:16:44.498707+00:00",
-  "median_solve_seconds": 8.37756310007535,
+  "created_utc": "2026-01-27T06:47:25.990515+00:00",
+  "median_solve_seconds": 5.003095999942161,
   "objective_value": 5589.0,
   "platform": "Windows 10 (AMD64)",
   "problem_metrics": {
     "constraint_senses": {
       "<=": 1517,
-      "=": 1791,
+      "=": 303,
       ">=": 356,
       "other": 0
     },
-    "num_constraints": 3664,
-    "num_variables": 3563,
+    "num_constraints": 2176,
+    "num_variables": 2075,
     "variable_categories": {
       "Binary": 0,
       "Continuous": 3,
-      "Integer": 3560,
+      "Integer": 2072,
       "Other": 0
     }
   },
@@ -30,7 +30,7 @@
     "rounds_json_path": "C:\\Users\\Tony.Whitfield\\git\\retrospective_fantasy_afl_optimiser_2025\\data\\rounds.json",
     "team_rules_json_path": "C:\\Users\\Tony.Whitfield\\git\\retrospective_fantasy_afl_optimiser_2025\\data\\team_rules.json"
   },
-  "solution_fingerprint": "7d5197bdcaef2370a258abbf2e74e3fece6992e0d02b7a8cd95d3518a8cfb801",
+  "solution_fingerprint": "c3bc42ae62cccf1d1f7726a881f07aede7c6c1e3d4e36b538ef783890a7226d7",
   "solver": "CBC (via PuLP)",
   "status": "Optimal"
 }
