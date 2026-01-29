@@ -707,3 +707,229 @@ def test_dual_position_player_switches_positions_between_rounds_with_trade_in_an
     assert dvs.traded_out[(1, 2)].value() == 1
     assert dvs.traded_in[(2, 2)].value() == 1
 
+
+def test_bench_structure_forces_defenders_and_prevents_high_scoring_mid_from_being_selected() -> None:
+    rules = TeamStructureRules(
+        on_field_required={Position.DEF: 1, Position.MID: 0, Position.RUC: 0, Position.FWD: 0},
+        bench_required={Position.DEF: 1, Position.MID: 0, Position.RUC: 0, Position.FWD: 0},
+        salary_cap=1_000_000.0,
+        utility_bench_count=0,
+    )
+
+    rounds = {1: Round(number=1, max_trades=0, counted_onfield_players=1)}
+
+    # Two defenders
+    p_def_best = Player(player_id=1, first_name="Def", last_name="Best")
+    p_def_best.by_round[1] = PlayerRoundInfo(
+        round_number=1,
+        score=50.0,
+        price=1.0,
+        eligible_positions=frozenset({Position.DEF}),
+    )
+
+    p_def_worst = Player(player_id=2, first_name="Def", last_name="Worst")
+    p_def_worst.by_round[1] = PlayerRoundInfo(
+        round_number=1,
+        score=10.0,
+        price=1.0,
+        eligible_positions=frozenset({Position.DEF}),
+    )
+
+    # One high-scoring midfielder (should not be selectable at DEF)
+    p_mid = Player(player_id=3, first_name="Mid", last_name="Gun")
+    p_mid.by_round[1] = PlayerRoundInfo(
+        round_number=1,
+        score=200.0,
+        price=1.0,
+        eligible_positions=frozenset({Position.MID}),
+    )
+
+    data = ModelInputData(players={1: p_def_best, 2: p_def_worst, 3: p_mid}, rounds=rounds, team_rules=rules)
+
+    problem = pulp.LpProblem("bench_def_only", pulp.LpMaximize)
+    dvs = create_decision_variables(problem, data)
+
+    add_objective(problem, data, dvs)
+    add_constraints(problem, data, dvs)
+
+    status = problem.solve(pulp.PULP_CBC_CMD(msg=False))
+    assert pulp.LpStatus[status] == "Optimal"
+
+    r = 1
+
+    # Required: both defenders must be selected somewhere.
+    assert dvs.x_selected[(1, r)].value() == 1
+    assert dvs.x_selected[(2, r)].value() == 1
+
+    # MID must not be selected at all.
+    assert dvs.x_selected[(3, r)].value() == 0
+
+    # Better scoring defender should be on-field.
+    assert dvs.y_onfield[(1, Position.DEF, r)].value() == 1
+    assert dvs.y_bench[(1, Position.DEF, r)].value() == 0
+
+    # Worse scoring defender should be on bench.
+    assert dvs.y_onfield[(2, Position.DEF, r)].value() == 0
+    assert dvs.y_bench[(2, Position.DEF, r)].value() == 1
+
+    # Sanity: MID cannot appear in DEF vars (eligibility-filtered variable creation)
+    assert dvs.y_onfield.get((3, Position.DEF, r), 0) == 0
+    assert dvs.y_bench.get((3, Position.DEF, r), 0) == 0
+
+
+def test_bench_structure_with_utility_selects_mid_as_utility() -> None:
+    rules = TeamStructureRules(
+        on_field_required={Position.DEF: 1, Position.MID: 0, Position.RUC: 0, Position.FWD: 0},
+        bench_required={Position.DEF: 1, Position.MID: 0, Position.RUC: 0, Position.FWD: 0},
+        salary_cap=1_000_000.0,
+        utility_bench_count=1,
+    )
+
+    rounds = {1: Round(number=1, max_trades=0, counted_onfield_players=1)}
+
+    # Two defenders
+    p_def_best = Player(player_id=1, first_name="Def", last_name="Best")
+    p_def_best.by_round[1] = PlayerRoundInfo(
+        round_number=1,
+        score=50.0,
+        price=1.0,
+        eligible_positions=frozenset({Position.DEF}),
+    )
+
+    p_def_worst = Player(player_id=2, first_name="Def", last_name="Worst")
+    p_def_worst.by_round[1] = PlayerRoundInfo(
+        round_number=1,
+        score=10.0,
+        price=1.0,
+        eligible_positions=frozenset({Position.DEF}),
+    )
+
+    # One high-scoring midfielder. With a utility slot available, they should be selected as utility.
+    p_mid = Player(player_id=3, first_name="Mid", last_name="Gun")
+    p_mid.by_round[1] = PlayerRoundInfo(
+        round_number=1,
+        score=200.0,
+        price=1.0,
+        eligible_positions=frozenset({Position.MID}),
+    )
+
+    data = ModelInputData(players={1: p_def_best, 2: p_def_worst, 3: p_mid}, rounds=rounds, team_rules=rules)
+
+    problem = pulp.LpProblem("bench_def_plus_utility", pulp.LpMaximize)
+    dvs = create_decision_variables(problem, data)
+
+    add_objective(problem, data, dvs)
+    add_constraints(problem, data, dvs)
+
+    status = problem.solve(pulp.PULP_CBC_CMD(msg=False))
+    assert pulp.LpStatus[status] == "Optimal"
+
+    r = 1
+
+    # Both defenders still required.
+    assert dvs.x_selected[(1, r)].value() == 1
+    assert dvs.x_selected[(2, r)].value() == 1
+
+    # Midfielder should be selected (as utility).
+    assert dvs.x_selected[(3, r)].value() == 1
+    assert dvs.y_utility[(3, r)].value() == 1
+
+    # Defenders should fill the DEF slots (best on-field, worst bench).
+    assert dvs.y_onfield[(1, Position.DEF, r)].value() == 1
+    assert dvs.y_bench[(1, Position.DEF, r)].value() == 0
+
+    assert dvs.y_onfield[(2, Position.DEF, r)].value() == 0
+    assert dvs.y_bench[(2, Position.DEF, r)].value() == 1
+
+    # Midfielder must not occupy any DEF slot.
+    assert dvs.y_onfield.get((3, Position.DEF, r), 0) == 0
+    assert dvs.y_bench.get((3, Position.DEF, r), 0) == 0
+
+
+def test_bench_structure_with_mid_requirements_and_utility_selects_all_expected_players() -> None:
+    # Extend the previous bench+utility scenario:
+    # - Still require 1 DEF on-field, 1 DEF bench, and 1 utility
+    # - Add requirements for 1 MID on-field and 1 MID bench
+    # - Add two more high scoring mids (same score as the original)
+    # Expectation: all players are selected into exactly one slot, and the solver places them
+    # into the appropriate required slots.
+
+    rules = TeamStructureRules(
+        on_field_required={Position.DEF: 1, Position.MID: 1, Position.RUC: 0, Position.FWD: 0},
+        bench_required={Position.DEF: 1, Position.MID: 1, Position.RUC: 0, Position.FWD: 0},
+        salary_cap=1_000_000.0,
+        utility_bench_count=1,
+    )
+
+    rounds = {1: Round(number=1, max_trades=0, counted_onfield_players=2)}
+
+    # Defenders: best should go on-field, worst should go on bench.
+    p_def_best = Player(player_id=1, first_name="Def", last_name="Best")
+    p_def_best.by_round[1] = PlayerRoundInfo(round_number=1, score=50.0, price=1.0, eligible_positions=frozenset({Position.DEF}))
+
+    p_def_worst = Player(player_id=2, first_name="Def", last_name="Worst")
+    p_def_worst.by_round[1] = PlayerRoundInfo(round_number=1, score=10.0, price=1.0, eligible_positions=frozenset({Position.DEF}))
+
+    # Three high-scoring MID-only players (same score). One should be on-field MID (and scored),
+    # one should be bench MID, and the remaining one should be utility.
+    p_mid_1 = Player(player_id=3, first_name="Mid", last_name="A")
+    p_mid_1.by_round[1] = PlayerRoundInfo(round_number=1, score=200.0, price=1.0, eligible_positions=frozenset({Position.MID}))
+
+    p_mid_2 = Player(player_id=4, first_name="Mid", last_name="B")
+    p_mid_2.by_round[1] = PlayerRoundInfo(round_number=1, score=200.0, price=1.0, eligible_positions=frozenset({Position.MID}))
+
+    p_mid_3 = Player(player_id=5, first_name="Mid", last_name="C")
+    p_mid_3.by_round[1] = PlayerRoundInfo(round_number=1, score=200.0, price=1.0, eligible_positions=frozenset({Position.MID}))
+
+    data = ModelInputData(
+        players={1: p_def_best, 2: p_def_worst, 3: p_mid_1, 4: p_mid_2, 5: p_mid_3},
+        rounds=rounds,
+        team_rules=rules,
+    )
+
+    problem = pulp.LpProblem("bench_def_mid_plus_utility", pulp.LpMaximize)
+    dvs = create_decision_variables(problem, data)
+
+    add_objective(problem, data, dvs)
+    add_constraints(problem, data, dvs)
+
+    status = problem.solve(pulp.PULP_CBC_CMD(msg=False))
+    assert pulp.LpStatus[status] == "Optimal"
+
+    r = 1
+
+    # Everyone should be selected.
+    for pid in (1, 2, 3, 4, 5):
+        assert dvs.x_selected[(pid, r)].value() == 1
+
+    # Defenders should fill DEF slots as expected.
+    assert dvs.y_onfield[(1, Position.DEF, r)].value() == 1
+    assert dvs.y_bench[(1, Position.DEF, r)].value() == 0
+    assert dvs.y_onfield[(2, Position.DEF, r)].value() == 0
+    assert dvs.y_bench[(2, Position.DEF, r)].value() == 1
+
+    # MID slots: exactly one on-field MID and one bench MID.
+    onfield_mid_ids = [pid for pid in (3, 4, 5) if dvs.y_onfield.get((pid, Position.MID, r), 0) != 0 and dvs.y_onfield[(pid, Position.MID, r)].value() == 1]
+    bench_mid_ids = [pid for pid in (3, 4, 5) if dvs.y_bench.get((pid, Position.MID, r), 0) != 0 and dvs.y_bench[(pid, Position.MID, r)].value() == 1]
+    utility_mid_ids = [pid for pid in (3, 4, 5) if dvs.y_utility[(pid, r)].value() == 1]
+
+    assert len(onfield_mid_ids) == 1
+    assert len(bench_mid_ids) == 1
+    assert len(utility_mid_ids) == 1
+
+    # They must be distinct.
+    assert len(set(onfield_mid_ids + bench_mid_ids + utility_mid_ids)) == 3
+
+    # Utility player should be a MID (given only MIDs remain after required slots filled).
+    assert utility_mid_ids[0] in (3, 4, 5)
+
+    # Scoring: only on-field players can be scored and we count 2 on-field players.
+    # With one on-field DEF and one on-field MID, both must be scored.
+    assert dvs.scored[(1, r)].value() == 1
+    assert dvs.scored[(onfield_mid_ids[0], r)].value() == 1
+
+    # Bench/utility players cannot be scored.
+    assert dvs.scored[(2, r)].value() == 0
+    assert dvs.scored[(bench_mid_ids[0], r)].value() == 0
+    assert dvs.scored[(utility_mid_ids[0], r)].value() == 0
+

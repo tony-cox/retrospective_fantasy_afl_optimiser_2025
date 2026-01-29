@@ -146,3 +146,4 @@ def test_model_input_data_empty_rounds_raises() -> None:
     p = _make_minimal_player(1, [1])
     with pytest.raises(ValueError, match="rounds cannot be empty"):
         ModelInputData(players={1: p}, rounds={}, team_rules=rules)
+
