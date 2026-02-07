@@ -53,7 +53,9 @@ def test_filtered_production_scenario_no_objective_degradation_and_no_large_slow
 
     assert median_result.status == "Optimal"
 
-    baseline_path = baseline_path_for(repo_root, scenario.name)
+    # Key perf baselines by solver so we can compare CBC vs Gurobi independently.
+    baseline_path = baseline_path_for(repo_root, scenario.name, solver=median_result.solver)
+
     update_baseline = bool(pytestconfig.getoption("--update-perf-baseline"))
 
     baseline_missing = not baseline_path.exists()

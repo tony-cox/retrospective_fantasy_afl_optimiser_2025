@@ -1,6 +1,6 @@
 {
-  "created_utc": "2026-02-07T23:43:55.483630+00:00",
-  "median_solve_seconds": 0.5539265999977943,
+  "created_utc": "2026-02-07T23:46:17.900577+00:00",
+  "median_solve_seconds": 3.6253387999895494,
   "objective_value": 5589.0,
   "platform": "Windows 10 (AMD64)",
   "problem_metrics": {
@@ -30,7 +30,7 @@
     "rounds_json_path": "C:\\Users\\Tony.Whitfield\\git\\retrospective_fantasy_afl_optimiser_2025\\data\\rounds.json",
     "team_rules_json_path": "C:\\Users\\Tony.Whitfield\\git\\retrospective_fantasy_afl_optimiser_2025\\data\\team_rules.json"
   },
-  "solution_fingerprint": "025b72740bf3a0a0fa2bb406fd587db943006f6289e9734c2bdb59e9d939155b",
-  "solver": "Gurobi (via PuLP)",
+  "solution_fingerprint": "c3bc42ae62cccf1d1f7726a881f07aede7c6c1e3d4e36b538ef783890a7226d7",
+  "solver": "CBC (via PuLP)",
   "status": "Optimal"
 }

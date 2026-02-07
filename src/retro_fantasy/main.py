@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import logging
+import os
 from pathlib import Path
 from typing import Dict, Iterable, Mapping, Sequence
 
@@ -159,6 +160,37 @@ def summarise_problem(problem: pulp.LpProblem, *, max_name_examples: int = 5) ->
         logger.info("  first_constraints=%s", c_names[:max_name_examples])
 
 
+def _build_cbc_solver(*, time_limit_seconds: int | None, enable_solver_output: bool) -> pulp.LpSolver:
+    """Create a CBC (COIN-OR) solver instance for PuLP."""
+
+    if time_limit_seconds is not None:
+        return pulp.PULP_CBC_CMD(msg=enable_solver_output, timeLimit=time_limit_seconds)
+
+    return pulp.PULP_CBC_CMD(msg=enable_solver_output)
+
+
+def _build_gurobi_solver(*, time_limit_seconds: int | None, enable_solver_output: bool) -> pulp.LpSolver:
+    """Create a Gurobi solver instance for PuLP.
+
+    Notes
+    -----
+    PuLP expects Gurobi to be installed and licensed on the machine.
+
+    - GUROBI_HOME typically indicates an installed Gurobi distribution.
+    - If Gurobi isn't actually usable (e.g. no license), PuLP will raise
+      when attempting to solve.
+    """
+
+    # In PuLP, the most common interface is GUROBI_CMD (shell wrapper).
+    # Keep parameters minimal and portable.
+    kwargs: dict[str, object] = {"msg": enable_solver_output}
+    if time_limit_seconds is not None:
+        # GUROBI_CMD uses `timeLimit` (seconds)
+        kwargs["timeLimit"] = time_limit_seconds
+
+    return pulp.GUROBI_CMD(**kwargs)
+
+
 def solve_retro_fantasy(
     *,
     players_json_path: str | Path,
@@ -225,13 +257,21 @@ def solve_retro_fantasy(
             decision_variables=decision_variables,
         )
 
-    logger.info("Solving with CBC (time_limit_seconds=%s, solver_output=%s)", time_limit_seconds, enable_solver_output)
-
-    solver = (
-        pulp.PULP_CBC_CMD(msg=enable_solver_output, timeLimit=time_limit_seconds)
-        if time_limit_seconds
-        else pulp.PULP_CBC_CMD(msg=enable_solver_output)
-    )
+    use_gurobi = bool(os.environ.get("GUROBI_HOME"))
+    if use_gurobi:
+        logger.info(
+            "Solving with Gurobi (GUROBI_HOME is set) (time_limit_seconds=%s, solver_output=%s)",
+            time_limit_seconds,
+            enable_solver_output,
+        )
+        solver = _build_gurobi_solver(time_limit_seconds=time_limit_seconds, enable_solver_output=enable_solver_output)
+    else:
+        logger.info(
+            "Solving with CBC (GUROBI_HOME not set) (time_limit_seconds=%s, solver_output=%s)",
+            time_limit_seconds,
+            enable_solver_output,
+        )
+        solver = _build_cbc_solver(time_limit_seconds=time_limit_seconds, enable_solver_output=enable_solver_output)
 
     status_code = problem.solve(solver)
     status = pulp.LpStatus[status_code]

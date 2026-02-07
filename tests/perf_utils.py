@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import platform
 import time
 from dataclasses import asdict, dataclass
@@ -62,6 +63,7 @@ class PerfRunResult:
     solution_fingerprint: str
     solve_seconds: float
     problem_metrics: ProblemMetrics
+    solver: str
 
 
 def _collect_problem_metrics(problem: pulp.LpProblem) -> ProblemMetrics:
@@ -97,6 +99,27 @@ def _collect_problem_metrics(problem: pulp.LpProblem) -> ProblemMetrics:
     )
 
 
+def _build_perf_solver(*, time_limit_seconds: int | None, enable_solver_output: bool) -> tuple[pulp.LpSolver, str]:
+    """Create the solver for perf runs.
+
+    We prefer Gurobi when available because it's the intended production solver
+    for larger datasets. Fallback to CBC when Gurobi isn't installed.
+    """
+
+    use_gurobi = bool(os.environ.get("GUROBI_HOME"))
+
+    if use_gurobi:
+        kwargs: dict[str, object] = {"msg": enable_solver_output}
+        if time_limit_seconds is not None:
+            kwargs["timeLimit"] = time_limit_seconds
+        return pulp.GUROBI_CMD(**kwargs), "Gurobi (via PuLP)"
+
+    if time_limit_seconds is not None:
+        return pulp.PULP_CBC_CMD(msg=enable_solver_output, timeLimit=time_limit_seconds), "CBC (via PuLP)"
+
+    return pulp.PULP_CBC_CMD(msg=enable_solver_output), "CBC (via PuLP)"
+
+
 def run_solve_and_measure(
     scenario: PerfScenario,
     *,
@@ -124,10 +147,9 @@ def run_solve_and_measure(
     problem, decision_variables = formulate_problem(model_input_data)
     problem_metrics = _collect_problem_metrics(problem)
 
-    solver = (
-        pulp.PULP_CBC_CMD(msg=enable_solver_output, timeLimit=time_limit_seconds)
-        if time_limit_seconds
-        else pulp.PULP_CBC_CMD(msg=enable_solver_output)
+    solver, solver_name = _build_perf_solver(
+        time_limit_seconds=time_limit_seconds,
+        enable_solver_output=enable_solver_output,
     )
 
     status_code = problem.solve(solver)
@@ -154,6 +176,7 @@ def run_solve_and_measure(
         solution_fingerprint=fingerprint,
         solve_seconds=end - start,
         problem_metrics=problem_metrics,
+        solver=solver_name,
     )
 
 
@@ -179,15 +202,22 @@ def compute_median_result(results: Iterable[PerfRunResult]) -> PerfRunResult:
     statuses = {r.status for r in results}
     objectives = {r.objective_value for r in results}
     fingerprints = {r.solution_fingerprint for r in results}
+    solvers = {r.solver for r in results}
 
     metric_jsons = {
         json.dumps(asdict(r.problem_metrics), sort_keys=True, separators=(",", ":")) for r in results
     }
 
-    if len(statuses) != 1 or len(objectives) != 1 or len(fingerprints) != 1 or len(metric_jsons) != 1:
+    if (
+        len(statuses) != 1
+        or len(objectives) != 1
+        or len(fingerprints) != 1
+        or len(metric_jsons) != 1
+        or len(solvers) != 1
+    ):
         raise AssertionError(
             "Perf run is not deterministic across repeats. "
-            f"statuses={statuses}, objectives={objectives}, fingerprints={fingerprints}, metric_sets={len(metric_jsons)}"
+            f"statuses={statuses}, objectives={objectives}, fingerprints={fingerprints}, solvers={solvers}, metric_sets={len(metric_jsons)}"
         )
 
     return PerfRunResult(
@@ -196,11 +226,29 @@ def compute_median_result(results: Iterable[PerfRunResult]) -> PerfRunResult:
         solution_fingerprint=results[0].solution_fingerprint,
         solve_seconds=float(median([r.solve_seconds for r in results])),
         problem_metrics=results[0].problem_metrics,
+        solver=results[0].solver,
     )
 
 
-def baseline_path_for(repo_root: Path, scenario_name: str) -> Path:
-    return repo_root / "tests" / "perf_baselines" / f"{scenario_name}.json"
+def _solver_key(solver_name: str) -> str:
+    """Stable key for baseline filenames."""
+
+    s = solver_name.lower()
+    if "gurobi" in s:
+        return "gurobi"
+    if "cbc" in s or "coin" in s:
+        return "cbc"
+    return "unknown"
+
+
+def baseline_path_for(repo_root: Path, scenario_name: str, *, solver: str | None = None) -> Path:
+    """Return path to the perf baseline file.
+
+    We key baselines by *solver* so CBC and Gurobi can have independent baselines.
+    """
+
+    suffix = _solver_key(solver) if solver else "any"
+    return repo_root / "tests" / "perf_baselines" / f"{scenario_name}.{suffix}.json"
 
 
 def load_baseline(path: Path) -> PerfBaseline:
@@ -215,6 +263,9 @@ def load_baseline(path: Path) -> PerfBaseline:
             "constraint_senses": {},
         }
     raw["problem_metrics"] = ProblemMetrics(**pm)
+
+    # Older baselines may not include solver; keep this robust.
+    raw.setdefault("solver", "<unknown>")
 
     return PerfBaseline(**raw)
 
@@ -239,7 +290,7 @@ def make_baseline(scenario: PerfScenario, median_result: PerfRunResult) -> PerfB
         python=platform.python_version(),
         platform=f"{platform.system()} {platform.release()} ({platform.machine()})",
         pulp=getattr(pulp, "__version__", "unknown"),
-        solver="CBC (via PuLP)",
+        solver=median_result.solver,
         status=median_result.status,
         objective_value=median_result.objective_value,
         solution_fingerprint=median_result.solution_fingerprint,
