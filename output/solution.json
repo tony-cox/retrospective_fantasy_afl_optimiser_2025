@@ -1,0 +1,6654 @@
+{
+  "status": "Optimal",
+  "objective_value": 59390.0,
+  "rounds": {
+    "1": {
+      "summary": {
+        "round_number": 1,
+        "total_team_points": 2452.0,
+        "captain_player_name": "Jye Caldwell"
+      },
+      "trades": null,
+      "team": [
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1003000.0,
+          "score": 113.0
+        },
+        {
+          "player_id": 296359,
+          "player_name": "Christian Salem",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 824000.0,
+          "score": 124.0
+        },
+        {
+          "player_id": 1012825,
+          "player_name": "Jake Bowey",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 641000.0,
+          "score": 87.0
+        },
+        {
+          "player_id": 1009229,
+          "player_name": "Sam De Koning",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 564000.0,
+          "score": 124.0
+        },
+        {
+          "player_id": 1000937,
+          "player_name": "Jack Henry",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 559000.0,
+          "score": 117.0
+        },
+        {
+          "player_id": 1012817,
+          "player_name": "Zach Reid",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 230000.0,
+          "score": 63.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 794000.0,
+          "score": 63.0
+        },
+        {
+          "player_id": 1008224,
+          "player_name": "Riley Bice",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 230000.0,
+          "score": 35.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 996000.0,
+          "score": 112.0
+        },
+        {
+          "player_id": 1006103,
+          "player_name": "Jye Caldwell",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 969000.0,
+          "score": 146.0
+        },
+        {
+          "player_id": 290799,
+          "player_name": "Tom Liberatore",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 898000.0,
+          "score": 108.0
+        },
+        {
+          "player_id": 294036,
+          "player_name": "George Hewett",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 852000.0,
+          "score": 101.0
+        },
+        {
+          "player_id": 1017109,
+          "player_name": "Jake Soligo",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 789000.0,
+          "score": 125.0
+        },
+        {
+          "player_id": 1002239,
+          "player_name": "Adam Cerra",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 745000.0,
+          "score": 97.0
+        },
+        {
+          "player_id": 1017124,
+          "player_name": "Ned Long",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 421000.0,
+          "score": 90.0
+        },
+        {
+          "player_id": 1028560,
+          "player_name": "Levi Ashcroft",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 328000.0,
+          "score": 84.0
+        },
+        {
+          "player_id": 1029416,
+          "player_name": "Ryan Maric",
+          "slot": "bench",
+          "position": "MID",
+          "price": 421000.0,
+          "score": 31.0
+        },
+        {
+          "player_id": 1015919,
+          "player_name": "Saad El-Hawli",
+          "slot": "bench",
+          "position": "MID",
+          "price": 230000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1004912,
+          "player_name": "Tom De Koning",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 900000.0,
+          "score": 132.0
+        },
+        {
+          "player_id": 1000958,
+          "player_name": "Harry Boyd",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 230000.0,
+          "score": 68.0
+        },
+        {
+          "player_id": 1027693,
+          "player_name": "Archer Reid",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 230000.0,
+          "score": 32.0
+        },
+        {
+          "player_id": 993998,
+          "player_name": "Jy Simpkin",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 781000.0,
+          "score": 125.0
+        },
+        {
+          "player_id": 295467,
+          "player_name": "Jack Macrae",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 732000.0,
+          "score": 109.0
+        },
+        {
+          "player_id": 1008384,
+          "player_name": "Riley Thilthorpe",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 638000.0,
+          "score": 82.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 598000.0,
+          "score": 126.0
+        },
+        {
+          "player_id": 295136,
+          "player_name": "Caleb Daniel",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 514000.0,
+          "score": 91.0
+        },
+        {
+          "player_id": 1020855,
+          "player_name": "Max Hall",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 230000.0,
+          "score": 82.0
+        },
+        {
+          "player_id": 1024057,
+          "player_name": "Caiden Cleary",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 244000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1036123,
+          "player_name": "Sam Davidson",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 230000.0,
+          "score": 53.0
+        },
+        {
+          "player_id": 1027284,
+          "player_name": "Angus Clarke",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 230000.0,
+          "score": 0.0
+        }
+      ]
+    },
+    "2": {
+      "summary": {
+        "round_number": 2,
+        "total_team_points": 2065.0,
+        "captain_player_name": "Jack Macrae"
+      },
+      "trades": {
+        "round_number": 2,
+        "traded_in": [
+          {
+            "player_id": 1020895,
+            "player_name": "Jai Newcombe",
+            "price": 868000.0
+          },
+          {
+            "player_id": 1023261,
+            "player_name": "Nick Daicos",
+            "price": 1005000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 1006103,
+            "player_name": "Jye Caldwell",
+            "price": 1009000.0
+          },
+          {
+            "player_id": 1009229,
+            "player_name": "Sam De Koning",
+            "price": 621000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1012000.0,
+          "score": 101.0
+        },
+        {
+          "player_id": 296359,
+          "player_name": "Christian Salem",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 858000.0,
+          "score": 97.0
+        },
+        {
+          "player_id": 1012825,
+          "player_name": "Jake Bowey",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 659000.0,
+          "score": 93.0
+        },
+        {
+          "player_id": 1000937,
+          "player_name": "Jack Henry",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 610000.0,
+          "score": 74.0
+        },
+        {
+          "player_id": 1012817,
+          "player_name": "Zach Reid",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 264000.0,
+          "score": 51.0
+        },
+        {
+          "player_id": 1008224,
+          "player_name": "Riley Bice",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 240000.0,
+          "score": 64.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 844000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1027284,
+          "player_name": "Angus Clarke",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 230000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1005000.0,
+          "score": 145.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1005000.0,
+          "score": 136.0
+        },
+        {
+          "player_id": 290799,
+          "player_name": "Tom Liberatore",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 912000.0,
+          "score": 109.0
+        },
+        {
+          "player_id": 1020895,
+          "player_name": "Jai Newcombe",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 868000.0,
+          "score": 142.0
+        },
+        {
+          "player_id": 294036,
+          "player_name": "George Hewett",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 864000.0,
+          "score": 120.0
+        },
+        {
+          "player_id": 1017109,
+          "player_name": "Jake Soligo",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 827000.0,
+          "score": 101.0
+        },
+        {
+          "player_id": 1002239,
+          "player_name": "Adam Cerra",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 763000.0,
+          "score": 100.0
+        },
+        {
+          "player_id": 1028560,
+          "player_name": "Levi Ashcroft",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 371000.0,
+          "score": 74.0
+        },
+        {
+          "player_id": 1017124,
+          "player_name": "Ned Long",
+          "slot": "bench",
+          "position": "MID",
+          "price": 448000.0,
+          "score": 72.0
+        },
+        {
+          "player_id": 1015919,
+          "player_name": "Saad El-Hawli",
+          "slot": "bench",
+          "position": "MID",
+          "price": 230000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1004912,
+          "player_name": "Tom De Koning",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 934000.0,
+          "score": 107.0
+        },
+        {
+          "player_id": 1000958,
+          "player_name": "Harry Boyd",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 268000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1027693,
+          "player_name": "Archer Reid",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 237000.0,
+          "score": 35.0
+        },
+        {
+          "player_id": 993998,
+          "player_name": "Jy Simpkin",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 820000.0,
+          "score": 81.0
+        },
+        {
+          "player_id": 295467,
+          "player_name": "Jack Macrae",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 761000.0,
+          "score": 153.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 653000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1008384,
+          "player_name": "Riley Thilthorpe",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 652000.0,
+          "score": 91.0
+        },
+        {
+          "player_id": 295136,
+          "player_name": "Caleb Daniel",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 547000.0,
+          "score": 114.0
+        },
+        {
+          "player_id": 1029416,
+          "player_name": "Ryan Maric",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 411000.0,
+          "score": 74.0
+        },
+        {
+          "player_id": 1020855,
+          "player_name": "Max Hall",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 280000.0,
+          "score": 51.0
+        },
+        {
+          "player_id": 1036123,
+          "player_name": "Sam Davidson",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 255000.0,
+          "score": 60.0
+        },
+        {
+          "player_id": 1024057,
+          "player_name": "Caiden Cleary",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 244000.0,
+          "score": 0.0
+        }
+      ]
+    },
+    "3": {
+      "summary": {
+        "round_number": 3,
+        "total_team_points": 2141.0,
+        "captain_player_name": "Tom Liberatore"
+      },
+      "trades": {
+        "round_number": 3,
+        "traded_in": [
+          {
+            "player_id": 1000072,
+            "player_name": "John Noble",
+            "price": 753000.0
+          },
+          {
+            "player_id": 1000978,
+            "player_name": "Hugh McCluggage",
+            "price": 930000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 296359,
+            "player_name": "Christian Salem",
+            "price": 890000.0
+          },
+          {
+            "player_id": 1000937,
+            "player_name": "Jack Henry",
+            "price": 657000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1016000.0,
+          "score": 112.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 844000.0,
+          "score": 100.0
+        },
+        {
+          "player_id": 1000072,
+          "player_name": "John Noble",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 753000.0,
+          "score": 117.0
+        },
+        {
+          "player_id": 1012825,
+          "player_name": "Jake Bowey",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 694000.0,
+          "score": 98.0
+        },
+        {
+          "player_id": 1012817,
+          "player_name": "Zach Reid",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 308000.0,
+          "score": 83.0
+        },
+        {
+          "player_id": 1027284,
+          "player_name": "Angus Clarke",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 230000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1008224,
+          "player_name": "Riley Bice",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 280000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1015919,
+          "player_name": "Saad El-Hawli",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 230000.0,
+          "score": 17.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1047000.0,
+          "score": 84.0
+        },
+        {
+          "player_id": 290799,
+          "player_name": "Tom Liberatore",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 935000.0,
+          "score": 142.0
+        },
+        {
+          "player_id": 1000978,
+          "player_name": "Hugh McCluggage",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 930000.0,
+          "score": 121.0
+        },
+        {
+          "player_id": 294036,
+          "player_name": "George Hewett",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 899000.0,
+          "score": 116.0
+        },
+        {
+          "player_id": 1017109,
+          "player_name": "Jake Soligo",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 868000.0,
+          "score": 115.0
+        },
+        {
+          "player_id": 993998,
+          "player_name": "Jy Simpkin",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 845000.0,
+          "score": 117.0
+        },
+        {
+          "player_id": 1002239,
+          "player_name": "Adam Cerra",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 794000.0,
+          "score": 83.0
+        },
+        {
+          "player_id": 1028560,
+          "player_name": "Levi Ashcroft",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 433000.0,
+          "score": 58.0
+        },
+        {
+          "player_id": 1020895,
+          "player_name": "Jai Newcombe",
+          "slot": "bench",
+          "position": "MID",
+          "price": 908000.0,
+          "score": 77.0
+        },
+        {
+          "player_id": 1017124,
+          "player_name": "Ned Long",
+          "slot": "bench",
+          "position": "MID",
+          "price": 493000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1004912,
+          "player_name": "Tom De Koning",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 968000.0,
+          "score": 130.0
+        },
+        {
+          "player_id": 1000958,
+          "player_name": "Harry Boyd",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 268000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1027693,
+          "player_name": "Archer Reid",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 252000.0,
+          "score": 64.0
+        },
+        {
+          "player_id": 295467,
+          "player_name": "Jack Macrae",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 846000.0,
+          "score": 113.0
+        },
+        {
+          "player_id": 1008384,
+          "player_name": "Riley Thilthorpe",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 683000.0,
+          "score": 98.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 653000.0,
+          "score": 112.0
+        },
+        {
+          "player_id": 295136,
+          "player_name": "Caleb Daniel",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 620000.0,
+          "score": 115.0
+        },
+        {
+          "player_id": 1029416,
+          "player_name": "Ryan Maric",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 430000.0,
+          "score": 101.0
+        },
+        {
+          "player_id": 1036123,
+          "player_name": "Sam Davidson",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 302000.0,
+          "score": 125.0
+        },
+        {
+          "player_id": 1020855,
+          "player_name": "Max Hall",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 335000.0,
+          "score": 89.0
+        },
+        {
+          "player_id": 1024057,
+          "player_name": "Caiden Cleary",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 244000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 1008000.0,
+          "score": 0.0
+        }
+      ]
+    },
+    "4": {
+      "summary": {
+        "round_number": 4,
+        "total_team_points": 1925.0,
+        "captain_player_name": "Hugh McCluggage"
+      },
+      "trades": {
+        "round_number": 4,
+        "traded_in": [
+          {
+            "player_id": 1004592,
+            "player_name": "Tim English",
+            "price": 993000.0
+          },
+          {
+            "player_id": 1008541,
+            "player_name": "Kysaiah Pickett",
+            "price": 677000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 295467,
+            "player_name": "Jack Macrae",
+            "price": 924000.0
+          },
+          {
+            "player_id": 1004912,
+            "player_name": "Tom De Koning",
+            "price": 1017000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1026000.0,
+          "score": 91.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 859000.0,
+          "score": 95.0
+        },
+        {
+          "player_id": 1000072,
+          "player_name": "John Noble",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 778000.0,
+          "score": 82.0
+        },
+        {
+          "player_id": 1012825,
+          "player_name": "Jake Bowey",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 740000.0,
+          "score": 76.0
+        },
+        {
+          "player_id": 1008224,
+          "player_name": "Riley Bice",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 280000.0,
+          "score": 125.0
+        },
+        {
+          "player_id": 1015919,
+          "player_name": "Saad El-Hawli",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 230000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1012817,
+          "player_name": "Zach Reid",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 381000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1027284,
+          "player_name": "Angus Clarke",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 230000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1055000.0,
+          "score": 84.0
+        },
+        {
+          "player_id": 290799,
+          "player_name": "Tom Liberatore",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 989000.0,
+          "score": 96.0
+        },
+        {
+          "player_id": 294036,
+          "player_name": "George Hewett",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 943000.0,
+          "score": 109.0
+        },
+        {
+          "player_id": 1000978,
+          "player_name": "Hugh McCluggage",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 930000.0,
+          "score": 141.0
+        },
+        {
+          "player_id": 1020895,
+          "player_name": "Jai Newcombe",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 921000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1017109,
+          "player_name": "Jake Soligo",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 917000.0,
+          "score": 92.0
+        },
+        {
+          "player_id": 1002239,
+          "player_name": "Adam Cerra",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 816000.0,
+          "score": 105.0
+        },
+        {
+          "player_id": 1028560,
+          "player_name": "Levi Ashcroft",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 484000.0,
+          "score": 82.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1008000.0,
+          "score": 76.0
+        },
+        {
+          "player_id": 1017124,
+          "player_name": "Ned Long",
+          "slot": "bench",
+          "position": "MID",
+          "price": 493000.0,
+          "score": 31.0
+        },
+        {
+          "player_id": 1004592,
+          "player_name": "Tim English",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 993000.0,
+          "score": 114.0
+        },
+        {
+          "player_id": 1027693,
+          "player_name": "Archer Reid",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 293000.0,
+          "score": 46.0
+        },
+        {
+          "player_id": 1000958,
+          "player_name": "Harry Boyd",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 268000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 993998,
+          "player_name": "Jy Simpkin",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 887000.0,
+          "score": 85.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 730000.0,
+          "score": 127.0
+        },
+        {
+          "player_id": 1008384,
+          "player_name": "Riley Thilthorpe",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 727000.0,
+          "score": 105.0
+        },
+        {
+          "player_id": 295136,
+          "player_name": "Caleb Daniel",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 711000.0,
+          "score": 88.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 677000.0,
+          "score": 87.0
+        },
+        {
+          "player_id": 1020855,
+          "player_name": "Max Hall",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 416000.0,
+          "score": 36.0
+        },
+        {
+          "player_id": 1029416,
+          "player_name": "Ryan Maric",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 492000.0,
+          "score": 73.0
+        },
+        {
+          "player_id": 1024057,
+          "player_name": "Caiden Cleary",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 244000.0,
+          "score": 68.0
+        },
+        {
+          "player_id": 1036123,
+          "player_name": "Sam Davidson",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 412000.0,
+          "score": 65.0
+        }
+      ]
+    },
+    "5": {
+      "summary": {
+        "round_number": 5,
+        "total_team_points": 2451.0,
+        "captain_player_name": "Nick Daicos"
+      },
+      "trades": {
+        "round_number": 5,
+        "traded_in": [
+          {
+            "player_id": 290528,
+            "player_name": "Max Gawn",
+            "price": 1017000.0
+          },
+          {
+            "player_id": 1026850,
+            "player_name": "Nic Martin",
+            "price": 1002000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 1008384,
+            "player_name": "Riley Thilthorpe",
+            "price": 779000.0
+          },
+          {
+            "player_id": 1017109,
+            "player_name": "Jake Soligo",
+            "price": 943000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1019000.0,
+          "score": 102.0
+        },
+        {
+          "player_id": 1026850,
+          "player_name": "Nic Martin",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1002000.0,
+          "score": 121.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 872000.0,
+          "score": 113.0
+        },
+        {
+          "player_id": 1000072,
+          "player_name": "John Noble",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 797000.0,
+          "score": 98.0
+        },
+        {
+          "player_id": 1008224,
+          "player_name": "Riley Bice",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 387000.0,
+          "score": 94.0
+        },
+        {
+          "player_id": 1012817,
+          "player_name": "Zach Reid",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 381000.0,
+          "score": 90.0
+        },
+        {
+          "player_id": 1012825,
+          "player_name": "Jake Bowey",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 767000.0,
+          "score": 90.0
+        },
+        {
+          "player_id": 1027284,
+          "player_name": "Angus Clarke",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 230000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1039000.0,
+          "score": 126.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 989000.0,
+          "score": 136.0
+        },
+        {
+          "player_id": 294036,
+          "player_name": "George Hewett",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 979000.0,
+          "score": 121.0
+        },
+        {
+          "player_id": 1000978,
+          "player_name": "Hugh McCluggage",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 971000.0,
+          "score": 111.0
+        },
+        {
+          "player_id": 1020895,
+          "player_name": "Jai Newcombe",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 921000.0,
+          "score": 118.0
+        },
+        {
+          "player_id": 1002239,
+          "player_name": "Adam Cerra",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 846000.0,
+          "score": 101.0
+        },
+        {
+          "player_id": 1028560,
+          "player_name": "Levi Ashcroft",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 541000.0,
+          "score": 94.0
+        },
+        {
+          "player_id": 1017124,
+          "player_name": "Ned Long",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 504000.0,
+          "score": 104.0
+        },
+        {
+          "player_id": 290799,
+          "player_name": "Tom Liberatore",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1018000.0,
+          "score": 85.0
+        },
+        {
+          "player_id": 1020855,
+          "player_name": "Max Hall",
+          "slot": "bench",
+          "position": "MID",
+          "price": 459000.0,
+          "score": 62.0
+        },
+        {
+          "player_id": 290528,
+          "player_name": "Max Gawn",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1017000.0,
+          "score": 118.0
+        },
+        {
+          "player_id": 1004592,
+          "player_name": "Tim English",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 992000.0,
+          "score": 98.0
+        },
+        {
+          "player_id": 1000958,
+          "player_name": "Harry Boyd",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 268000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 993998,
+          "player_name": "Jy Simpkin",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 905000.0,
+          "score": 110.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 823000.0,
+          "score": 102.0
+        },
+        {
+          "player_id": 295136,
+          "player_name": "Caleb Daniel",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 778000.0,
+          "score": 98.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 688000.0,
+          "score": 99.0
+        },
+        {
+          "player_id": 1029416,
+          "player_name": "Ryan Maric",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 550000.0,
+          "score": 78.0
+        },
+        {
+          "player_id": 1024057,
+          "player_name": "Caiden Cleary",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 279000.0,
+          "score": 83.0
+        },
+        {
+          "player_id": 1036123,
+          "player_name": "Sam Davidson",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 499000.0,
+          "score": 57.0
+        },
+        {
+          "player_id": 1027693,
+          "player_name": "Archer Reid",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 332000.0,
+          "score": 34.0
+        },
+        {
+          "player_id": 1015919,
+          "player_name": "Saad El-Hawli",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 230000.0,
+          "score": 73.0
+        }
+      ]
+    },
+    "6": {
+      "summary": {
+        "round_number": 6,
+        "total_team_points": 2391.0,
+        "captain_player_name": "Nick Daicos"
+      },
+      "trades": {
+        "round_number": 6,
+        "traded_in": [
+          {
+            "player_id": 1001398,
+            "player_name": "Matthew Kennedy",
+            "price": 837000.0
+          },
+          {
+            "player_id": 1008280,
+            "player_name": "Ed Richards",
+            "price": 880000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 295136,
+            "player_name": "Caleb Daniel",
+            "price": 829000.0
+          },
+          {
+            "player_id": 993998,
+            "player_name": "Jy Simpkin",
+            "price": 928000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1012000.0,
+          "score": 86.0
+        },
+        {
+          "player_id": 1026850,
+          "player_name": "Nic Martin",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 982000.0,
+          "score": 122.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 898000.0,
+          "score": 118.0
+        },
+        {
+          "player_id": 1000072,
+          "player_name": "John Noble",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 822000.0,
+          "score": 113.0
+        },
+        {
+          "player_id": 1012825,
+          "player_name": "Jake Bowey",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 790000.0,
+          "score": 113.0
+        },
+        {
+          "player_id": 1008224,
+          "player_name": "Riley Bice",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 499000.0,
+          "score": 72.0
+        },
+        {
+          "player_id": 1012817,
+          "player_name": "Zach Reid",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 466000.0,
+          "score": 36.0
+        },
+        {
+          "player_id": 1015919,
+          "player_name": "Saad El-Hawli",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 260000.0,
+          "score": -1.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1042000.0,
+          "score": 101.0
+        },
+        {
+          "player_id": 290799,
+          "player_name": "Tom Liberatore",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1017000.0,
+          "score": 114.0
+        },
+        {
+          "player_id": 294036,
+          "player_name": "George Hewett",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1016000.0,
+          "score": 123.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1009000.0,
+          "score": 131.0
+        },
+        {
+          "player_id": 1020895,
+          "player_name": "Jai Newcombe",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 947000.0,
+          "score": 118.0
+        },
+        {
+          "player_id": 1008280,
+          "player_name": "Ed Richards",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 880000.0,
+          "score": 101.0
+        },
+        {
+          "player_id": 1002239,
+          "player_name": "Adam Cerra",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 874000.0,
+          "score": 109.0
+        },
+        {
+          "player_id": 1017124,
+          "player_name": "Ned Long",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 553000.0,
+          "score": 81.0
+        },
+        {
+          "player_id": 1000978,
+          "player_name": "Hugh McCluggage",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1009000.0,
+          "score": 62.0
+        },
+        {
+          "player_id": 1020855,
+          "player_name": "Max Hall",
+          "slot": "bench",
+          "position": "MID",
+          "price": 492000.0,
+          "score": 43.0
+        },
+        {
+          "player_id": 290528,
+          "player_name": "Max Gawn",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1002000.0,
+          "score": 125.0
+        },
+        {
+          "player_id": 1004592,
+          "player_name": "Tim English",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 990000.0,
+          "score": 100.0
+        },
+        {
+          "player_id": 1000958,
+          "player_name": "Harry Boyd",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 268000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 893000.0,
+          "score": 84.0
+        },
+        {
+          "player_id": 1001398,
+          "player_name": "Matthew Kennedy",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 837000.0,
+          "score": 109.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 721000.0,
+          "score": 118.0
+        },
+        {
+          "player_id": 1028560,
+          "player_name": "Levi Ashcroft",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 602000.0,
+          "score": 63.0
+        },
+        {
+          "player_id": 1029416,
+          "player_name": "Ryan Maric",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 602000.0,
+          "score": 72.0
+        },
+        {
+          "player_id": 1036123,
+          "player_name": "Sam Davidson",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 553000.0,
+          "score": 87.0
+        },
+        {
+          "player_id": 1027693,
+          "player_name": "Archer Reid",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 355000.0,
+          "score": 42.0
+        },
+        {
+          "player_id": 1024057,
+          "player_name": "Caiden Cleary",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 349000.0,
+          "score": 33.0
+        },
+        {
+          "player_id": 1027284,
+          "player_name": "Angus Clarke",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 230000.0,
+          "score": 0.0
+        }
+      ]
+    },
+    "7": {
+      "summary": {
+        "round_number": 7,
+        "total_team_points": 2475.0,
+        "captain_player_name": "Max Gawn"
+      },
+      "trades": {
+        "round_number": 7,
+        "traded_in": [
+          {
+            "player_id": 261224,
+            "player_name": "Dayne Zorko",
+            "price": 1029000.0
+          },
+          {
+            "player_id": 1012857,
+            "player_name": "Jack Ginnivan",
+            "price": 576000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 290799,
+            "player_name": "Tom Liberatore",
+            "price": 1026000.0
+          },
+          {
+            "player_id": 1036123,
+            "player_name": "Sam Davidson",
+            "price": 608000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 261224,
+          "player_name": "Dayne Zorko",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1029000.0,
+          "score": 124.0
+        },
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 996000.0,
+          "score": 131.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 936000.0,
+          "score": 113.0
+        },
+        {
+          "player_id": 1000072,
+          "player_name": "John Noble",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 865000.0,
+          "score": 109.0
+        },
+        {
+          "player_id": 1012825,
+          "player_name": "Jake Bowey",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 831000.0,
+          "score": 123.0
+        },
+        {
+          "player_id": 1008224,
+          "player_name": "Riley Bice",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 585000.0,
+          "score": 82.0
+        },
+        {
+          "player_id": 1012817,
+          "player_name": "Zach Reid",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 507000.0,
+          "score": 74.0
+        },
+        {
+          "player_id": 1027284,
+          "player_name": "Angus Clarke",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 230000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 294036,
+          "player_name": "George Hewett",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1056000.0,
+          "score": 114.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1053000.0,
+          "score": 120.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1042000.0,
+          "score": 108.0
+        },
+        {
+          "player_id": 1000978,
+          "player_name": "Hugh McCluggage",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1006000.0,
+          "score": 113.0
+        },
+        {
+          "player_id": 1020895,
+          "player_name": "Jai Newcombe",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 985000.0,
+          "score": 91.0
+        },
+        {
+          "player_id": 1002239,
+          "player_name": "Adam Cerra",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 909000.0,
+          "score": 91.0
+        },
+        {
+          "player_id": 1008280,
+          "player_name": "Ed Richards",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 890000.0,
+          "score": 92.0
+        },
+        {
+          "player_id": 1017124,
+          "player_name": "Ned Long",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 604000.0,
+          "score": 95.0
+        },
+        {
+          "player_id": 1028560,
+          "player_name": "Levi Ashcroft",
+          "slot": "bench",
+          "position": "MID",
+          "price": 638000.0,
+          "score": 65.0
+        },
+        {
+          "player_id": 1015919,
+          "player_name": "Saad El-Hawli",
+          "slot": "bench",
+          "position": "MID",
+          "price": 264000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 290528,
+          "player_name": "Max Gawn",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1018000.0,
+          "score": 138.0
+        },
+        {
+          "player_id": 1004592,
+          "player_name": "Tim English",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 996000.0,
+          "score": 124.0
+        },
+        {
+          "player_id": 1000958,
+          "player_name": "Harry Boyd",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 268000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1026850,
+          "player_name": "Nic Martin",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 995000.0,
+          "score": 72.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 927000.0,
+          "score": 132.0
+        },
+        {
+          "player_id": 1001398,
+          "player_name": "Matthew Kennedy",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 867000.0,
+          "score": 107.0
+        },
+        {
+          "player_id": 1029416,
+          "player_name": "Ryan Maric",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 645000.0,
+          "score": 74.0
+        },
+        {
+          "player_id": 1012857,
+          "player_name": "Jack Ginnivan",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 576000.0,
+          "score": 102.0
+        },
+        {
+          "player_id": 1024057,
+          "player_name": "Caiden Cleary",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 395000.0,
+          "score": 82.0
+        },
+        {
+          "player_id": 1020855,
+          "player_name": "Max Hall",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 501000.0,
+          "score": 67.0
+        },
+        {
+          "player_id": 1027693,
+          "player_name": "Archer Reid",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 373000.0,
+          "score": 25.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 783000.0,
+          "score": 65.0
+        }
+      ]
+    },
+    "8": {
+      "summary": {
+        "round_number": 8,
+        "total_team_points": 2434.0,
+        "captain_player_name": "Max Gawn"
+      },
+      "trades": {
+        "round_number": 8,
+        "traded_in": [
+          {
+            "player_id": 296205,
+            "player_name": "Jack Steele",
+            "price": 932000.0
+          },
+          {
+            "player_id": 996708,
+            "player_name": "Bailey Dale",
+            "price": 856000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 294036,
+            "player_name": "George Hewett",
+            "price": 1084000.0
+          },
+          {
+            "player_id": 1008224,
+            "player_name": "Riley Bice",
+            "price": 653000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 261224,
+          "player_name": "Dayne Zorko",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1016000.0,
+          "score": 100.0
+        },
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1012000.0,
+          "score": 103.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 978000.0,
+          "score": 89.0
+        },
+        {
+          "player_id": 1000072,
+          "player_name": "John Noble",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 909000.0,
+          "score": 83.0
+        },
+        {
+          "player_id": 996708,
+          "player_name": "Bailey Dale",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 856000.0,
+          "score": 98.0
+        },
+        {
+          "player_id": 1012817,
+          "player_name": "Zach Reid",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 546000.0,
+          "score": 90.0
+        },
+        {
+          "player_id": 1012825,
+          "player_name": "Jake Bowey",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 886000.0,
+          "score": 70.0
+        },
+        {
+          "player_id": 1027284,
+          "player_name": "Angus Clarke",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 230000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1092000.0,
+          "score": 92.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1042000.0,
+          "score": 87.0
+        },
+        {
+          "player_id": 1000978,
+          "player_name": "Hugh McCluggage",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1011000.0,
+          "score": 91.0
+        },
+        {
+          "player_id": 1020895,
+          "player_name": "Jai Newcombe",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1001000.0,
+          "score": 103.0
+        },
+        {
+          "player_id": 296205,
+          "player_name": "Jack Steele",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 932000.0,
+          "score": 113.0
+        },
+        {
+          "player_id": 1002239,
+          "player_name": "Adam Cerra",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 928000.0,
+          "score": 82.0
+        },
+        {
+          "player_id": 1008280,
+          "player_name": "Ed Richards",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 899000.0,
+          "score": 119.0
+        },
+        {
+          "player_id": 1017124,
+          "player_name": "Ned Long",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 660000.0,
+          "score": 83.0
+        },
+        {
+          "player_id": 1020855,
+          "player_name": "Max Hall",
+          "slot": "bench",
+          "position": "MID",
+          "price": 517000.0,
+          "score": 69.0
+        },
+        {
+          "player_id": 1015919,
+          "player_name": "Saad El-Hawli",
+          "slot": "bench",
+          "position": "MID",
+          "price": 264000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 290528,
+          "player_name": "Max Gawn",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1065000.0,
+          "score": 158.0
+        },
+        {
+          "player_id": 1004592,
+          "player_name": "Tim English",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1019000.0,
+          "score": 145.0
+        },
+        {
+          "player_id": 1000958,
+          "player_name": "Harry Boyd",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 268000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1026850,
+          "player_name": "Nic Martin",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 983000.0,
+          "score": 80.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 972000.0,
+          "score": 119.0
+        },
+        {
+          "player_id": 1001398,
+          "player_name": "Matthew Kennedy",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 903000.0,
+          "score": 111.0
+        },
+        {
+          "player_id": 1029416,
+          "player_name": "Ryan Maric",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 672000.0,
+          "score": 109.0
+        },
+        {
+          "player_id": 1028560,
+          "player_name": "Levi Ashcroft",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 658000.0,
+          "score": 115.0
+        },
+        {
+          "player_id": 1012857,
+          "player_name": "Jack Ginnivan",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 581000.0,
+          "score": 106.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 810000.0,
+          "score": 64.0
+        },
+        {
+          "player_id": 1024057,
+          "player_name": "Caiden Cleary",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 457000.0,
+          "score": 61.0
+        },
+        {
+          "player_id": 1027693,
+          "player_name": "Archer Reid",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 371000.0,
+          "score": 28.0
+        }
+      ]
+    },
+    "9": {
+      "summary": {
+        "round_number": 9,
+        "total_team_points": 2555.0,
+        "captain_player_name": "Bailey Smith"
+      },
+      "trades": {
+        "round_number": 9,
+        "traded_in": [
+          {
+            "player_id": 293957,
+            "player_name": "Brodie Grundy",
+            "price": 856000.0
+          },
+          {
+            "player_id": 1015889,
+            "player_name": "Max Holmes",
+            "price": 897000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 1004592,
+            "player_name": "Tim English",
+            "price": 1070000.0
+          },
+          {
+            "player_id": 1020895,
+            "player_name": "Jai Newcombe",
+            "price": 1008000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1025000.0,
+          "score": 108.0
+        },
+        {
+          "player_id": 261224,
+          "player_name": "Dayne Zorko",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1009000.0,
+          "score": 137.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 996000.0,
+          "score": 93.0
+        },
+        {
+          "player_id": 1012825,
+          "player_name": "Jake Bowey",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 905000.0,
+          "score": 109.0
+        },
+        {
+          "player_id": 996708,
+          "player_name": "Bailey Dale",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 863000.0,
+          "score": 105.0
+        },
+        {
+          "player_id": 1012817,
+          "player_name": "Zach Reid",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 596000.0,
+          "score": 118.0
+        },
+        {
+          "player_id": 1000072,
+          "player_name": "John Noble",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 927000.0,
+          "score": 87.0
+        },
+        {
+          "player_id": 1027284,
+          "player_name": "Angus Clarke",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 230000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1033000.0,
+          "score": 122.0
+        },
+        {
+          "player_id": 1000978,
+          "player_name": "Hugh McCluggage",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1002000.0,
+          "score": 117.0
+        },
+        {
+          "player_id": 296205,
+          "player_name": "Jack Steele",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 932000.0,
+          "score": 109.0
+        },
+        {
+          "player_id": 1002239,
+          "player_name": "Adam Cerra",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 931000.0,
+          "score": 72.0
+        },
+        {
+          "player_id": 1008280,
+          "player_name": "Ed Richards",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 930000.0,
+          "score": 131.0
+        },
+        {
+          "player_id": 1015889,
+          "player_name": "Max Holmes",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 897000.0,
+          "score": 118.0
+        },
+        {
+          "player_id": 1020855,
+          "player_name": "Max Hall",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 539000.0,
+          "score": 70.0
+        },
+        {
+          "player_id": 1015919,
+          "player_name": "Saad El-Hawli",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 264000.0,
+          "score": 82.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1099000.0,
+          "score": 67.0
+        },
+        {
+          "player_id": 1017124,
+          "player_name": "Ned Long",
+          "slot": "bench",
+          "position": "MID",
+          "price": 708000.0,
+          "score": 67.0
+        },
+        {
+          "player_id": 290528,
+          "player_name": "Max Gawn",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1140000.0,
+          "score": 113.0
+        },
+        {
+          "player_id": 293957,
+          "player_name": "Brodie Grundy",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 856000.0,
+          "score": 115.0
+        },
+        {
+          "player_id": 1000958,
+          "player_name": "Harry Boyd",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 268000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1014000.0,
+          "score": 149.0
+        },
+        {
+          "player_id": 1026850,
+          "player_name": "Nic Martin",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 966000.0,
+          "score": 141.0
+        },
+        {
+          "player_id": 1001398,
+          "player_name": "Matthew Kennedy",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 941000.0,
+          "score": 114.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 811000.0,
+          "score": 107.0
+        },
+        {
+          "player_id": 1029416,
+          "player_name": "Ryan Maric",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 719000.0,
+          "score": 92.0
+        },
+        {
+          "player_id": 1028560,
+          "player_name": "Levi Ashcroft",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 709000.0,
+          "score": 84.0
+        },
+        {
+          "player_id": 1024057,
+          "player_name": "Caiden Cleary",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 503000.0,
+          "score": 37.0
+        },
+        {
+          "player_id": 1027693,
+          "player_name": "Archer Reid",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 359000.0,
+          "score": 26.0
+        },
+        {
+          "player_id": 1012857,
+          "player_name": "Jack Ginnivan",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 627000.0,
+          "score": 63.0
+        }
+      ]
+    },
+    "10": {
+      "summary": {
+        "round_number": 10,
+        "total_team_points": 2540.0,
+        "captain_player_name": "Bailey Dale"
+      },
+      "trades": {
+        "round_number": 10,
+        "traded_in": [
+          {
+            "player_id": 994389,
+            "player_name": "Jack Sinclair",
+            "price": 934000.0
+          },
+          {
+            "player_id": 1009199,
+            "player_name": "Noah Anderson",
+            "price": 952000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 1012825,
+            "player_name": "Jake Bowey",
+            "price": 929000.0
+          },
+          {
+            "player_id": 1029416,
+            "player_name": "Ryan Maric",
+            "price": 761000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 261224,
+          "player_name": "Dayne Zorko",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1039000.0,
+          "score": 109.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 997000.0,
+          "score": 110.0
+        },
+        {
+          "player_id": 1000072,
+          "player_name": "John Noble",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 930000.0,
+          "score": 116.0
+        },
+        {
+          "player_id": 1015889,
+          "player_name": "Max Holmes",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 902000.0,
+          "score": 83.0
+        },
+        {
+          "player_id": 996708,
+          "player_name": "Bailey Dale",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 882000.0,
+          "score": 154.0
+        },
+        {
+          "player_id": 1012817,
+          "player_name": "Zach Reid",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 668000.0,
+          "score": 82.0
+        },
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 1037000.0,
+          "score": 76.0
+        },
+        {
+          "player_id": 1027284,
+          "player_name": "Angus Clarke",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 230000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1066000.0,
+          "score": 88.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1042000.0,
+          "score": 109.0
+        },
+        {
+          "player_id": 1000978,
+          "player_name": "Hugh McCluggage",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1004000.0,
+          "score": 105.0
+        },
+        {
+          "player_id": 1008280,
+          "player_name": "Ed Richards",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 979000.0,
+          "score": 103.0
+        },
+        {
+          "player_id": 1009199,
+          "player_name": "Noah Anderson",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 952000.0,
+          "score": 116.0
+        },
+        {
+          "player_id": 296205,
+          "player_name": "Jack Steele",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 945000.0,
+          "score": 105.0
+        },
+        {
+          "player_id": 994389,
+          "player_name": "Jack Sinclair",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 934000.0,
+          "score": 139.0
+        },
+        {
+          "player_id": 1002239,
+          "player_name": "Adam Cerra",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 910000.0,
+          "score": 121.0
+        },
+        {
+          "player_id": 1017124,
+          "player_name": "Ned Long",
+          "slot": "bench",
+          "position": "MID",
+          "price": 733000.0,
+          "score": 77.0
+        },
+        {
+          "player_id": 1015919,
+          "player_name": "Saad El-Hawli",
+          "slot": "bench",
+          "position": "MID",
+          "price": 312000.0,
+          "score": 29.0
+        },
+        {
+          "player_id": 290528,
+          "player_name": "Max Gawn",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1183000.0,
+          "score": 117.0
+        },
+        {
+          "player_id": 293957,
+          "player_name": "Brodie Grundy",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 855000.0,
+          "score": 111.0
+        },
+        {
+          "player_id": 1000958,
+          "player_name": "Harry Boyd",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 268000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1073000.0,
+          "score": 123.0
+        },
+        {
+          "player_id": 1026850,
+          "player_name": "Nic Martin",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 991000.0,
+          "score": 105.0
+        },
+        {
+          "player_id": 1001398,
+          "player_name": "Matthew Kennedy",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 978000.0,
+          "score": 113.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 827000.0,
+          "score": 101.0
+        },
+        {
+          "player_id": 1028560,
+          "player_name": "Levi Ashcroft",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 746000.0,
+          "score": 82.0
+        },
+        {
+          "player_id": 1012857,
+          "player_name": "Jack Ginnivan",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 661000.0,
+          "score": 94.0
+        },
+        {
+          "player_id": 1020855,
+          "player_name": "Max Hall",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 565000.0,
+          "score": 53.0
+        },
+        {
+          "player_id": 1027693,
+          "player_name": "Archer Reid",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 341000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1024057,
+          "player_name": "Caiden Cleary",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 514000.0,
+          "score": 36.0
+        }
+      ]
+    },
+    "11": {
+      "summary": {
+        "round_number": 11,
+        "total_team_points": 2836.0,
+        "captain_player_name": "Nic Martin"
+      },
+      "trades": {
+        "round_number": 11,
+        "traded_in": [
+          {
+            "player_id": 1004938,
+            "player_name": "Gryan Miers",
+            "price": 815000.0
+          },
+          {
+            "player_id": 1009208,
+            "player_name": "Matt Rowell",
+            "price": 808000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 1000072,
+            "player_name": "John Noble",
+            "price": 948000.0
+          },
+          {
+            "player_id": 1024057,
+            "player_name": "Caiden Cleary",
+            "price": 503000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 261224,
+          "player_name": "Dayne Zorko",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1063000.0,
+          "score": 127.0
+        },
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1021000.0,
+          "score": 134.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1002000.0,
+          "score": 114.0
+        },
+        {
+          "player_id": 994389,
+          "player_name": "Jack Sinclair",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 953000.0,
+          "score": 119.0
+        },
+        {
+          "player_id": 1015889,
+          "player_name": "Max Holmes",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 896000.0,
+          "score": 117.0
+        },
+        {
+          "player_id": 1027284,
+          "player_name": "Angus Clarke",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 230000.0,
+          "score": 98.0
+        },
+        {
+          "player_id": 996708,
+          "player_name": "Bailey Dale",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 949000.0,
+          "score": 64.0
+        },
+        {
+          "player_id": 1012817,
+          "player_name": "Zach Reid",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 722000.0,
+          "score": 67.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1048000.0,
+          "score": 105.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1024000.0,
+          "score": 129.0
+        },
+        {
+          "player_id": 1008280,
+          "player_name": "Ed Richards",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1013000.0,
+          "score": 115.0
+        },
+        {
+          "player_id": 296205,
+          "player_name": "Jack Steele",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 965000.0,
+          "score": 126.0
+        },
+        {
+          "player_id": 1009199,
+          "player_name": "Noah Anderson",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 949000.0,
+          "score": 118.0
+        },
+        {
+          "player_id": 1002239,
+          "player_name": "Adam Cerra",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 920000.0,
+          "score": 108.0
+        },
+        {
+          "player_id": 1009208,
+          "player_name": "Matt Rowell",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 808000.0,
+          "score": 130.0
+        },
+        {
+          "player_id": 1017124,
+          "player_name": "Ned Long",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 744000.0,
+          "score": 132.0
+        },
+        {
+          "player_id": 1020855,
+          "player_name": "Max Hall",
+          "slot": "bench",
+          "position": "MID",
+          "price": 578000.0,
+          "score": 26.0
+        },
+        {
+          "player_id": 1015919,
+          "player_name": "Saad El-Hawli",
+          "slot": "bench",
+          "position": "MID",
+          "price": 339000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 290528,
+          "player_name": "Max Gawn",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1204000.0,
+          "score": 140.0
+        },
+        {
+          "player_id": 293957,
+          "player_name": "Brodie Grundy",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 874000.0,
+          "score": 134.0
+        },
+        {
+          "player_id": 1000958,
+          "player_name": "Harry Boyd",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 268000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1122000.0,
+          "score": 126.0
+        },
+        {
+          "player_id": 1001398,
+          "player_name": "Matthew Kennedy",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1011000.0,
+          "score": 111.0
+        },
+        {
+          "player_id": 1026850,
+          "player_name": "Nic Martin",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1007000.0,
+          "score": 166.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 848000.0,
+          "score": 126.0
+        },
+        {
+          "player_id": 1004938,
+          "player_name": "Gryan Miers",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 815000.0,
+          "score": 106.0
+        },
+        {
+          "player_id": 1028560,
+          "player_name": "Levi Ashcroft",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 773000.0,
+          "score": 89.0
+        },
+        {
+          "player_id": 1012857,
+          "player_name": "Jack Ginnivan",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 707000.0,
+          "score": 66.0
+        },
+        {
+          "player_id": 1027693,
+          "player_name": "Archer Reid",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 341000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1000978,
+          "player_name": "Hugh McCluggage",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 1010000.0,
+          "score": 89.0
+        }
+      ]
+    },
+    "12": {
+      "summary": {
+        "round_number": 12,
+        "total_team_points": 2294.0,
+        "captain_player_name": "Hugh McCluggage"
+      },
+      "trades": {
+        "round_number": 12,
+        "traded_in": [
+          {
+            "player_id": 1005054,
+            "player_name": "Josh Daicos",
+            "price": 909000.0
+          },
+          {
+            "player_id": 1006103,
+            "player_name": "Jye Caldwell",
+            "price": 944000.0
+          },
+          {
+            "player_id": 1006314,
+            "player_name": "Dylan Moore",
+            "price": 695000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 1008280,
+            "player_name": "Ed Richards",
+            "price": 1039000.0
+          },
+          {
+            "player_id": 1012817,
+            "player_name": "Zach Reid",
+            "price": 749000.0
+          },
+          {
+            "player_id": 1028560,
+            "player_name": "Levi Ashcroft",
+            "price": 795000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1032000.0,
+          "score": 117.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1009000.0,
+          "score": 112.0
+        },
+        {
+          "player_id": 994389,
+          "player_name": "Jack Sinclair",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 985000.0,
+          "score": 112.0
+        },
+        {
+          "player_id": 996708,
+          "player_name": "Bailey Dale",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 959000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1015889,
+          "player_name": "Max Holmes",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 916000.0,
+          "score": 108.0
+        },
+        {
+          "player_id": 1015919,
+          "player_name": "Saad El-Hawli",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 339000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 1048000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1027284,
+          "player_name": "Angus Clarke",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 291000.0,
+          "score": 42.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1013000.0,
+          "score": 128.0
+        },
+        {
+          "player_id": 1000978,
+          "player_name": "Hugh McCluggage",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1004000.0,
+          "score": 152.0
+        },
+        {
+          "player_id": 296205,
+          "player_name": "Jack Steele",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1000000.0,
+          "score": 105.0
+        },
+        {
+          "player_id": 1009199,
+          "player_name": "Noah Anderson",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 963000.0,
+          "score": 116.0
+        },
+        {
+          "player_id": 1006103,
+          "player_name": "Jye Caldwell",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 944000.0,
+          "score": 128.0
+        },
+        {
+          "player_id": 1005054,
+          "player_name": "Josh Daicos",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 909000.0,
+          "score": 100.0
+        },
+        {
+          "player_id": 1009208,
+          "player_name": "Matt Rowell",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 835000.0,
+          "score": 117.0
+        },
+        {
+          "player_id": 1017124,
+          "player_name": "Ned Long",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 791000.0,
+          "score": 101.0
+        },
+        {
+          "player_id": 1002239,
+          "player_name": "Adam Cerra",
+          "slot": "bench",
+          "position": "MID",
+          "price": 933000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1020855,
+          "player_name": "Max Hall",
+          "slot": "bench",
+          "position": "MID",
+          "price": 557000.0,
+          "score": 73.0
+        },
+        {
+          "player_id": 290528,
+          "player_name": "Max Gawn",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1223000.0,
+          "score": 107.0
+        },
+        {
+          "player_id": 293957,
+          "player_name": "Brodie Grundy",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 922000.0,
+          "score": 124.0
+        },
+        {
+          "player_id": 1000958,
+          "player_name": "Harry Boyd",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 268000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1158000.0,
+          "score": 147.0
+        },
+        {
+          "player_id": 1026850,
+          "player_name": "Nic Martin",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1067000.0,
+          "score": 116.0
+        },
+        {
+          "player_id": 1001398,
+          "player_name": "Matthew Kennedy",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1032000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 889000.0,
+          "score": 42.0
+        },
+        {
+          "player_id": 1004938,
+          "player_name": "Gryan Miers",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 831000.0,
+          "score": 137.0
+        },
+        {
+          "player_id": 1012857,
+          "player_name": "Jack Ginnivan",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 728000.0,
+          "score": 115.0
+        },
+        {
+          "player_id": 1006314,
+          "player_name": "Dylan Moore",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 695000.0,
+          "score": 87.0
+        },
+        {
+          "player_id": 1027693,
+          "player_name": "Archer Reid",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 341000.0,
+          "score": 33.0
+        },
+        {
+          "player_id": 261224,
+          "player_name": "Dayne Zorko",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 1092000.0,
+          "score": 90.0
+        }
+      ]
+    },
+    "13": {
+      "summary": {
+        "round_number": 13,
+        "total_team_points": 2203.0,
+        "captain_player_name": "Max Holmes"
+      },
+      "trades": {
+        "round_number": 13,
+        "traded_in": [
+          {
+            "player_id": 290778,
+            "player_name": "Luke Parker",
+            "price": 789000.0
+          },
+          {
+            "player_id": 1022614,
+            "player_name": "Noah Howes",
+            "price": 230000.0
+          },
+          {
+            "player_id": 1023518,
+            "player_name": "Harry Sheezel",
+            "price": 1036000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 1000978,
+            "player_name": "Hugh McCluggage",
+            "price": 1037000.0
+          },
+          {
+            "player_id": 1012857,
+            "player_name": "Jack Ginnivan",
+            "price": 765000.0
+          },
+          {
+            "player_id": 1027693,
+            "player_name": "Archer Reid",
+            "price": 327000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 261224,
+          "player_name": "Dayne Zorko",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1087000.0,
+          "score": 87.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1048000.0,
+          "score": 121.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1019000.0,
+          "score": 105.0
+        },
+        {
+          "player_id": 996708,
+          "player_name": "Bailey Dale",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 959000.0,
+          "score": 112.0
+        },
+        {
+          "player_id": 1005054,
+          "player_name": "Josh Daicos",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 906000.0,
+          "score": 128.0
+        },
+        {
+          "player_id": 1027284,
+          "player_name": "Angus Clarke",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 345000.0,
+          "score": 58.0
+        },
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 1044000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1015919,
+          "player_name": "Saad El-Hawli",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 339000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1023518,
+          "player_name": "Harry Sheezel",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1036000.0,
+          "score": 119.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1026000.0,
+          "score": 83.0
+        },
+        {
+          "player_id": 1009199,
+          "player_name": "Noah Anderson",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 988000.0,
+          "score": 60.0
+        },
+        {
+          "player_id": 1006103,
+          "player_name": "Jye Caldwell",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 956000.0,
+          "score": 110.0
+        },
+        {
+          "player_id": 1015889,
+          "player_name": "Max Holmes",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 941000.0,
+          "score": 146.0
+        },
+        {
+          "player_id": 1002239,
+          "player_name": "Adam Cerra",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 933000.0,
+          "score": 107.0
+        },
+        {
+          "player_id": 1009208,
+          "player_name": "Matt Rowell",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 881000.0,
+          "score": 106.0
+        },
+        {
+          "player_id": 1017124,
+          "player_name": "Ned Long",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 833000.0,
+          "score": 101.0
+        },
+        {
+          "player_id": 994389,
+          "player_name": "Jack Sinclair",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1014000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "bench",
+          "position": "MID",
+          "price": 876000.0,
+          "score": 64.0
+        },
+        {
+          "player_id": 290528,
+          "player_name": "Max Gawn",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1213000.0,
+          "score": 122.0
+        },
+        {
+          "player_id": 293957,
+          "player_name": "Brodie Grundy",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 980000.0,
+          "score": 139.0
+        },
+        {
+          "player_id": 1000958,
+          "player_name": "Harry Boyd",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 268000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1196000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1026850,
+          "player_name": "Nic Martin",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1111000.0,
+          "score": 106.0
+        },
+        {
+          "player_id": 1001398,
+          "player_name": "Matthew Kennedy",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1032000.0,
+          "score": 132.0
+        },
+        {
+          "player_id": 1004938,
+          "player_name": "Gryan Miers",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 888000.0,
+          "score": 108.0
+        },
+        {
+          "player_id": 290778,
+          "player_name": "Luke Parker",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 789000.0,
+          "score": 102.0
+        },
+        {
+          "player_id": 1006314,
+          "player_name": "Dylan Moore",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 707000.0,
+          "score": 106.0
+        },
+        {
+          "player_id": 1020855,
+          "player_name": "Max Hall",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 553000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1022614,
+          "player_name": "Noah Howes",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 230000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 296205,
+          "player_name": "Jack Steele",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 1021000.0,
+          "score": 0.0
+        }
+      ]
+    },
+    "14": {
+      "summary": {
+        "round_number": 14,
+        "total_team_points": 2337.0,
+        "captain_player_name": "Caleb Serong"
+      },
+      "trades": {
+        "round_number": 14,
+        "traded_in": [
+          {
+            "player_id": 992468,
+            "player_name": "Rowan Marshall",
+            "price": 1011000.0
+          },
+          {
+            "player_id": 1009420,
+            "player_name": "Caleb Serong",
+            "price": 913000.0
+          },
+          {
+            "player_id": 1024023,
+            "player_name": "Daniel Curtin",
+            "price": 531000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 1017124,
+            "player_name": "Ned Long",
+            "price": 875000.0
+          },
+          {
+            "player_id": 1026850,
+            "player_name": "Nic Martin",
+            "price": 1135000.0
+          },
+          {
+            "player_id": 1027284,
+            "player_name": "Angus Clarke",
+            "price": 399000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 261224,
+          "player_name": "Dayne Zorko",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1066000.0,
+          "score": 114.0
+        },
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1044000.0,
+          "score": 128.0
+        },
+        {
+          "player_id": 1023518,
+          "player_name": "Harry Sheezel",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1033000.0,
+          "score": 131.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1030000.0,
+          "score": 112.0
+        },
+        {
+          "player_id": 1015889,
+          "player_name": "Max Holmes",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1000000.0,
+          "score": 131.0
+        },
+        {
+          "player_id": 996708,
+          "player_name": "Bailey Dale",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 979000.0,
+          "score": 127.0
+        },
+        {
+          "player_id": 1005054,
+          "player_name": "Josh Daicos",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 938000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1015919,
+          "player_name": "Saad El-Hawli",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 339000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1062000.0,
+          "score": 117.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1024000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 296205,
+          "player_name": "Jack Steele",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1021000.0,
+          "score": 105.0
+        },
+        {
+          "player_id": 994389,
+          "player_name": "Jack Sinclair",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1014000.0,
+          "score": 106.0
+        },
+        {
+          "player_id": 1006103,
+          "player_name": "Jye Caldwell",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 980000.0,
+          "score": 122.0
+        },
+        {
+          "player_id": 1009199,
+          "player_name": "Noah Anderson",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 975000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1002239,
+          "player_name": "Adam Cerra",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 955000.0,
+          "score": 120.0
+        },
+        {
+          "player_id": 1009420,
+          "player_name": "Caleb Serong",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 913000.0,
+          "score": 146.0
+        },
+        {
+          "player_id": 1009208,
+          "player_name": "Matt Rowell",
+          "slot": "bench",
+          "position": "MID",
+          "price": 930000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1024023,
+          "player_name": "Daniel Curtin",
+          "slot": "bench",
+          "position": "MID",
+          "price": 531000.0,
+          "score": 72.0
+        },
+        {
+          "player_id": 290528,
+          "player_name": "Max Gawn",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1205000.0,
+          "score": 126.0
+        },
+        {
+          "player_id": 992468,
+          "player_name": "Rowan Marshall",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1011000.0,
+          "score": 129.0
+        },
+        {
+          "player_id": 293957,
+          "player_name": "Brodie Grundy",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 1051000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1196000.0,
+          "score": 136.0
+        },
+        {
+          "player_id": 1001398,
+          "player_name": "Matthew Kennedy",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1066000.0,
+          "score": 107.0
+        },
+        {
+          "player_id": 1004938,
+          "player_name": "Gryan Miers",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 943000.0,
+          "score": 112.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 849000.0,
+          "score": 97.0
+        },
+        {
+          "player_id": 290778,
+          "player_name": "Luke Parker",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 774000.0,
+          "score": 85.0
+        },
+        {
+          "player_id": 1006314,
+          "player_name": "Dylan Moore",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 747000.0,
+          "score": 122.0
+        },
+        {
+          "player_id": 1020855,
+          "player_name": "Max Hall",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 553000.0,
+          "score": 35.0
+        },
+        {
+          "player_id": 1022614,
+          "player_name": "Noah Howes",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 230000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1000958,
+          "player_name": "Harry Boyd",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 268000.0,
+          "score": 0.0
+        }
+      ]
+    },
+    "15": {
+      "summary": {
+        "round_number": 15,
+        "total_team_points": 2238.0,
+        "captain_player_name": "Luke Jackson"
+      },
+      "trades": {
+        "round_number": 15,
+        "traded_in": [
+          {
+            "player_id": 297373,
+            "player_name": "Marcus Bontempelli",
+            "price": 978000.0
+          },
+          {
+            "player_id": 1006152,
+            "player_name": "Jordan Clark",
+            "price": 920000.0
+          },
+          {
+            "player_id": 1009399,
+            "player_name": "Luke Jackson",
+            "price": 928000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 290528,
+            "player_name": "Max Gawn",
+            "price": 1203000.0
+          },
+          {
+            "player_id": 996708,
+            "player_name": "Bailey Dale",
+            "price": 1009000.0
+          },
+          {
+            "player_id": 1002239,
+            "player_name": "Adam Cerra",
+            "price": 988000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1071000.0,
+          "score": 125.0
+        },
+        {
+          "player_id": 261224,
+          "player_name": "Dayne Zorko",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1052000.0,
+          "score": 124.0
+        },
+        {
+          "player_id": 1023518,
+          "player_name": "Harry Sheezel",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1049000.0,
+          "score": 116.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1042000.0,
+          "score": 103.0
+        },
+        {
+          "player_id": 1005054,
+          "player_name": "Josh Daicos",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 938000.0,
+          "score": 101.0
+        },
+        {
+          "player_id": 1006152,
+          "player_name": "Jordan Clark",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 920000.0,
+          "score": 133.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 1077000.0,
+          "score": 79.0
+        },
+        {
+          "player_id": 994389,
+          "player_name": "Jack Sinclair",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 1039000.0,
+          "score": 64.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1230000.0,
+          "score": 94.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1024000.0,
+          "score": 102.0
+        },
+        {
+          "player_id": 1006103,
+          "player_name": "Jye Caldwell",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1017000.0,
+          "score": 109.0
+        },
+        {
+          "player_id": 297373,
+          "player_name": "Marcus Bontempelli",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 978000.0,
+          "score": 120.0
+        },
+        {
+          "player_id": 1009199,
+          "player_name": "Noah Anderson",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 975000.0,
+          "score": 133.0
+        },
+        {
+          "player_id": 1009420,
+          "player_name": "Caleb Serong",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 974000.0,
+          "score": 137.0
+        },
+        {
+          "player_id": 1009208,
+          "player_name": "Matt Rowell",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 930000.0,
+          "score": 106.0
+        },
+        {
+          "player_id": 1015919,
+          "player_name": "Saad El-Hawli",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 339000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1015889,
+          "player_name": "Max Holmes",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1057000.0,
+          "score": 71.0
+        },
+        {
+          "player_id": 296205,
+          "player_name": "Jack Steele",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1033000.0,
+          "score": 66.0
+        },
+        {
+          "player_id": 293957,
+          "player_name": "Brodie Grundy",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1051000.0,
+          "score": 121.0
+        },
+        {
+          "player_id": 992468,
+          "player_name": "Rowan Marshall",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1031000.0,
+          "score": 105.0
+        },
+        {
+          "player_id": 1000958,
+          "player_name": "Harry Boyd",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 268000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1001398,
+          "player_name": "Matthew Kennedy",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1082000.0,
+          "score": 114.0
+        },
+        {
+          "player_id": 1009399,
+          "player_name": "Luke Jackson",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 928000.0,
+          "score": 144.0
+        },
+        {
+          "player_id": 1006314,
+          "player_name": "Dylan Moore",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 808000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 290778,
+          "player_name": "Luke Parker",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 769000.0,
+          "score": 107.0
+        },
+        {
+          "player_id": 1020855,
+          "player_name": "Max Hall",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 532000.0,
+          "score": 38.0
+        },
+        {
+          "player_id": 1022614,
+          "player_name": "Noah Howes",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 230000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1004938,
+          "player_name": "Gryan Miers",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 986000.0,
+          "score": 78.0
+        },
+        {
+          "player_id": 1024023,
+          "player_name": "Daniel Curtin",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 581000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 835000.0,
+          "score": 0.0
+        }
+      ]
+    },
+    "16": {
+      "summary": {
+        "round_number": 16,
+        "total_team_points": 2110.0,
+        "captain_player_name": "Nick Daicos"
+      },
+      "trades": {
+        "round_number": 16,
+        "traded_in": [
+          {
+            "player_id": 1000980,
+            "player_name": "Lloyd Meek",
+            "price": 838000.0
+          },
+          {
+            "player_id": 1002404,
+            "player_name": "Aaron Naughton",
+            "price": 566000.0
+          },
+          {
+            "player_id": 1013128,
+            "player_name": "Errol Gulden",
+            "price": 1077000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 1006103,
+            "player_name": "Jye Caldwell",
+            "price": 1047000.0
+          },
+          {
+            "player_id": 1009420,
+            "player_name": "Caleb Serong",
+            "price": 1041000.0
+          },
+          {
+            "player_id": 1015919,
+            "player_name": "Saad El-Hawli",
+            "price": 339000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1103000.0,
+          "score": 109.0
+        },
+        {
+          "player_id": 1015889,
+          "player_name": "Max Holmes",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1062000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1046000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 994389,
+          "player_name": "Jack Sinclair",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1017000.0,
+          "score": 79.0
+        },
+        {
+          "player_id": 1005054,
+          "player_name": "Josh Daicos",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 965000.0,
+          "score": 97.0
+        },
+        {
+          "player_id": 1006152,
+          "player_name": "Jordan Clark",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 957000.0,
+          "score": 122.0
+        },
+        {
+          "player_id": 1023518,
+          "player_name": "Harry Sheezel",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 1068000.0,
+          "score": 65.0
+        },
+        {
+          "player_id": 261224,
+          "player_name": "Dayne Zorko",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 1057000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1013128,
+          "player_name": "Errol Gulden",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1077000.0,
+          "score": 124.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1060000.0,
+          "score": 120.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1025000.0,
+          "score": 137.0
+        },
+        {
+          "player_id": 296205,
+          "player_name": "Jack Steele",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1007000.0,
+          "score": 93.0
+        },
+        {
+          "player_id": 1009199,
+          "player_name": "Noah Anderson",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 994000.0,
+          "score": 93.0
+        },
+        {
+          "player_id": 1009208,
+          "player_name": "Matt Rowell",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 969000.0,
+          "score": 107.0
+        },
+        {
+          "player_id": 290778,
+          "player_name": "Luke Parker",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 791000.0,
+          "score": 94.0
+        },
+        {
+          "player_id": 1024023,
+          "player_name": "Daniel Curtin",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 581000.0,
+          "score": 118.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1221000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 297373,
+          "player_name": "Marcus Bontempelli",
+          "slot": "bench",
+          "position": "MID",
+          "price": 959000.0,
+          "score": 72.0
+        },
+        {
+          "player_id": 293957,
+          "player_name": "Brodie Grundy",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1101000.0,
+          "score": 137.0
+        },
+        {
+          "player_id": 992468,
+          "player_name": "Rowan Marshall",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1039000.0,
+          "score": 119.0
+        },
+        {
+          "player_id": 1000958,
+          "player_name": "Harry Boyd",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 268000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1001398,
+          "player_name": "Matthew Kennedy",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1094000.0,
+          "score": 86.0
+        },
+        {
+          "player_id": 1004938,
+          "player_name": "Gryan Miers",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 991000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1009399,
+          "player_name": "Luke Jackson",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 981000.0,
+          "score": 107.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 835000.0,
+          "score": 101.0
+        },
+        {
+          "player_id": 1002404,
+          "player_name": "Aaron Naughton",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 566000.0,
+          "score": 121.0
+        },
+        {
+          "player_id": 1020855,
+          "player_name": "Max Hall",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 505000.0,
+          "score": 88.0
+        },
+        {
+          "player_id": 1006314,
+          "player_name": "Dylan Moore",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 808000.0,
+          "score": 74.0
+        },
+        {
+          "player_id": 1022614,
+          "player_name": "Noah Howes",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 230000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1000980,
+          "player_name": "Lloyd Meek",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 838000.0,
+          "score": 99.0
+        }
+      ]
+    },
+    "17": {
+      "summary": {
+        "round_number": 17,
+        "total_team_points": 2694.0,
+        "captain_player_name": "Nasiah Wanganeen-Milera"
+      },
+      "trades": {
+        "round_number": 17,
+        "traded_in": [
+          {
+            "player_id": 992016,
+            "player_name": "Zach Merrett",
+            "price": 926000.0
+          },
+          {
+            "player_id": 1006121,
+            "player_name": "Zak Butters",
+            "price": 928000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 1000958,
+            "player_name": "Harry Boyd",
+            "price": 268000.0
+          },
+          {
+            "player_id": 1022614,
+            "player_name": "Noah Howes",
+            "price": 17500000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1124000.0,
+          "score": 145.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1062000.0,
+          "score": 111.0
+        },
+        {
+          "player_id": 1015889,
+          "player_name": "Max Holmes",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1062000.0,
+          "score": 122.0
+        },
+        {
+          "player_id": 1023518,
+          "player_name": "Harry Sheezel",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1049000.0,
+          "score": 93.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1046000.0,
+          "score": 102.0
+        },
+        {
+          "player_id": 994389,
+          "player_name": "Jack Sinclair",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 980000.0,
+          "score": 92.0
+        },
+        {
+          "player_id": 261224,
+          "player_name": "Dayne Zorko",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 1057000.0,
+          "score": 79.0
+        },
+        {
+          "player_id": 1006152,
+          "player_name": "Jordan Clark",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 1005000.0,
+          "score": 46.0
+        },
+        {
+          "player_id": 1013128,
+          "player_name": "Errol Gulden",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1066000.0,
+          "score": 127.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1054000.0,
+          "score": 132.0
+        },
+        {
+          "player_id": 1009199,
+          "player_name": "Noah Anderson",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 998000.0,
+          "score": 122.0
+        },
+        {
+          "player_id": 1009208,
+          "player_name": "Matt Rowell",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 998000.0,
+          "score": 103.0
+        },
+        {
+          "player_id": 296205,
+          "player_name": "Jack Steele",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 983000.0,
+          "score": 130.0
+        },
+        {
+          "player_id": 297373,
+          "player_name": "Marcus Bontempelli",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 930000.0,
+          "score": 133.0
+        },
+        {
+          "player_id": 1006121,
+          "player_name": "Zak Butters",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 928000.0,
+          "score": 119.0
+        },
+        {
+          "player_id": 992016,
+          "player_name": "Zach Merrett",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 926000.0,
+          "score": 145.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1221000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1005054,
+          "player_name": "Josh Daicos",
+          "slot": "bench",
+          "position": "MID",
+          "price": 984000.0,
+          "score": 84.0
+        },
+        {
+          "player_id": 992468,
+          "player_name": "Rowan Marshall",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1054000.0,
+          "score": 140.0
+        },
+        {
+          "player_id": 1000980,
+          "player_name": "Lloyd Meek",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 863000.0,
+          "score": 138.0
+        },
+        {
+          "player_id": 293957,
+          "player_name": "Brodie Grundy",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 1150000.0,
+          "score": 113.0
+        },
+        {
+          "player_id": 1001398,
+          "player_name": "Matthew Kennedy",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1082000.0,
+          "score": 85.0
+        },
+        {
+          "player_id": 1009399,
+          "player_name": "Luke Jackson",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1020000.0,
+          "score": 89.0
+        },
+        {
+          "player_id": 1004938,
+          "player_name": "Gryan Miers",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 991000.0,
+          "score": 102.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 841000.0,
+          "score": 95.0
+        },
+        {
+          "player_id": 1002404,
+          "player_name": "Aaron Naughton",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 598000.0,
+          "score": 100.0
+        },
+        {
+          "player_id": 1020855,
+          "player_name": "Max Hall",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 523000.0,
+          "score": 124.0
+        },
+        {
+          "player_id": 1006314,
+          "player_name": "Dylan Moore",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 840000.0,
+          "score": 71.0
+        },
+        {
+          "player_id": 1024023,
+          "player_name": "Daniel Curtin",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 659000.0,
+          "score": 50.0
+        },
+        {
+          "player_id": 290778,
+          "player_name": "Luke Parker",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 825000.0,
+          "score": 0.0
+        }
+      ]
+    },
+    "18": {
+      "summary": {
+        "round_number": 18,
+        "total_team_points": 2695.0,
+        "captain_player_name": "Marcus Bontempelli"
+      },
+      "trades": {
+        "round_number": 18,
+        "traded_in": [
+          {
+            "player_id": 294305,
+            "player_name": "Lachie Whitfield",
+            "price": 942000.0
+          },
+          {
+            "player_id": 993834,
+            "player_name": "Josh Dunkley",
+            "price": 917000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 1002404,
+            "player_name": "Aaron Naughton",
+            "price": 650000.0
+          },
+          {
+            "player_id": 1020855,
+            "player_name": "Max Hall",
+            "price": 594000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1043000.0,
+          "score": 105.0
+        },
+        {
+          "player_id": 261224,
+          "player_name": "Dayne Zorko",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1039000.0,
+          "score": 104.0
+        },
+        {
+          "player_id": 1023518,
+          "player_name": "Harry Sheezel",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1026000.0,
+          "score": 113.0
+        },
+        {
+          "player_id": 1006152,
+          "player_name": "Jordan Clark",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 988000.0,
+          "score": 113.0
+        },
+        {
+          "player_id": 994389,
+          "player_name": "Jack Sinclair",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 947000.0,
+          "score": 103.0
+        },
+        {
+          "player_id": 294305,
+          "player_name": "Lachie Whitfield",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 942000.0,
+          "score": 120.0
+        },
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 1156000.0,
+          "score": 73.0
+        },
+        {
+          "player_id": 1015889,
+          "player_name": "Max Holmes",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 1073000.0,
+          "score": 80.0
+        },
+        {
+          "player_id": 1009199,
+          "player_name": "Noah Anderson",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1013000.0,
+          "score": 106.0
+        },
+        {
+          "player_id": 1009208,
+          "player_name": "Matt Rowell",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1009000.0,
+          "score": 140.0
+        },
+        {
+          "player_id": 296205,
+          "player_name": "Jack Steele",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 989000.0,
+          "score": 136.0
+        },
+        {
+          "player_id": 1005054,
+          "player_name": "Josh Daicos",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 978000.0,
+          "score": 132.0
+        },
+        {
+          "player_id": 1006121,
+          "player_name": "Zak Butters",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 947000.0,
+          "score": 125.0
+        },
+        {
+          "player_id": 297373,
+          "player_name": "Marcus Bontempelli",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 944000.0,
+          "score": 166.0
+        },
+        {
+          "player_id": 992016,
+          "player_name": "Zach Merrett",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 938000.0,
+          "score": 102.0
+        },
+        {
+          "player_id": 993834,
+          "player_name": "Josh Dunkley",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 917000.0,
+          "score": 137.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1087000.0,
+          "score": 78.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1063000.0,
+          "score": 58.0
+        },
+        {
+          "player_id": 293957,
+          "player_name": "Brodie Grundy",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1171000.0,
+          "score": 126.0
+        },
+        {
+          "player_id": 1000980,
+          "player_name": "Lloyd Meek",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 920000.0,
+          "score": 136.0
+        },
+        {
+          "player_id": 992468,
+          "player_name": "Rowan Marshall",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 1093000.0,
+          "score": 70.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1221000.0,
+          "score": 98.0
+        },
+        {
+          "player_id": 1009399,
+          "player_name": "Luke Jackson",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1029000.0,
+          "score": 87.0
+        },
+        {
+          "player_id": 1004938,
+          "player_name": "Gryan Miers",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 991000.0,
+          "score": 87.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 850000.0,
+          "score": 77.0
+        },
+        {
+          "player_id": 290778,
+          "player_name": "Luke Parker",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 825000.0,
+          "score": 102.0
+        },
+        {
+          "player_id": 1024023,
+          "player_name": "Daniel Curtin",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 688000.0,
+          "score": 114.0
+        },
+        {
+          "player_id": 1001398,
+          "player_name": "Matthew Kennedy",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 1050000.0,
+          "score": 30.0
+        },
+        {
+          "player_id": 1006314,
+          "player_name": "Dylan Moore",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 846000.0,
+          "score": 70.0
+        },
+        {
+          "player_id": 1013128,
+          "player_name": "Errol Gulden",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 1073000.0,
+          "score": 89.0
+        }
+      ]
+    },
+    "19": {
+      "summary": {
+        "round_number": 19,
+        "total_team_points": 2781.0,
+        "captain_player_name": "Isaac Heeney"
+      },
+      "trades": {
+        "round_number": 19,
+        "traded_in": [
+          {
+            "player_id": 298539,
+            "player_name": "Isaac Heeney",
+            "price": 979000.0
+          },
+          {
+            "player_id": 993878,
+            "player_name": "Shaun Mannagh",
+            "price": 774000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 1000980,
+            "player_name": "Lloyd Meek",
+            "price": 988000.0
+          },
+          {
+            "player_id": 1006152,
+            "player_name": "Jordan Clark",
+            "price": 984000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1138000.0,
+          "score": 151.0
+        },
+        {
+          "player_id": 1015889,
+          "player_name": "Max Holmes",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1053000.0,
+          "score": 121.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1040000.0,
+          "score": 107.0
+        },
+        {
+          "player_id": 261224,
+          "player_name": "Dayne Zorko",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1029000.0,
+          "score": 103.0
+        },
+        {
+          "player_id": 994389,
+          "player_name": "Jack Sinclair",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 932000.0,
+          "score": 108.0
+        },
+        {
+          "player_id": 294305,
+          "player_name": "Lachie Whitfield",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 922000.0,
+          "score": 109.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 1022000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1005054,
+          "player_name": "Josh Daicos",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 999000.0,
+          "score": 85.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1080000.0,
+          "score": 162.0
+        },
+        {
+          "player_id": 1009208,
+          "player_name": "Matt Rowell",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1044000.0,
+          "score": 118.0
+        },
+        {
+          "player_id": 296205,
+          "player_name": "Jack Steele",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1024000.0,
+          "score": 119.0
+        },
+        {
+          "player_id": 297373,
+          "player_name": "Marcus Bontempelli",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1015000.0,
+          "score": 105.0
+        },
+        {
+          "player_id": 1023518,
+          "player_name": "Harry Sheezel",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1015000.0,
+          "score": 102.0
+        },
+        {
+          "player_id": 298539,
+          "player_name": "Isaac Heeney",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 979000.0,
+          "score": 166.0
+        },
+        {
+          "player_id": 992016,
+          "player_name": "Zach Merrett",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 954000.0,
+          "score": 99.0
+        },
+        {
+          "player_id": 993834,
+          "player_name": "Josh Dunkley",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 950000.0,
+          "score": 133.0
+        },
+        {
+          "player_id": 1013128,
+          "player_name": "Errol Gulden",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1064000.0,
+          "score": 86.0
+        },
+        {
+          "player_id": 1006121,
+          "player_name": "Zak Butters",
+          "slot": "bench",
+          "position": "MID",
+          "price": 981000.0,
+          "score": 76.0
+        },
+        {
+          "player_id": 293957,
+          "player_name": "Brodie Grundy",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1186000.0,
+          "score": 129.0
+        },
+        {
+          "player_id": 992468,
+          "player_name": "Rowan Marshall",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1083000.0,
+          "score": 104.0
+        },
+        {
+          "player_id": 1009399,
+          "player_name": "Luke Jackson",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 1016000.0,
+          "score": 83.0
+        },
+        {
+          "player_id": 1004938,
+          "player_name": "Gryan Miers",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 975000.0,
+          "score": 89.0
+        },
+        {
+          "player_id": 1001398,
+          "player_name": "Matthew Kennedy",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 966000.0,
+          "score": 104.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 855000.0,
+          "score": 106.0
+        },
+        {
+          "player_id": 1006314,
+          "player_name": "Dylan Moore",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 832000.0,
+          "score": 143.0
+        },
+        {
+          "player_id": 993878,
+          "player_name": "Shaun Mannagh",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 774000.0,
+          "score": 144.0
+        },
+        {
+          "player_id": 1024023,
+          "player_name": "Daniel Curtin",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 737000.0,
+          "score": 93.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 1194000.0,
+          "score": 70.0
+        },
+        {
+          "player_id": 290778,
+          "player_name": "Luke Parker",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 862000.0,
+          "score": 48.0
+        },
+        {
+          "player_id": 1009199,
+          "player_name": "Noah Anderson",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 1026000.0,
+          "score": 78.0
+        }
+      ]
+    },
+    "20": {
+      "summary": {
+        "round_number": 20,
+        "total_team_points": 2782.0,
+        "captain_player_name": "Jeremy Cameron"
+      },
+      "trades": {
+        "round_number": 20,
+        "traded_in": [
+          {
+            "player_id": 293845,
+            "player_name": "Jeremy Cameron",
+            "price": 761000.0
+          },
+          {
+            "player_id": 992242,
+            "player_name": "Jordan Dawson",
+            "price": 1043000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 296205,
+            "player_name": "Jack Steele",
+            "price": 1060000.0
+          },
+          {
+            "player_id": 1024023,
+            "player_name": "Daniel Curtin",
+            "price": 779000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1152000.0,
+          "score": 147.0
+        },
+        {
+          "player_id": 1015889,
+          "player_name": "Max Holmes",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1046000.0,
+          "score": 118.0
+        },
+        {
+          "player_id": 1023518,
+          "player_name": "Harry Sheezel",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1005000.0,
+          "score": 111.0
+        },
+        {
+          "player_id": 1005054,
+          "player_name": "Josh Daicos",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 995000.0,
+          "score": 103.0
+        },
+        {
+          "player_id": 994389,
+          "player_name": "Jack Sinclair",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 937000.0,
+          "score": 125.0
+        },
+        {
+          "player_id": 294305,
+          "player_name": "Lachie Whitfield",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 921000.0,
+          "score": 109.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 1039000.0,
+          "score": 65.0
+        },
+        {
+          "player_id": 261224,
+          "player_name": "Dayne Zorko",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 1022000.0,
+          "score": 55.0
+        },
+        {
+          "player_id": 1023261,
+          "player_name": "Nick Daicos",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1121000.0,
+          "score": 146.0
+        },
+        {
+          "player_id": 1009208,
+          "player_name": "Matt Rowell",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1075000.0,
+          "score": 145.0
+        },
+        {
+          "player_id": 297373,
+          "player_name": "Marcus Bontempelli",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1064000.0,
+          "score": 146.0
+        },
+        {
+          "player_id": 992242,
+          "player_name": "Jordan Dawson",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1043000.0,
+          "score": 106.0
+        },
+        {
+          "player_id": 1009199,
+          "player_name": "Noah Anderson",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1015000.0,
+          "score": 107.0
+        },
+        {
+          "player_id": 993834,
+          "player_name": "Josh Dunkley",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1003000.0,
+          "score": 112.0
+        },
+        {
+          "player_id": 1006121,
+          "player_name": "Zak Butters",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 982000.0,
+          "score": 115.0
+        },
+        {
+          "player_id": 992016,
+          "player_name": "Zach Merrett",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 969000.0,
+          "score": 115.0
+        },
+        {
+          "player_id": 1013128,
+          "player_name": "Errol Gulden",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1041000.0,
+          "score": 98.0
+        },
+        {
+          "player_id": 298539,
+          "player_name": "Isaac Heeney",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1024000.0,
+          "score": 94.0
+        },
+        {
+          "player_id": 293957,
+          "player_name": "Brodie Grundy",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1198000.0,
+          "score": 130.0
+        },
+        {
+          "player_id": 1009399,
+          "player_name": "Luke Jackson",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 990000.0,
+          "score": 97.0
+        },
+        {
+          "player_id": 992468,
+          "player_name": "Rowan Marshall",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 1068000.0,
+          "score": 88.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1132000.0,
+          "score": 132.0
+        },
+        {
+          "player_id": 1004938,
+          "player_name": "Gryan Miers",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 955000.0,
+          "score": 98.0
+        },
+        {
+          "player_id": 1001398,
+          "player_name": "Matthew Kennedy",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 918000.0,
+          "score": 101.0
+        },
+        {
+          "player_id": 1006314,
+          "player_name": "Dylan Moore",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 867000.0,
+          "score": 99.0
+        },
+        {
+          "player_id": 290778,
+          "player_name": "Luke Parker",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 847000.0,
+          "score": 106.0
+        },
+        {
+          "player_id": 293845,
+          "player_name": "Jeremy Cameron",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 761000.0,
+          "score": 157.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 874000.0,
+          "score": 81.0
+        },
+        {
+          "player_id": 993878,
+          "player_name": "Shaun Mannagh",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 811000.0,
+          "score": 87.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 1022000.0,
+          "score": 95.0
+        }
+      ]
+    },
+    "21": {
+      "summary": {
+        "round_number": 21,
+        "total_team_points": 2689.0,
+        "captain_player_name": "Brodie Grundy"
+      },
+      "trades": {
+        "round_number": 21,
+        "traded_in": [
+          {
+            "player_id": 1000978,
+            "player_name": "Hugh McCluggage",
+            "price": 940000.0
+          },
+          {
+            "player_id": 1004965,
+            "player_name": "Tristan Xerri",
+            "price": 949000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 1001398,
+            "player_name": "Matthew Kennedy",
+            "price": 895000.0
+          },
+          {
+            "player_id": 1023261,
+            "player_name": "Nick Daicos",
+            "price": 1170000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1184000.0,
+          "score": 108.0
+        },
+        {
+          "player_id": 1015889,
+          "player_name": "Max Holmes",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1051000.0,
+          "score": 136.0
+        },
+        {
+          "player_id": 1023518,
+          "player_name": "Harry Sheezel",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1007000.0,
+          "score": 117.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1004000.0,
+          "score": 135.0
+        },
+        {
+          "player_id": 1005054,
+          "player_name": "Josh Daicos",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 994000.0,
+          "score": 113.0
+        },
+        {
+          "player_id": 294305,
+          "player_name": "Lachie Whitfield",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 936000.0,
+          "score": 118.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 989000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 261224,
+          "player_name": "Dayne Zorko",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 976000.0,
+          "score": 80.0
+        },
+        {
+          "player_id": 297373,
+          "player_name": "Marcus Bontempelli",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1123000.0,
+          "score": 97.0
+        },
+        {
+          "player_id": 1009208,
+          "player_name": "Matt Rowell",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1122000.0,
+          "score": 106.0
+        },
+        {
+          "player_id": 993834,
+          "player_name": "Josh Dunkley",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1044000.0,
+          "score": 113.0
+        },
+        {
+          "player_id": 298539,
+          "player_name": "Isaac Heeney",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1042000.0,
+          "score": 100.0
+        },
+        {
+          "player_id": 992242,
+          "player_name": "Jordan Dawson",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1038000.0,
+          "score": 125.0
+        },
+        {
+          "player_id": 1013128,
+          "player_name": "Errol Gulden",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1023000.0,
+          "score": 114.0
+        },
+        {
+          "player_id": 1009199,
+          "player_name": "Noah Anderson",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1007000.0,
+          "score": 123.0
+        },
+        {
+          "player_id": 1000978,
+          "player_name": "Hugh McCluggage",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 940000.0,
+          "score": 119.0
+        },
+        {
+          "player_id": 992016,
+          "player_name": "Zach Merrett",
+          "slot": "bench",
+          "position": "MID",
+          "price": 992000.0,
+          "score": 76.0
+        },
+        {
+          "player_id": 994389,
+          "player_name": "Jack Sinclair",
+          "slot": "bench",
+          "position": "MID",
+          "price": 969000.0,
+          "score": 81.0
+        },
+        {
+          "player_id": 293957,
+          "player_name": "Brodie Grundy",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1210000.0,
+          "score": 150.0
+        },
+        {
+          "player_id": 992468,
+          "player_name": "Rowan Marshall",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1041000.0,
+          "score": 142.0
+        },
+        {
+          "player_id": 1004965,
+          "player_name": "Tristan Xerri",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 949000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1104000.0,
+          "score": 112.0
+        },
+        {
+          "player_id": 1009399,
+          "player_name": "Luke Jackson",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 965000.0,
+          "score": 110.0
+        },
+        {
+          "player_id": 1004938,
+          "player_name": "Gryan Miers",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 943000.0,
+          "score": 122.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 877000.0,
+          "score": 103.0
+        },
+        {
+          "player_id": 993878,
+          "player_name": "Shaun Mannagh",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 841000.0,
+          "score": 94.0
+        },
+        {
+          "player_id": 293845,
+          "player_name": "Jeremy Cameron",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 816000.0,
+          "score": 82.0
+        },
+        {
+          "player_id": 1006314,
+          "player_name": "Dylan Moore",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 894000.0,
+          "score": 62.0
+        },
+        {
+          "player_id": 290778,
+          "player_name": "Luke Parker",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 852000.0,
+          "score": 61.0
+        },
+        {
+          "player_id": 1006121,
+          "player_name": "Zak Butters",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 993000.0,
+          "score": 34.0
+        }
+      ]
+    },
+    "22": {
+      "summary": {
+        "round_number": 22,
+        "total_team_points": 2699.0,
+        "captain_player_name": "Jordan Dawson"
+      },
+      "trades": {
+        "round_number": 22,
+        "traded_in": [
+          {
+            "player_id": 998102,
+            "player_name": "Andrew McGrath",
+            "price": 636000.0
+          },
+          {
+            "player_id": 1002312,
+            "player_name": "Zac Bailey",
+            "price": 814000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 1005054,
+            "player_name": "Josh Daicos",
+            "price": 1004000.0
+          },
+          {
+            "player_id": 1015889,
+            "player_name": "Max Holmes",
+            "price": 1082000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 1015507,
+          "player_name": "Nasiah Wanganeen-Milera",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1195000.0,
+          "score": 118.0
+        },
+        {
+          "player_id": 1023518,
+          "player_name": "Harry Sheezel",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1026000.0,
+          "score": 108.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 989000.0,
+          "score": 103.0
+        },
+        {
+          "player_id": 994389,
+          "player_name": "Jack Sinclair",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 977000.0,
+          "score": 146.0
+        },
+        {
+          "player_id": 261224,
+          "player_name": "Dayne Zorko",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 931000.0,
+          "score": 103.0
+        },
+        {
+          "player_id": 998102,
+          "player_name": "Andrew McGrath",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 636000.0,
+          "score": 101.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 1010000.0,
+          "score": 29.0
+        },
+        {
+          "player_id": 294305,
+          "player_name": "Lachie Whitfield",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 967000.0,
+          "score": 91.0
+        },
+        {
+          "player_id": 297373,
+          "player_name": "Marcus Bontempelli",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1145000.0,
+          "score": 120.0
+        },
+        {
+          "player_id": 1009208,
+          "player_name": "Matt Rowell",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1144000.0,
+          "score": 116.0
+        },
+        {
+          "player_id": 993834,
+          "player_name": "Josh Dunkley",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1071000.0,
+          "score": 132.0
+        },
+        {
+          "player_id": 992242,
+          "player_name": "Jordan Dawson",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1051000.0,
+          "score": 147.0
+        },
+        {
+          "player_id": 298539,
+          "player_name": "Isaac Heeney",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1048000.0,
+          "score": 114.0
+        },
+        {
+          "player_id": 992016,
+          "player_name": "Zach Merrett",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 988000.0,
+          "score": 132.0
+        },
+        {
+          "player_id": 1006121,
+          "player_name": "Zak Butters",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 946000.0,
+          "score": 122.0
+        },
+        {
+          "player_id": 1000978,
+          "player_name": "Hugh McCluggage",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 942000.0,
+          "score": 112.0
+        },
+        {
+          "player_id": 1009199,
+          "player_name": "Noah Anderson",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1019000.0,
+          "score": 65.0
+        },
+        {
+          "player_id": 1013128,
+          "player_name": "Errol Gulden",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1017000.0,
+          "score": 93.0
+        },
+        {
+          "player_id": 992468,
+          "player_name": "Rowan Marshall",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1051000.0,
+          "score": 135.0
+        },
+        {
+          "player_id": 1009399,
+          "player_name": "Luke Jackson",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 961000.0,
+          "score": 104.0
+        },
+        {
+          "player_id": 293957,
+          "player_name": "Brodie Grundy",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 1239000.0,
+          "score": 83.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1088000.0,
+          "score": 120.0
+        },
+        {
+          "player_id": 1004938,
+          "player_name": "Gryan Miers",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 960000.0,
+          "score": 96.0
+        },
+        {
+          "player_id": 993878,
+          "player_name": "Shaun Mannagh",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 870000.0,
+          "score": 99.0
+        },
+        {
+          "player_id": 293845,
+          "player_name": "Jeremy Cameron",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 852000.0,
+          "score": 104.0
+        },
+        {
+          "player_id": 290778,
+          "player_name": "Luke Parker",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 831000.0,
+          "score": 116.0
+        },
+        {
+          "player_id": 1002312,
+          "player_name": "Zac Bailey",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 814000.0,
+          "score": 104.0
+        },
+        {
+          "player_id": 1006314,
+          "player_name": "Dylan Moore",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 891000.0,
+          "score": 91.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 888000.0,
+          "score": 91.0
+        },
+        {
+          "player_id": 1004965,
+          "player_name": "Tristan Xerri",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 949000.0,
+          "score": 83.0
+        }
+      ]
+    },
+    "23": {
+      "summary": {
+        "round_number": 23,
+        "total_team_points": 2785.0,
+        "captain_player_name": "Harry Sheezel"
+      },
+      "trades": {
+        "round_number": 23,
+        "traded_in": [
+          {
+            "player_id": 997078,
+            "player_name": "Mason Redman",
+            "price": 808000.0
+          },
+          {
+            "player_id": 1002267,
+            "player_name": "Luke Davies-Uniacke",
+            "price": 764000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 1009208,
+            "player_name": "Matt Rowell",
+            "price": 1153000.0
+          },
+          {
+            "player_id": 1015507,
+            "player_name": "Nasiah Wanganeen-Milera",
+            "price": 1195000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 1023518,
+          "player_name": "Harry Sheezel",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1040000.0,
+          "score": 186.0
+        },
+        {
+          "player_id": 294305,
+          "player_name": "Lachie Whitfield",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 984000.0,
+          "score": 103.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 952000.0,
+          "score": 86.0
+        },
+        {
+          "player_id": 261224,
+          "player_name": "Dayne Zorko",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 912000.0,
+          "score": 120.0
+        },
+        {
+          "player_id": 997078,
+          "player_name": "Mason Redman",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 808000.0,
+          "score": 143.0
+        },
+        {
+          "player_id": 998102,
+          "player_name": "Andrew McGrath",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 682000.0,
+          "score": 134.0
+        },
+        {
+          "player_id": 994389,
+          "player_name": "Jack Sinclair",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 1018000.0,
+          "score": 81.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 971000.0,
+          "score": 60.0
+        },
+        {
+          "player_id": 297373,
+          "player_name": "Marcus Bontempelli",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1152000.0,
+          "score": 131.0
+        },
+        {
+          "player_id": 993834,
+          "player_name": "Josh Dunkley",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1105000.0,
+          "score": 91.0
+        },
+        {
+          "player_id": 992242,
+          "player_name": "Jordan Dawson",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1091000.0,
+          "score": 91.0
+        },
+        {
+          "player_id": 1013128,
+          "player_name": "Errol Gulden",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1003000.0,
+          "score": 88.0
+        },
+        {
+          "player_id": 1009199,
+          "player_name": "Noah Anderson",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 992000.0,
+          "score": 118.0
+        },
+        {
+          "player_id": 1000978,
+          "player_name": "Hugh McCluggage",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 957000.0,
+          "score": 93.0
+        },
+        {
+          "player_id": 1006121,
+          "player_name": "Zak Butters",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 932000.0,
+          "score": 97.0
+        },
+        {
+          "player_id": 1002267,
+          "player_name": "Luke Davies-Uniacke",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 764000.0,
+          "score": 162.0
+        },
+        {
+          "player_id": 298539,
+          "player_name": "Isaac Heeney",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1056000.0,
+          "score": 72.0
+        },
+        {
+          "player_id": 992016,
+          "player_name": "Zach Merrett",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1003000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 992468,
+          "player_name": "Rowan Marshall",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1079000.0,
+          "score": 121.0
+        },
+        {
+          "player_id": 1004965,
+          "player_name": "Tristan Xerri",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 908000.0,
+          "score": 165.0
+        },
+        {
+          "player_id": 293957,
+          "player_name": "Brodie Grundy",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 1220000.0,
+          "score": 0.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1090000.0,
+          "score": 109.0
+        },
+        {
+          "player_id": 1004938,
+          "player_name": "Gryan Miers",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 969000.0,
+          "score": 92.0
+        },
+        {
+          "player_id": 993878,
+          "player_name": "Shaun Mannagh",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 895000.0,
+          "score": 120.0
+        },
+        {
+          "player_id": 1006314,
+          "player_name": "Dylan Moore",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 889000.0,
+          "score": 123.0
+        },
+        {
+          "player_id": 290778,
+          "player_name": "Luke Parker",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 841000.0,
+          "score": 102.0
+        },
+        {
+          "player_id": 1002312,
+          "player_name": "Zac Bailey",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 837000.0,
+          "score": 124.0
+        },
+        {
+          "player_id": 1009399,
+          "player_name": "Luke Jackson",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 966000.0,
+          "score": 56.0
+        },
+        {
+          "player_id": 293845,
+          "player_name": "Jeremy Cameron",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 886000.0,
+          "score": 50.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 894000.0,
+          "score": 54.0
+        }
+      ]
+    },
+    "24": {
+      "summary": {
+        "round_number": 24,
+        "total_team_points": 2818.0,
+        "captain_player_name": "Tristan Xerri"
+      },
+      "trades": {
+        "round_number": 24,
+        "traded_in": [
+          {
+            "player_id": 996765,
+            "player_name": "Tom Papley",
+            "price": 558000.0
+          },
+          {
+            "player_id": 1008384,
+            "player_name": "Riley Thilthorpe",
+            "price": 811000.0
+          }
+        ],
+        "traded_out": [
+          {
+            "player_id": 1004938,
+            "player_name": "Gryan Miers",
+            "price": 969000.0
+          },
+          {
+            "player_id": 1006314,
+            "player_name": "Dylan Moore",
+            "price": 911000.0
+          }
+        ]
+      },
+      "team": [
+        {
+          "player_id": 1023518,
+          "player_name": "Harry Sheezel",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1110000.0,
+          "score": 113.0
+        },
+        {
+          "player_id": 994389,
+          "player_name": "Jack Sinclair",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 1021000.0,
+          "score": 96.0
+        },
+        {
+          "player_id": 294305,
+          "player_name": "Lachie Whitfield",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 991000.0,
+          "score": 129.0
+        },
+        {
+          "player_id": 1001299,
+          "player_name": "Connor Rozee",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 926000.0,
+          "score": 142.0
+        },
+        {
+          "player_id": 1009253,
+          "player_name": "Lachie Ash",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 906000.0,
+          "score": 109.0
+        },
+        {
+          "player_id": 997078,
+          "player_name": "Mason Redman",
+          "slot": "on_field",
+          "position": "DEF",
+          "price": 863000.0,
+          "score": 119.0
+        },
+        {
+          "player_id": 261224,
+          "player_name": "Dayne Zorko",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 921000.0,
+          "score": 76.0
+        },
+        {
+          "player_id": 998102,
+          "player_name": "Andrew McGrath",
+          "slot": "bench",
+          "position": "DEF",
+          "price": 762000.0,
+          "score": 83.0
+        },
+        {
+          "player_id": 297373,
+          "player_name": "Marcus Bontempelli",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1160000.0,
+          "score": 141.0
+        },
+        {
+          "player_id": 993834,
+          "player_name": "Josh Dunkley",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1101000.0,
+          "score": 136.0
+        },
+        {
+          "player_id": 992242,
+          "player_name": "Jordan Dawson",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1097000.0,
+          "score": 103.0
+        },
+        {
+          "player_id": 992016,
+          "player_name": "Zach Merrett",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 1003000.0,
+          "score": 115.0
+        },
+        {
+          "player_id": 1013128,
+          "player_name": "Errol Gulden",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 985000.0,
+          "score": 133.0
+        },
+        {
+          "player_id": 1000978,
+          "player_name": "Hugh McCluggage",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 966000.0,
+          "score": 133.0
+        },
+        {
+          "player_id": 1006121,
+          "player_name": "Zak Butters",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 923000.0,
+          "score": 152.0
+        },
+        {
+          "player_id": 1002267,
+          "player_name": "Luke Davies-Uniacke",
+          "slot": "on_field",
+          "position": "MID",
+          "price": 845000.0,
+          "score": 106.0
+        },
+        {
+          "player_id": 298539,
+          "player_name": "Isaac Heeney",
+          "slot": "bench",
+          "position": "MID",
+          "price": 1030000.0,
+          "score": 103.0
+        },
+        {
+          "player_id": 1009199,
+          "player_name": "Noah Anderson",
+          "slot": "bench",
+          "position": "MID",
+          "price": 989000.0,
+          "score": 48.0
+        },
+        {
+          "player_id": 992468,
+          "player_name": "Rowan Marshall",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 1110000.0,
+          "score": 114.0
+        },
+        {
+          "player_id": 1004965,
+          "player_name": "Tristan Xerri",
+          "slot": "on_field",
+          "position": "RUC",
+          "price": 943000.0,
+          "score": 154.0
+        },
+        {
+          "player_id": 1009399,
+          "player_name": "Luke Jackson",
+          "slot": "bench",
+          "position": "RUC",
+          "price": 935000.0,
+          "score": 77.0
+        },
+        {
+          "player_id": 1006130,
+          "player_name": "Bailey Smith",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 1092000.0,
+          "score": 108.0
+        },
+        {
+          "player_id": 1002312,
+          "player_name": "Zac Bailey",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 878000.0,
+          "score": 97.0
+        },
+        {
+          "player_id": 293845,
+          "player_name": "Jeremy Cameron",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 876000.0,
+          "score": 106.0
+        },
+        {
+          "player_id": 290778,
+          "player_name": "Luke Parker",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 861000.0,
+          "score": 107.0
+        },
+        {
+          "player_id": 1008384,
+          "player_name": "Riley Thilthorpe",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 811000.0,
+          "score": 120.0
+        },
+        {
+          "player_id": 996765,
+          "player_name": "Tom Papley",
+          "slot": "on_field",
+          "position": "FWD",
+          "price": 558000.0,
+          "score": 131.0
+        },
+        {
+          "player_id": 993878,
+          "player_name": "Shaun Mannagh",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 930000.0,
+          "score": 74.0
+        },
+        {
+          "player_id": 1008541,
+          "player_name": "Kysaiah Pickett",
+          "slot": "bench",
+          "position": "FWD",
+          "price": 866000.0,
+          "score": 67.0
+        },
+        {
+          "player_id": 293957,
+          "player_name": "Brodie Grundy",
+          "slot": "utility_bench",
+          "position": null,
+          "price": 1220000.0,
+          "score": 89.0
+        }
+      ]
+    }
+  }
+}
