@@ -179,6 +179,23 @@ def _build_gurobi_solver(*, time_limit_seconds: int | None, enable_solver_output
     - GUROBI_HOME typically indicates an installed Gurobi distribution.
     - If Gurobi isn't actually usable (e.g. no license), PuLP will raise
       when attempting to solve.
+
+    Logging / progress output
+    ------------------------
+    Gurobi's detailed progress (presolve summary, node log, MIP gap progress,
+    etc.) is controlled by the solver's own OutputFlag parameter.
+
+    PuLP's GUROBI_CMD maps `msg=True` to emitting solver output.
+
+    You can also provide additional Gurobi parameters in a JSON file at:
+
+      <repo_root>/data/gurobi_options.json
+
+    Example:
+
+      {"MIPGap": 0.02, "Presolve": 2}
+
+    These are passed through to GUROBI_CMD via its `options` parameter.
     """
 
     # In PuLP, the most common interface is GUROBI_CMD (shell wrapper).
@@ -187,6 +204,23 @@ def _build_gurobi_solver(*, time_limit_seconds: int | None, enable_solver_output
     if time_limit_seconds is not None:
         # GUROBI_CMD uses `timeLimit` (seconds)
         kwargs["timeLimit"] = time_limit_seconds
+
+    # Optional: extra gurobi options via JSON file in repo /data.
+    # This lets you tweak methods, MIPGap, etc. without editing code.
+    options_path = Path(__file__).resolve().parents[2] / "data" / "gurobi_options.json"
+    if options_path.exists():
+        try:
+            import json
+
+            parsed = json.loads(options_path.read_text(encoding="utf-8-sig"))
+            if not isinstance(parsed, dict):
+                raise TypeError("gurobi_options.json must contain a JSON object")
+
+            # PuLP GUROBI_CMD expects a list of (key, value) pairs.
+            # Use sorted order for stable command-line generation.
+            kwargs["options"] = sorted(parsed.items(), key=lambda kv: str(kv[0]))
+        except Exception as e:  # pragma: no cover
+            raise ValueError(f"Invalid {options_path}: {e}") from e
 
     return pulp.GUROBI_CMD(**kwargs)
 
@@ -258,6 +292,13 @@ def solve_retro_fantasy(
         )
 
     use_gurobi = bool(os.environ.get("GUROBI_HOME"))
+
+    # If the user has Gurobi installed and hasn't explicitly asked to silence
+    # solver output, default to showing Gurobi's progress log. This is useful
+    # for long solves (presolve stats, MIP gap, node counts, etc.).
+    if use_gurobi and os.environ.get("RETRO_FANTASY_SOLVER_OUTPUT") is None:
+        enable_solver_output = True
+
     if use_gurobi:
         logger.info(
             "Solving with Gurobi (GUROBI_HOME is set) (time_limit_seconds=%s, solver_output=%s)",
