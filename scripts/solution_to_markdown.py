@@ -368,15 +368,160 @@ def _round_total_values(solution: Mapping[str, Any], round_numbers: Iterable[int
     return out
 
 
+def _format_player_line(*, name: str, price: float | None, score: float | None) -> str:
+    parts: list[str] = [name]
+    if price is not None:
+        parts.append(_format_currency(price))
+    if score is not None:
+        parts.append(f"{_format_score(float(score))} pts")
+    return " – ".join(parts)
+
+
+def _get_round_obj(solution: Mapping[str, Any], r: int) -> Mapping[str, Any]:
+    rounds_obj: Mapping[str, Any] = solution.get("rounds") or {}
+    return rounds_obj.get(str(r)) or {}
+
+
+def _get_round_summary(solution: Mapping[str, Any], r: int) -> Mapping[str, Any]:
+    return (_get_round_obj(solution, r).get("summary") or {})
+
+
+def _get_round_trades(solution: Mapping[str, Any], r: int) -> Mapping[str, Any] | None:
+    return _get_round_obj(solution, r).get("trades")
+
+
+def _get_round_team(solution: Mapping[str, Any], r: int) -> list[Mapping[str, Any]]:
+    return list(_get_round_obj(solution, r).get("team") or [])
+
+
+def _trade_lines_for_round(solution: Mapping[str, Any], r: int) -> list[str]:
+    trades = _get_round_trades(solution, r)
+    if not trades:
+        return ["- Trades: _None_" if r == 1 else "- Trades: _None_"]
+
+    traded_out = trades.get("traded_out") or []
+    traded_in = trades.get("traded_in") or []
+
+    lines: list[str] = []
+    if traded_out:
+        lines.append("- Traded out:")
+        for e in traded_out:
+            lines.append(f"  - {_format_player_line(name=str(e.get('player_name','?')), price=e.get('price'), score=None)}")
+    else:
+        lines.append("- Traded out: _None_")
+
+    if traded_in:
+        lines.append("- Traded in:")
+        for e in traded_in:
+            lines.append(f"  - {_format_player_line(name=str(e.get('player_name','?')), price=e.get('price'), score=None)}")
+    else:
+        lines.append("- Traded in: _None_")
+
+    return lines
+
+
+def _position_row_order() -> list[str]:
+    # Keep consistent with your Position enum ordering / formulation.
+    return ["DEF", "MID", "RUC", "FWD"]
+
+
+def _slot_column_order() -> list[str]:
+    # Utility is a bench slot; we don't need a separate column for it.
+    return ["on_field", "bench"]
+
+
+def _slot_label(slot: str) -> str:
+    return {"on_field": "On field", "bench": "Bench"}.get(slot, slot)
+
+
+def _team_table_for_round(solution: Mapping[str, Any], r: int) -> str:
+    team = _get_round_team(solution, r)
+
+    # Bucket: (position, slot) -> list[team_entry]
+    buckets: dict[tuple[str, str], list[Mapping[str, Any]]] = {}
+    for e in team:
+        slot = str(e.get("slot") or "")
+        pos = e.get("position")
+
+        # Map utility bench into the bench column.
+        if slot == "utility_bench":
+            slot = "bench"
+
+        # Utility has no position; show it in a dedicated utility row.
+        if pos is None:
+            pos_key = "UTIL"
+        else:
+            pos_key = str(pos)
+
+        buckets.setdefault((pos_key, slot), []).append(e)
+
+    # Sort each bucket by price desc
+    for k, lst in buckets.items():
+        lst.sort(key=lambda x: float(x.get("price") or 0.0), reverse=True)
+
+    positions = _position_row_order() + ["UTIL"]
+    slots = _slot_column_order()
+
+    lines: list[str] = []
+    header = ["Position"] + [_slot_label(s) for s in slots]
+    lines.append("| " + " | ".join(header) + " |")
+    lines.append("| " + " | ".join(["---"] * len(header)) + " |")
+
+    for pos in positions:
+        row: list[str] = [pos]
+        for slot in slots:
+            players = buckets.get((pos, slot), [])
+            if not players:
+                row.append("")
+                continue
+
+            cell_lines: list[str] = []
+            for p in players:
+                cell_lines.append(
+                    _format_player_line(
+                        name=str(p.get("player_name", "?")),
+                        price=p.get("price"),
+                        score=p.get("score"),
+                    )
+                )
+            row.append("<br>".join(cell_lines))
+
+        lines.append("| " + " | ".join(row) + " |")
+
+    return "\n".join(lines)
+
+
+def _verbose_round_sections(solution: Mapping[str, Any], round_numbers: list[int]) -> str:
+    out: list[str] = []
+    out.append("# Round-by-round detail")
+    out.append("")
+
+    for r in round_numbers:
+        summary = _get_round_summary(solution, r)
+        total_pts = summary.get("total_team_points")
+        captain_name = summary.get("captain_player_name") or ""
+
+        out.append(f"## Round {r}")
+        out.append("")
+        if total_pts is not None:
+            out.append(f"- Total scored points: **{_format_score(float(total_pts))}**")
+        if captain_name:
+            out.append(f"- Captain: **{captain_name}**")
+        out.append("")
+
+        out.extend(_trade_lines_for_round(solution, r))
+        out.append("")
+
+        out.append("### Team")
+        out.append("")
+        out.append(_team_table_for_round(solution, r))
+        out.append("")
+
+    return "\n".join(out)
+
+
 def solution_json_to_markdown(solution: Mapping[str, Any]) -> str:
     round_numbers, player_cells, player_names = _extract_cells(solution)
-    round_totals = _round_scored_totals(solution, round_numbers)
-
-    bank_by_round = _round_bank_balances(solution, round_numbers)
-    team_value_by_round = _round_team_values(solution, round_numbers)
-    total_value_by_round = _round_total_values(solution, round_numbers)
-
-    round_blocks = _chunk_rounds(round_numbers, chunk_size=8)
 
     lines: List[str] = []
 
@@ -388,6 +533,19 @@ def solution_json_to_markdown(solution: Mapping[str, Any]) -> str:
     if objective is not None:
         lines.append(f"- **Objective value**: {objective}")
     lines.append("")
+
+    # Round-by-round detail first (more narrative / verbose).
+    lines.append(_verbose_round_sections(solution, round_numbers))
+    lines.append("")
+
+    # Then the compact summary tables.
+    round_totals = _round_scored_totals(solution, round_numbers)
+
+    bank_by_round = _round_bank_balances(solution, round_numbers)
+    team_value_by_round = _round_team_values(solution, round_numbers)
+    total_value_by_round = _round_total_values(solution, round_numbers)
+
+    round_blocks = _chunk_rounds(round_numbers, chunk_size=8)
 
     for i, block in enumerate(round_blocks, start=1):
         if not block:
