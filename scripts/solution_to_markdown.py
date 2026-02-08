@@ -62,7 +62,7 @@ def _format_cell(cell: Optional[PlayerRoundCell]) -> str:
     # and add 'Traded Out' line.
     if cell.traded_out:
         if price_text:
-            return f"{price_text}<br>Traded Out"
+            return f"Traded Out<br>{price_text}"
         return "Traded Out"
 
     score_text = _format_score(cell.score)
@@ -153,13 +153,28 @@ def _extract_cells(
 
             cell = PlayerRoundCell(
                 score=float(entry.get("score", 0.0) or 0.0),
-                scored=bool(entry.get("scored", False)),
+                scored=bool(entry.get("scored", entry.get("slot") == "on_field")),
                 captain=bool(entry.get("captain", False)),
                 slot=entry.get("slot"),
                 position=entry.get("position"),
                 price=float(entry.get("price")) if entry.get("price") is not None else None,
                 traded_out=(pid in traded_out_by_round.get(r, set())),
             )
+            # Fallback: infer captain if not present in JSON.
+            if not cell.captain:
+                summary = (r_obj.get("summary") or {})
+                cap_name = summary.get("captain_player_name")
+                if cap_name and str(entry.get("player_name")) == str(cap_name):
+                    cell = PlayerRoundCell(
+                        score=cell.score,
+                        scored=cell.scored,
+                        captain=True,
+                        slot=cell.slot,
+                        position=cell.position,
+                        price=cell.price,
+                        traded_out=cell.traded_out,
+                    )
+
             player_cells.setdefault(pid, {})[r] = cell
 
         # 2) Synthesise cells for players traded out in this round.
