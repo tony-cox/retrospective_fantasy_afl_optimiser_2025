@@ -14,6 +14,8 @@ class PlayerRoundCell:
     captain: bool
     slot: Optional[str]
     position: Optional[str]
+    price: Optional[float]
+    traded_out: bool
 
 
 def _format_score(score: float) -> str:
@@ -39,9 +41,29 @@ def _format_slot_position(*, slot: Optional[str], position: Optional[str]) -> st
     return slot_label
 
 
+def _format_price(price: Optional[float]) -> str:
+    if price is None:
+        return ""
+    # Prices are in whole dollars in this dataset; show with commas.
+    try:
+        return f"${int(round(float(price))):,}"
+    except Exception:
+        return str(price)
+
+
 def _format_cell(cell: Optional[PlayerRoundCell]) -> str:
     if cell is None:
         return ""
+
+    price_text = _format_price(cell.price)
+
+    # Special case: traded out this round.
+    # Requirement: don't show score/position/slot, but still show price;
+    # and add 'Traded Out' line.
+    if cell.traded_out:
+        if price_text:
+            return f"{price_text}<br>Traded Out"
+        return "Traded Out"
 
     score_text = _format_score(cell.score)
 
@@ -55,10 +77,14 @@ def _format_cell(cell: Optional[PlayerRoundCell]) -> str:
 
     where = _format_slot_position(slot=cell.slot, position=cell.position)
 
-    # Two-line cell (markdown table supports <br> in most renderers)
+    # Render as multi-line cell.
+    parts: list[str] = [score_text]
     if where:
-        return f"{score_text}<br>{where}"
-    return score_text
+        parts.append(where)
+    if price_text:
+        parts.append(price_text)
+
+    return "<br>".join(parts)
 
 
 def _iter_round_numbers(solution: Mapping[str, Any]) -> List[int]:
@@ -74,6 +100,27 @@ def _iter_round_numbers(solution: Mapping[str, Any]) -> List[int]:
     return sorted(round_nums)
 
 
+def _extract_traded_out_player_ids_for_round(solution: Mapping[str, Any], r: int) -> List[int]:
+    rounds_obj: Mapping[str, Any] = solution.get("rounds") or {}
+    r_obj = rounds_obj.get(str(r)) or {}
+    trades = r_obj.get("trades") or {}
+    traded_out = trades.get("traded_out") or []
+    player_ids: List[int] = []
+    for entry in traded_out:
+        try:
+            player_ids.append(int(entry["player_id"]))
+        except Exception:
+            continue
+    return player_ids
+
+
+def _extract_traded_out_entries_for_round(solution: Mapping[str, Any], r: int) -> List[Mapping[str, Any]]:
+    rounds_obj: Mapping[str, Any] = solution.get("rounds") or {}
+    r_obj = rounds_obj.get(str(r)) or {}
+    trades = r_obj.get("trades") or {}
+    return trades.get("traded_out") or []
+
+
 def _extract_cells(
     solution: Mapping[str, Any],
 ) -> Tuple[List[int], Dict[int, Dict[int, PlayerRoundCell]], Dict[int, str]]:
@@ -85,10 +132,17 @@ def _extract_cells(
     player_cells: Dict[int, Dict[int, PlayerRoundCell]] = {}
     player_names: Dict[int, str] = {}
 
+    # Pre-compute traded-out player sets by round.
+    traded_out_by_round: Dict[int, set[int]] = {
+        r: {int(e["player_id"]) for e in _extract_traded_out_entries_for_round(solution, r) if "player_id" in e}
+        for r in round_numbers
+    }
+
     for r in round_numbers:
         r_obj = rounds_obj.get(str(r)) or {}
         team = r_obj.get("team") or []
 
+        # 1) Cells for players in the team list
         for entry in team:
             try:
                 pid = int(entry["player_id"])
@@ -103,8 +157,36 @@ def _extract_cells(
                 captain=bool(entry.get("captain", False)),
                 slot=entry.get("slot"),
                 position=entry.get("position"),
+                price=float(entry.get("price")) if entry.get("price") is not None else None,
+                traded_out=(pid in traded_out_by_round.get(r, set())),
             )
             player_cells.setdefault(pid, {})[r] = cell
+
+        # 2) Synthesise cells for players traded out in this round.
+        # Typically these players are NOT in the team list for the same round.
+        for out_entry in _extract_traded_out_entries_for_round(solution, r):
+            try:
+                pid = int(out_entry["player_id"])
+            except Exception:
+                continue
+
+            # Preserve name if provided.
+            if "player_name" in out_entry:
+                player_names[pid] = str(out_entry.get("player_name", pid))
+
+            # Only add if not already present from team list.
+            if r in player_cells.get(pid, {}):
+                continue
+
+            player_cells.setdefault(pid, {})[r] = PlayerRoundCell(
+                score=0.0,
+                scored=False,
+                captain=False,
+                slot=None,
+                position=None,
+                price=float(out_entry.get("price")) if out_entry.get("price") is not None else None,
+                traded_out=True,
+            )
 
     return round_numbers, player_cells, player_names
 
@@ -139,6 +221,80 @@ def _players_in_round_block(
     return player_ids
 
 
+def _extract_selected_player_ids_for_round(solution: Mapping[str, Any], r: int) -> List[int]:
+    rounds_obj: Mapping[str, Any] = solution.get("rounds") or {}
+    r_obj = rounds_obj.get(str(r)) or {}
+    team = r_obj.get("team") or []
+    player_ids: List[int] = []
+    for entry in team:
+        try:
+            player_ids.append(int(entry["player_id"]))
+        except Exception:
+            continue
+    return player_ids
+
+
+def _extract_traded_in_player_ids_for_round(solution: Mapping[str, Any], r: int) -> List[int]:
+    rounds_obj: Mapping[str, Any] = solution.get("rounds") or {}
+    r_obj = rounds_obj.get(str(r)) or {}
+    trades = r_obj.get("trades") or {}
+    traded_in = trades.get("traded_in") or []
+    player_ids: List[int] = []
+    for entry in traded_in:
+        try:
+            player_ids.append(int(entry["player_id"]))
+        except Exception:
+            continue
+    return player_ids
+
+
+def _cascade_player_order_for_block(
+    solution: Mapping[str, Any],
+    block: List[int],
+    player_cells: Dict[int, Dict[int, PlayerRoundCell]],
+) -> List[int]:
+    """Return player ids in cascade order, restricted to players present in this block.
+
+    Order:
+      1) Round-1 team (in the order shown in solution.json)
+      2) For r>=2: players traded in for round r (in traded_in order)
+      3) Any remaining players present in the block (fallback deterministic ordering)
+
+    The idea is to read like a timeline: initial squad, then additions.
+    """
+
+    if not block:
+        return []
+
+    # Players present in the block (at least once).
+    present = set(_players_in_round_block(player_cells, block))
+
+    ordered: List[int] = []
+    seen: set[int] = set()
+
+    # 1) Round 1 team.
+    r1_ids = _extract_selected_player_ids_for_round(solution, 1)
+    for pid in r1_ids:
+        if pid in present and pid not in seen:
+            ordered.append(pid)
+            seen.add(pid)
+
+    # 2) Traded-in players by round.
+    for r in block:
+        if r <= 1:
+            continue
+        for pid in _extract_traded_in_player_ids_for_round(solution, r):
+            if pid in present and pid not in seen:
+                ordered.append(pid)
+                seen.add(pid)
+
+    # 3) Fallback for anything else (should be rare): stable ordering by name.
+    remaining = [pid for pid in sorted(present) if pid not in seen]
+    ordered.extend(remaining)
+
+    return ordered
+
+
 def solution_json_to_markdown(solution: Mapping[str, Any]) -> str:
     round_numbers, player_cells, player_names = _extract_cells(solution)
     round_totals = _round_scored_totals(solution, round_numbers)
@@ -164,10 +320,8 @@ def solution_json_to_markdown(solution: Mapping[str, Any]) -> str:
         lines.append("")
 
         # Only rows for players who are selected at least once in the block.
-        block_player_ids = _players_in_round_block(player_cells, block)
-
-        # Row order: by player name (within this block).
-        block_player_ids = sorted(block_player_ids, key=lambda pid: player_names.get(pid, str(pid)).lower())
+        # Use cascade ordering rather than alphabetical to make it read like a timeline.
+        block_player_ids = _cascade_player_order_for_block(solution, block, player_cells)
 
         # Table header
         header = ["Player"] + [f"R{r}" for r in block]
@@ -194,6 +348,8 @@ def solution_json_to_markdown(solution: Mapping[str, Any]) -> str:
     lines.append("- *Italic score*: selected but did **not** count towards your score (bench or not in best-N)")
     lines.append("- **Bold score**: captain (captain score is doubled in the objective)")
     lines.append("- Second line in each cell shows where the player was selected (Position / Slot)")
+    lines.append("- Third line in each cell shows the player price (if available)")
+    lines.append("- 'Traded Out' indicates the player was traded out in this round")
 
     return "\n".join(lines) + "\n"
 
