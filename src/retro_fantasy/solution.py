@@ -39,6 +39,8 @@ class TeamEntry:
     position: Optional[str]
     price: float
     score: float
+    scored: bool
+    captain: bool
 
 
 @dataclass(frozen=True, slots=True)
@@ -97,24 +99,28 @@ def build_solution_summary(
     rounds: Dict[int, RoundDetail] = {}
 
     # Sorting helpers
-    position_order: dict[Optional[str], int] = {pos.value: i for i, pos in enumerate(Position.__members__.values())}
+    position_order: dict[Optional[str], int] = {str(pos.value): i for i, pos in enumerate(Position)}
     position_order[None] = len(position_order)  # utility bench (no position) last
     slot_order: dict[str, int] = {"on_field": 0, "bench": 1, "utility_bench": 2}
 
     for r in model_input_data.idx_round:
         # Captain and scoring.
+        captain_player_id: int | None = None
         captain_player_name = ""
         captain_bonus = 0.0
 
         for p in model_input_data.player_ids:
             if _is_selected(decision_vars.captain[(p, r)]):
+                captain_player_id = p
                 captain_player_name = model_input_data.players[p].name
                 captain_bonus = float(model_input_data.score(p, r))
                 break
 
+        scored_player_ids: set[int] = set()
         total_team_points = 0.0
         for p in model_input_data.player_ids:
             if _is_selected(decision_vars.scored[(p, r)]):
+                scored_player_ids.add(p)
                 total_team_points += float(model_input_data.score(p, r))
         total_team_points += captain_bonus
 
@@ -157,6 +163,8 @@ def build_solution_summary(
                     position=pos.value if pos else None,
                     price=float(model_input_data.price(p, r)),
                     score=float(model_input_data.score(p, r)),
+                    scored=p in scored_player_ids,
+                    captain=(captain_player_id == p),
                 )
             )
 
