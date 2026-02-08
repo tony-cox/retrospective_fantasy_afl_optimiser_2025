@@ -29,6 +29,9 @@ class RoundSummary:
     round_number: int
     total_team_points: float
     captain_player_name: str
+    bank_balance: float
+    team_value: float
+    total_value: float
 
 
 @dataclass(frozen=True, slots=True)
@@ -124,10 +127,21 @@ def build_solution_summary(
                 total_team_points += float(model_input_data.score(p, r))
         total_team_points += captain_bonus
 
+        # Bank + team value diagnostics
+        bank_balance = float(_var_value(decision_vars.bank[r])) if (decision_vars.bank and r in decision_vars.bank) else 0.0
+        team_value = 0.0
+        for p in model_input_data.player_ids:
+            if _is_selected(decision_vars.x_selected.get((p, r), 0)):
+                team_value += float(model_input_data.price(p, r))
+        total_value = team_value + bank_balance
+
         summary = RoundSummary(
             round_number=r,
             total_team_points=total_team_points,
             captain_player_name=captain_player_name,
+            bank_balance=bank_balance,
+            team_value=team_value,
+            total_value=total_value,
         )
 
         # Team listing for the round: everyone selected in any slot.

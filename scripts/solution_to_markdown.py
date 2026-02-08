@@ -310,9 +310,71 @@ def _cascade_player_order_for_block(
     return ordered
 
 
+def _format_currency(value: float | int | None) -> str:
+    if value is None:
+        return ""
+    try:
+        return f"${int(round(float(value))):,}"
+    except Exception:
+        return str(value)
+
+
+def _round_bank_balances(solution: Mapping[str, Any], round_numbers: Iterable[int]) -> Dict[int, float | None]:
+    out: Dict[int, float | None] = {}
+    rounds_obj: Mapping[str, Any] = solution.get("rounds") or {}
+    for r in round_numbers:
+        summary = (rounds_obj.get(str(r)) or {}).get("summary") or {}
+        val = summary.get("bank_balance")
+        out[r] = float(val) if val is not None else None
+    return out
+
+
+def _round_team_values_from_team_list(solution: Mapping[str, Any], round_numbers: Iterable[int]) -> Dict[int, float]:
+    rounds_obj: Mapping[str, Any] = solution.get("rounds") or {}
+    out: Dict[int, float] = {}
+    for r in round_numbers:
+        team = (rounds_obj.get(str(r)) or {}).get("team") or []
+        out[r] = float(sum(float(e.get("price") or 0.0) for e in team))
+    return out
+
+
+def _round_team_values(solution: Mapping[str, Any], round_numbers: Iterable[int]) -> Dict[int, float | None]:
+    rounds_obj: Mapping[str, Any] = solution.get("rounds") or {}
+    computed = _round_team_values_from_team_list(solution, round_numbers)
+
+    out: Dict[int, float | None] = {}
+    for r in round_numbers:
+        summary = (rounds_obj.get(str(r)) or {}).get("summary") or {}
+        val = summary.get("team_value")
+        out[r] = float(val) if val is not None else computed.get(r)
+    return out
+
+
+def _round_total_values(solution: Mapping[str, Any], round_numbers: Iterable[int]) -> Dict[int, float | None]:
+    rounds_obj: Mapping[str, Any] = solution.get("rounds") or {}
+    bank = _round_bank_balances(solution, round_numbers)
+    team = _round_team_values(solution, round_numbers)
+
+    out: Dict[int, float | None] = {}
+    for r in round_numbers:
+        summary = (rounds_obj.get(str(r)) or {}).get("summary") or {}
+        val = summary.get("total_value")
+        if val is not None:
+            out[r] = float(val)
+        else:
+            b = bank.get(r)
+            t = team.get(r)
+            out[r] = (None if b is None or t is None else float(b + t))
+    return out
+
+
 def solution_json_to_markdown(solution: Mapping[str, Any]) -> str:
     round_numbers, player_cells, player_names = _extract_cells(solution)
     round_totals = _round_scored_totals(solution, round_numbers)
+
+    bank_by_round = _round_bank_balances(solution, round_numbers)
+    team_value_by_round = _round_team_values(solution, round_numbers)
+    total_value_by_round = _round_total_values(solution, round_numbers)
 
     round_blocks = _chunk_rounds(round_numbers, chunk_size=8)
 
@@ -355,6 +417,19 @@ def solution_json_to_markdown(solution: Mapping[str, Any]) -> str:
             totals_row.append(f"**{int(round(round_totals.get(r, 0.0)))}**")
         lines.append("| " + " | ".join(totals_row) + " |")
 
+        # Financial rows (only show if we have *any* data for this block)
+        if any(bank_by_round.get(r) is not None for r in block):
+            row = ["**Bank balance**"] + [_format_currency(bank_by_round.get(r)) for r in block]
+            lines.append("| " + " | ".join(row) + " |")
+
+        if any(team_value_by_round.get(r) is not None for r in block):
+            row = ["**Team value**"] + [_format_currency(team_value_by_round.get(r)) for r in block]
+            lines.append("| " + " | ".join(row) + " |")
+
+        if any(total_value_by_round.get(r) is not None for r in block):
+            row = ["**Total value**"] + [_format_currency(total_value_by_round.get(r)) for r in block]
+            lines.append("| " + " | ".join(row) + " |")
+
         lines.append("")
 
     lines.append("## Legend")
@@ -365,6 +440,7 @@ def solution_json_to_markdown(solution: Mapping[str, Any]) -> str:
     lines.append("- Second line in each cell shows where the player was selected (Position / Slot)")
     lines.append("- Third line in each cell shows the player price (if available)")
     lines.append("- 'Traded Out' indicates the player was traded out in this round")
+    lines.append("- Financial rows: bank balance, team value, and total value are shown when available")
 
     return "\n".join(lines) + "\n"
 
