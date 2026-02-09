@@ -38,7 +38,16 @@ A more flexible mindset:
 - Avoid players that are fairly priced or overpriced
 - Recognise that “value” depends on price tier (e.g., a premium may only need to beat expectation slightly, while a basement rookie may need to significantly outperform to be worth it)
 
-### 5) Bye-round and special-round tactics
+### 5) The season’s trading “phases”
+Even when coaches broadly agree on *what* a good team looks like, they often disagree on the best *path* to get there. In practice, many coaches describe the year as moving through a few informal phases:
+
+- **Fix-up season (Rounds ~1–4):** early rounds are often used to correct Round 1 assumptions. Coaches may make several **sideways trades** (especially among rookies and midpricers) to chase role changes, better job security, or clearer value.
+- **Upgrade season (from ~Round 5 through the byes):** the classic pattern is **"one down, one up"** — trade a cash-generating bench rookie down to a cheaper rookie, then use the freed cash to upgrade a midpricer (or an on-field rookie) up to a premium. This often continues until the end of the mid-season byes. During this phase, it is heavily discouraged by most coaches to make sideways trades as this costs you the ability to get bench cash onto the field.
+- **Luxury season (post-byes):** once the on-field team is close to "completed", trades become less about cash generation and more about points. Coaches may:
+  - make **sideways trades** to target good fixtures and form
+  - aim for a **23rd premium** (a "bonus" premium beyond the best on-field core) to add cover and flexibility
+
+### 6) Bye-round and special-round tactics
 The introduction of multi-round byes made team structure and trade timing even more important:
 - Some rounds score only the **best N players** on field (e.g., best 18), which changes optimisation incentives
 - Some rounds allow **extra trades**, changing the best trade cadence
@@ -82,7 +91,7 @@ Examples of strategy questions worth interrogating:
 
 ### Trades and cash generation
 - Does the solution make short-term “cash plays” (brief holds purely for price movement)?
-- Does it make sideways trades before reaching a “completed team”?
+- Does it make sideways trades during upgrade season before reaching a “completed team”?
 - Does it clear rookies off field quickly, or tolerate rookies longer while upgrading midpricers first?
 
 ### Bye rounds and special rounds
@@ -190,33 +199,36 @@ By default this loads the production-style inputs from `data/`, applies any filt
 
 - ✅ **Input pipeline**: production-style data loading from `data/` (players, prices/scores, and positional updates).
 - ✅ **Full MILP implemented in code** (PuLP): team selection (on-field + bench + utility), bye-round “best N” scoring selection, captaincy, trades per round, and bank balance dynamics.
+- ✅ **Solver choice (CBC or Gurobi)**:
+  - Default solver is **CBC** (via PuLP).
+  - If **Gurobi** is installed and licensed (and `GUROBI_HOME` is present), the project can solve using **Gurobi** for improved performance and richer solver logs.
+  - Solver options (e.g. MIP gap) can be configured via a JSON config file in `data/`.
+- ✅ **Full-season production solve**: the model has been solved successfully on the full **2025** dataset (all rounds), without requiring formulation refactors to reduce variable counts.
 - ✅ **Solution export**: writes a structured `output/solution.json` with per-round team composition, trades, scoring, bank balance, and captain.
+- ✅ **Reporting**: generates a readable **markdown report** from `output/solution.json`, including:
+  - starting team summary
+  - a round-by-round summary table
+  - detailed per-round breakdowns (trades, finances, and team tables)
 - ✅ **Test suite**: unit tests for data loading and key model-building pieces, plus integration tests across small instances.
-
-### Known limitation (work in progress)
-
-The model solves quickly for **small filtered instances** (e.g., ~2 teams across a few rounds), but **solve time grows sharply** as player count and round count increase. For larger instances (e.g., multiple teams across most/all rounds), the solver can stall for a long time.
-
-This is expected behaviour for large MILPs, but there are several optimisation tactics we can apply.
 
 ### Roadmap (next steps)
 
-**Performance / scalability**
-- Add stronger bounds and tightening constraints (e.g., optional upper bound on bank balance, tighter linking bounds, and removing symmetry where possible).
-- Pre-solve reductions:
-  - prune players that are never affordable or never selectable in any required slot for the filtered rounds
-  - prune dominated players per position/round (optional, with care)
-- Add solver configuration and diagnostics:
-  - time limits, MIP gap targets, logging, and deterministic seeds
-  - ability to switch solvers (CBC default, but allow HiGHS / OR-Tools / Gurobi if installed)
-- Consider decomposition approaches if needed (e.g., restrict candidate pools per round; rolling-horizon variants as “near-optimal” heuristics).
+**Reporting / analysis**
+- Add a `discussion.md` write-up interpreting the optimal solution against the strategy questions in this README.
+- Consider additional report outputs (CSV summaries, charts) for easier analysis.
 
-**Real-season run**
-- Run on the full 2025 dataset (all teams, all rounds) with a pragmatic time limit.
-- Commit the resulting `output/solution.json` artefacts.
+**Solver / runtime ergonomics**
+- Improve command-line UX for running filtered vs full solves (explicit CLI flags, clearer presets).
+- Persist solver run metadata (solver used, time, MIP gap, objective) alongside outputs for comparison.
 
-**Write-up**
-- Add `discussion.md` interpreting the optimal solution against the strategy questions above.
-
-**Data realism**
-- Further handle real-world availability edge cases (players entering mid-season, missing rounds, injuries as “not selectable”, etc.).
+**Prospective solving (2026+)**
+- Extend the pipeline to run the optimiser on **future seasons** (e.g. 2026) using **projected player scores** instead of known scores.
+- Add an **in-season** mode: given a **current team state** (selected squad, bank balance, and trades/rounds already completed), optimise the remaining season from the next round onward.
+- Add a **Monte Carlo simulation** mode that:
+  - samples player scores from a reasonable per-player distribution around projections (variance calibrated from historical data)
+  - optionally applies an **opponent difficulty / fixture hardness** adjustment by position (e.g. DEF/MID/RUC/FWD), to shift projections based on the week’s matchup
+  - runs many scenarios and reports robust strategies (e.g. expected score, downside risk, probability of beating a baseline)
+  - can be used both for **pre-season** planning and **weekly trade recommendations** during the season
+- Add **price movement modelling** for prospective runs:
+  - implement an approximation of the AFL Fantasy pricing formula to update player prices round-by-round based on simulated scores
+  - validate/calibrate the approximation against historical seasons (e.g. 2025) to ensure simulated price paths are realistic
