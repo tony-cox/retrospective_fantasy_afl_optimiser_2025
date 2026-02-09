@@ -22,34 +22,31 @@ That matters because some patterns that look strange to humans can be perfectly 
 
 ---
 
-## 1) Starting team: midprice-heavy, but not a pure “guns and rookies” build
+## 1) Starting team: midprice-madness
 
 The Round 1 squad (see **Starting team** in `output/solution.md`) is strongly midprice-heavy.
 
 ### A small number of mega-premiums
 The starting team has only one player above $1M:
 - Jordan Dawson ($1.080M)
+- Nasiah Wanganeen-Milera ($1.003M)
 
 Many human coaches typically start with several set-and-forget premiums (especially captaincy candidates). The optimiser doesn’t.
 
-### Not many basement rookies on-field
-There are some cheap players, but the on-field squad is not “stacked with basement rookies”. The bench also includes multiple non-rookie prices (e.g. Jack Gunston at $575k, Connor O’Sullivan / Daniel Curtin at $300k).
+### Not many  rookies on-field
+There are some cheap players, but the on-field squad only has 3 rookies on field. The bench also includes multiple non-rookie prices (e.g. Jack Gunston at $575k, Ryan Maric at $421k).
 
-This supports your observation that the starting structure looks closer to **midprice madness** than to the conventional rookie-cash ramp.
+This supports an observation that the starting structure looks closer to **midprice madness** than to the conventional rookie-cash ramp.
 
-### Starting bank is low (not high)
-After the missing-price bugfix and re-run, the starting bank is:
-- **$75,000** (Round 1)
-
-So the earlier observation that the optimiser held unusually high cash from the start is **no longer true**. In Round 1, it spends almost the entire cap.
+### Starting bank
+The starting bank is:
+- **$75,000**
 
 ---
 
-## 2) Trades: it still makes lots of sideways moves
+## 2) Trades: Constant sideways moves
 
-Your biggest qualitative observation survives the re-run: the solution makes a lot of **sideways trades** throughout the year.
-
-There are certainly rounds that look like classic “upgrade season” behaviour (a cheaper player traded in for a more expensive one), but the overall pattern is closer to:
+There are almost no rounds that look like classic “upgrade season” behaviour (i.e. downgrade a cashed up rookie down to a lower priced one), but the overall pattern is closer to:
 - constant rebalancing of the 30
 - frequent swapping of mid/high-priced players
 - moving money and points between lines
@@ -70,9 +67,9 @@ In that sense, the optimiser behaves like a “perfect information” version of
 
 ---
 
-## 3) Bank balance: not huge, but often non-trivial
+## 3) Bank balance: highly variable
 
-With the pricing bug fixed, the bank balance behaviour is now realistic.
+The bank balance is highly variable, with some rounds being very high, especially towards the end where the team value is so high (near $30M) that it just doesn't matter anymore.
 
 A few examples from the round summary:
 - Round 1 bank: $75k
@@ -100,20 +97,6 @@ In other words, cash becomes less scarce than *opportunity*.
 
 ---
 
-## 4) Captaincy and bye rounds: best-N selection has visible effects
-
-The report makes bye rounds / best-N rounds obvious because on-field players who didn’t count are shown in brackets, e.g. **(72 pts)**.
-
-This has two implications:
-1. The model can tolerate some weaker on-field selections in bye rounds, because they might not be part of the best-N counted group.
-2. The “scored” selection becomes an important lever: the optimiser chooses which on-field players actually contribute to the objective.
-
-Captaincy behaves as expected:
-- the captain is always a counted player
-- the captain choice follows known future spikes (e.g. Nick Daicos / Max Gawn style weeks)
-
----
-
 ## 5) How does this map to common coaching heuristics?
 
 ### Guns and rookies?
@@ -123,7 +106,7 @@ Not really. The Round 1 team is not a classic guns-and-basement-rookies shape.
 Yes. The starting team and the overall trade cadence strongly resemble a midprice-heavy optimisation, not an early rush to lock in a premium spine.
 
 ### One down, one up?
-Not as a dominant theme. There are rounds that resemble it, but the optimiser doesn’t appear to treat it as the primary organising principle.
+Not as a dominant theme. There are rounds that partially resemble it, but the optimiser doesn’t appear to treat it as the primary organising principle.
 
 With hindsight, “upgrade season” is less about a narrative arc and more about *which move increases total future points the most*, given the constraints.
 
@@ -136,7 +119,69 @@ The optimiser’s behaviour looks like:
 
 ---
 
-## 6) What would be worth analysing next?
+## 6) Endgame: why the optimiser finishes with “30 premiums”
+
+One of the most counter-intuitive outcomes in the solution is the **end-of-season wealth**.
+
+Human context (typical 2025 top-coach shape):
+- Many strong human coaches end the year with a team value around **$25M** (very rough), and
+- they often talk about reaching **"23 premiums"** (a completed on-field premium team plus one extra), but rarely more than that.
+
+In the optimiser’s solved season, the end state looks fundamentally different:
+- by Round 24 the **total value** is **$30.488M**
+- and the Round 24 squad list is essentially **premium-priced across almost all 30 slots** (even bench/utility), i.e. it ends with something that looks like **"30 premiums"**.
+
+### Why this happens under perfect hindsight
+The key point: the optimiser isn’t trying to mimic the human narrative of "build cash via rookies, then upgrade". It’s trying to maximise **total scored points**, subject to constraints, with full knowledge of:
+- which players will spike in score
+- which players will rise in price
+- which players will fall in price
+- when each of those changes happens
+
+That enables patterns that humans can’t reliably execute:
+
+1) **Avoiding dead money and dead holds**
+   Humans often "hold" midpricers or early picks longer than ideal because they don’t know whether upcoming form/role changes will persist.
+   With hindsight, the optimiser can exit exactly when a player stops being valuable (either in points or price trajectory).
+
+2) **Systematically harvesting value through sideways trades**
+   Sideways trades are usually framed as "wasting trades".
+   But in a perfect-information world, a sideways move can be the single best way to:
+   - capture a price rise that happens to one player over a short window, then
+   - rotate into a different player who has the next short window of growth and/or points.
+
+   In other words: trades become a way to *chain together* multiple small value edges.
+   If those edges compound across 24 rounds, you can end up with a squad that is far more expensive than what a human coach typically reaches.
+
+3) **Bench as an asset, not a liability**
+   Humans commonly accept that the bench contains cheap players because they’re mostly there for cash generation and emergencies.
+
+   But the optimiser has two advantages:
+   - it can plan bench value with hindsight (bring in bench players exactly when they’re about to rise), and
+   - it can exploit bye-round/best-N scoring structure to sometimes tolerate non-contributing bench or on-field selections without losing points.
+
+   Over time, this can turn the bench into part of the same value-harvesting engine, rather than something that stays cheap.
+
+4) **A different interpretation of "completed team"**
+   For humans, a "completed team" usually means: you’ve got the best on-field 22, and trades become luxury.
+
+   For the optimiser, the objective never changes. If the best way to gain points is to keep rebalancing, it will. It doesn’t care about the psychological comfort of stability.
+
+### What to take away from this (and what not to)
+
+- This does **not** mean humans should always aim for constant sideways trades. Humans don’t have perfect information, and sideways trades are exactly where forecast error is most damaging.
+- It *does* suggest that "one down, one up" is not a fundamental law — it’s a practical heuristic that works well under uncertainty.
+- The optimiser’s end-state wealth is a sign that there is a lot of **value transfer opportunity** available in the game’s pricing + trade system if you can time it perfectly.
+
+A useful way to frame the result is:
+
+> A human coach is trying to be robust to uncertainty; the retrospective optimiser is trying to be perfectly opportunistic.
+
+That difference alone can explain why it can reach something like **30 premium-priced players** by Round 24.
+
+---
+
+## 7) What would be worth analysing next?
 
 This discussion is intentionally qualitative. The next step to make it sharper is to compute metrics from `output/solution.json`, for example:
 - number of unique players used during the season
@@ -168,3 +213,4 @@ So, if the objective value reported in `output/solution.md` is **59,237**, then 
 That’s an upper bound, not an expectation. In many cases the solver finds the true optimum well before it can *prove* it, but the gap is a good way to trade off runtime vs provable optimality.
 
 If we want to be absolutely certain the solution is optimal, we can re-run with a smaller gap (e.g. 0.1%) or with a proven optimal solve (0% gap), at the cost of more solve time.
+
