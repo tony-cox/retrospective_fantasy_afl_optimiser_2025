@@ -13,6 +13,9 @@ def test_solution_json_to_markdown_includes_verbose_round_sections_with_team_tab
                     "round_number": 1,
                     "total_team_points": 123,
                     "captain_player_name": "Cap",
+                    "bank_balance": 1000,
+                    "team_value": 9000,
+                    "total_value": 10000,
                 },
                 "trades": None,
                 "team": [
@@ -48,6 +51,13 @@ def test_solution_json_to_markdown_includes_verbose_round_sections_with_team_tab
 
     # Trades section
     assert "- Trades: _None_" in md
+
+    # Finances should appear after trades for round 1
+    assert "**Round finances**" in md
+    assert "- Bank balance: $1,000" in md
+    assert "- Team value: $9,000" in md
+    assert "- Total value: $10,000" in md
+
     assert "## Round 2" in md
     assert "- Traded out:" in md
     assert "Def A" in md

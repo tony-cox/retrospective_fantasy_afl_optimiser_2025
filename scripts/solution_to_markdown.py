@@ -420,6 +420,51 @@ def _trade_lines_for_round(solution: Mapping[str, Any], r: int) -> list[str]:
     return lines
 
 
+def _trade_names_for_round(solution: Mapping[str, Any], r: int) -> tuple[list[str], list[str]]:
+    trades = _get_round_trades(solution, r)
+    if not trades:
+        return [], []
+
+    outs = [str(e.get("player_name", "")) for e in (trades.get("traded_out") or []) if e.get("player_name")]
+    ins = [str(e.get("player_name", "")) for e in (trades.get("traded_in") or []) if e.get("player_name")]
+    return outs, ins
+
+
+def _round_summary_table(solution: Mapping[str, Any], round_numbers: list[int]) -> str:
+    rounds_obj: Mapping[str, Any] = solution.get("rounds") or {}
+
+    lines: list[str] = []
+    header = ["Round", "Points", "Bank balance", "Total value", "Traded out", "Traded in"]
+    lines.append("| " + " | ".join(header) + " |")
+    lines.append("| " + " | ".join(["---"] * len(header)) + " |")
+
+    for r in round_numbers:
+        summary = (rounds_obj.get(str(r)) or {}).get("summary") or {}
+        pts = summary.get("total_team_points")
+        bank = summary.get("bank_balance")
+        total_val = summary.get("total_value")
+
+        # Fallbacks if schema doesn't include these.
+        if bank is None:
+            bank = _round_bank_balances(solution, [r]).get(r)
+        if total_val is None:
+            total_val = _round_total_values(solution, [r]).get(r)
+
+        traded_out_names, traded_in_names = _trade_names_for_round(solution, r)
+
+        row = [
+            f"R{r}",
+            _format_score(float(pts)) if pts is not None else "",
+            _format_currency(bank),
+            _format_currency(total_val),
+            ", ".join(traded_out_names),
+            ", ".join(traded_in_names),
+        ]
+        lines.append("| " + " | ".join(row) + " |")
+
+    return "\n".join(lines)
+
+
 def _position_row_order() -> list[str]:
     # Keep consistent with your Position enum ordering / formulation.
     return ["DEF", "MID", "RUC", "FWD"]
@@ -512,6 +557,32 @@ def _verbose_round_sections(solution: Mapping[str, Any], round_numbers: list[int
         out.extend(_trade_lines_for_round(solution, r))
         out.append("")
 
+        # Financial summary for the round (after trades)
+        bank = summary.get("bank_balance")
+        team_val = summary.get("team_value")
+        total_val = summary.get("total_value")
+
+        # Fallbacks if solution.json doesn't contain these explicitly
+        if bank is None:
+            bank_by_round = _round_bank_balances(solution, [r])
+            bank = bank_by_round.get(r)
+        if team_val is None:
+            team_by_round = _round_team_values(solution, [r])
+            team_val = team_by_round.get(r)
+        if total_val is None:
+            total_by_round = _round_total_values(solution, [r])
+            total_val = total_by_round.get(r)
+
+        if bank is not None or team_val is not None or total_val is not None:
+            out.append("**Round finances**")
+            if bank is not None:
+                out.append(f"- Bank balance: {_format_currency(bank)}")
+            if team_val is not None:
+                out.append(f"- Team value: {_format_currency(team_val)}")
+            if total_val is not None:
+                out.append(f"- Total value: {_format_currency(total_val)}")
+            out.append("")
+
         out.append("### Team")
         out.append("")
         out.append(_team_table_for_round(solution, r))
@@ -534,61 +605,15 @@ def solution_json_to_markdown(solution: Mapping[str, Any]) -> str:
         lines.append(f"- **Objective value**: {objective}")
     lines.append("")
 
-    # Round-by-round detail first (more narrative / verbose).
-    lines.append(_verbose_round_sections(solution, round_numbers))
+    # Compact one-row-per-round table.
+    lines.append("## Round summary")
+    lines.append("")
+    lines.append(_round_summary_table(solution, round_numbers))
     lines.append("")
 
-    # Then the compact summary tables.
-    round_totals = _round_scored_totals(solution, round_numbers)
-
-    bank_by_round = _round_bank_balances(solution, round_numbers)
-    team_value_by_round = _round_team_values(solution, round_numbers)
-    total_value_by_round = _round_total_values(solution, round_numbers)
-
-    round_blocks = _chunk_rounds(round_numbers, chunk_size=8)
-
-    for i, block in enumerate(round_blocks, start=1):
-        if not block:
-            continue
-
-        lines.append(f"## Rounds {block[0]}–{block[-1]}")
-        lines.append("")
-
-        # Only rows for players who are selected at least once in the block.
-        # Use cascade ordering rather than alphabetical to make it read like a timeline.
-        block_player_ids = _cascade_player_order_for_block(solution, block, player_cells)
-
-        # Table header
-        header = ["Player"] + [f"R{r}" for r in block]
-        lines.append("| " + " | ".join(header) + " |")
-        lines.append("| " + " | ".join(["---"] * len(header)) + " |")
-
-        for pid in block_player_ids:
-            row = [player_names.get(pid, str(pid))]
-            for r in block:
-                row.append(_format_cell(player_cells.get(pid, {}).get(r)))
-            lines.append("| " + " | ".join(row) + " |")
-
-        # Final totals row
-        totals_row = ["**Total scored**"]
-        for r in block:
-            totals_row.append(f"**{int(round(round_totals.get(r, 0.0)))}**")
-        lines.append("| " + " | ".join(totals_row) + " |")
-
-        # Financial rows (only show if we have *any* data for this block)
-        if any(bank_by_round.get(r) is not None for r in block):
-            row = ["**Bank balance**"] + [_format_currency(bank_by_round.get(r)) for r in block]
-            lines.append("| " + " | ".join(row) + " |")
-
-        if any(team_value_by_round.get(r) is not None for r in block):
-            row = ["**Team value**"] + [_format_currency(team_value_by_round.get(r)) for r in block]
-            lines.append("| " + " | ".join(row) + " |")
-
-        if any(total_value_by_round.get(r) is not None for r in block):
-            row = ["**Total value**"] + [_format_currency(total_value_by_round.get(r)) for r in block]
-            lines.append("| " + " | ".join(row) + " |")
-
-        lines.append("")
+    # Round-by-round detail (more narrative / verbose).
+    lines.append(_verbose_round_sections(solution, round_numbers))
+    lines.append("")
 
     lines.append("## Legend")
     lines.append("")
