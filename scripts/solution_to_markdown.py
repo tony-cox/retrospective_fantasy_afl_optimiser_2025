@@ -368,12 +368,15 @@ def _round_total_values(solution: Mapping[str, Any], round_numbers: Iterable[int
     return out
 
 
-def _format_player_line(*, name: str, price: float | None, score: float | None) -> str:
+def _format_player_line(*, name: str, price: float | None, score: float | None, score_in_brackets: bool = False) -> str:
     parts: list[str] = [name]
     if price is not None:
         parts.append(_format_currency(price))
     if score is not None:
-        parts.append(f"{_format_score(float(score))} pts")
+        pts = f"{_format_score(float(score))} pts"
+        if score_in_brackets:
+            pts = f"({pts})"
+        parts.append(pts)
     return " – ".join(parts)
 
 
@@ -479,7 +482,7 @@ def _slot_label(slot: str) -> str:
     return {"on_field": "On field", "bench": "Bench"}.get(slot, slot)
 
 
-def _team_table_for_round(solution: Mapping[str, Any], r: int) -> str:
+def _team_table_for_round(solution: Mapping[str, Any], r: int, *, include_scores: bool = True) -> str:
     team = _get_round_team(solution, r)
 
     # Bucket: (position, slot) -> list[team_entry]
@@ -522,11 +525,15 @@ def _team_table_for_round(solution: Mapping[str, Any], r: int) -> str:
 
             cell_lines: list[str] = []
             for p in players:
+                scored_flag = p.get("scored")
+                score_in_brackets = bool(slot == "on_field" and scored_flag is False)
+
                 cell_lines.append(
                     _format_player_line(
                         name=str(p.get("player_name", "?")),
                         price=p.get("price"),
-                        score=p.get("score"),
+                        score=(p.get("score") if include_scores else None),
+                        score_in_brackets=(score_in_brackets and include_scores),
                     )
                 )
             row.append("<br>".join(cell_lines))
@@ -591,19 +598,63 @@ def _verbose_round_sections(solution: Mapping[str, Any], round_numbers: list[int
     return "\n".join(out)
 
 
+def _starting_team_section(solution: Mapping[str, Any], round_numbers: list[int]) -> str:
+    if not round_numbers or 1 not in round_numbers:
+        return ""
+
+    r = 1
+    summary = _get_round_summary(solution, r)
+
+    bank = summary.get("bank_balance")
+    team_val = summary.get("team_value")
+    total_val = summary.get("total_value")
+
+    # Fallbacks if solution.json doesn't contain these explicitly.
+    if bank is None:
+        bank = _round_bank_balances(solution, [r]).get(r)
+    if team_val is None:
+        team_val = _round_team_values(solution, [r]).get(r)
+    if total_val is None:
+        total_val = _round_total_values(solution, [r]).get(r)
+
+    lines: list[str] = []
+    lines.append("## Starting team")
+    lines.append("")
+
+    # Finances above the table.
+    if bank is not None or team_val is not None or total_val is not None:
+        if bank is not None:
+            lines.append(f"- Bank balance: {_format_currency(bank)}")
+        if team_val is not None:
+            lines.append(f"- Team value: {_format_currency(team_val)}")
+        if total_val is not None:
+            lines.append(f"- Total value: {_format_currency(total_val)}")
+        lines.append("")
+
+    lines.append(_team_table_for_round(solution, r, include_scores=False))
+    lines.append("")
+
+    return "\n".join(lines)
+
+
 def solution_json_to_markdown(solution: Mapping[str, Any]) -> str:
     round_numbers, player_cells, player_names = _extract_cells(solution)
 
     lines: List[str] = []
 
     status = str(solution.get("status", ""))
-    objective = solution.get("objective_value")
+    objective = int(solution.get("objective_value"))
     lines.append("# Retro Fantasy – Solution Report")
     lines.append("")
     lines.append(f"- **Status**: {status}")
     if objective is not None:
-        lines.append(f"- **Objective value**: {objective}")
+        lines.append(f"- **Objective value (total score over all rounds)**: {objective}")
     lines.append("")
+
+    # Starting team section (Round 1)
+    starting_section = _starting_team_section(solution, round_numbers)
+    if starting_section:
+        lines.append(starting_section)
 
     # Compact one-row-per-round table.
     lines.append("## Round summary")
@@ -614,16 +665,6 @@ def solution_json_to_markdown(solution: Mapping[str, Any]) -> str:
     # Round-by-round detail (more narrative / verbose).
     lines.append(_verbose_round_sections(solution, round_numbers))
     lines.append("")
-
-    lines.append("## Legend")
-    lines.append("")
-    lines.append("- Normal score text: on-field and counted towards your score")
-    lines.append("- *Italic score*: selected but did **not** count towards your score (bench or not in best-N)")
-    lines.append("- **Bold score**: captain (captain score is doubled in the objective)")
-    lines.append("- Second line in each cell shows where the player was selected (Position / Slot)")
-    lines.append("- Third line in each cell shows the player price (if available)")
-    lines.append("- 'Traded Out' indicates the player was traded out in this round")
-    lines.append("- Financial rows: bank balance, team value, and total value are shown when available")
 
     return "\n".join(lines) + "\n"
 
