@@ -459,6 +459,36 @@ def _add_trade_indicator_linking_constraints(
     _add_trade_indicator_linking_lower_bound_constraints(problem, model_input_data, decision_variables)
     _add_trade_indicator_linking_upper_bound_constraints(problem, model_input_data, decision_variables)
 
+    # If a player has no explicit price in round r, trading them in/out in round r is not allowed.
+    _add_no_trade_when_missing_price_constraints(problem, model_input_data, decision_variables)
+
+
+def _add_no_trade_when_missing_price_constraints(
+    problem: pulp.LpProblem,
+    model_input_data: ModelInputData,
+    decision_variables: DecisionVariables,
+) -> None:
+    """Disallow trading in/out for rounds where the player price is missing.
+
+    Rationale
+    ---------
+    ModelInputData.price(p,r) falls back to salary_cap when the player has no round
+    data. This is useful to prevent selecting the player, but it causes a bug for
+    bank recurrence: a traded-out player with missing price would appear to be sold
+    for ~salary_cap, creating unrealistic windfalls.
+
+    To avoid this, we force traded_in[p,r] = traded_out[p,r] = 0 whenever there is
+    no explicit (p,r) price in the input data.
+    """
+
+    for p in model_input_data.player_ids:
+        for r in model_input_data.idx_round_excluding_1:
+            if model_input_data.has_price(p, r):
+                continue
+
+            problem += decision_variables.traded_in[(p, r)] == 0, f"no_trade_in_missing_price_{p}_{r}"
+            problem += decision_variables.traded_out[(p, r)] == 0, f"no_trade_out_missing_price_{p}_{r}"
+
 
 def _add_trade_indicator_linking_lower_bound_constraints(
     problem: pulp.LpProblem,

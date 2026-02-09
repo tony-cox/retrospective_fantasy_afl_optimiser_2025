@@ -319,3 +319,13 @@ class ModelInputData:
             if self.eligibility_map[(p, k, r)]
         )
 
+    def has_price(self, player_id: int, round_number: int) -> bool:
+        """Return True if the input data includes an explicit price for (p,r).
+
+        Notes
+        -----
+        We treat a missing PlayerRoundInfo for that round as 'no price'.
+        """
+
+        player = self.players[player_id]
+        return player.by_round.get(round_number) is not None
