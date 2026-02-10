@@ -27,7 +27,7 @@ That matters because some patterns that look strange to humans can be perfectly 
 The Round 1 squad (see **Starting team** in `output/solution.md`) is strongly midprice-heavy.
 
 ### A small number of mega-premiums
-The starting team has only one player above $1M:
+The starting team has only two players above $1M:
 - Jordan Dawson ($1.080M)
 - Nasiah Wanganeen-Milera ($1.003M)
 
