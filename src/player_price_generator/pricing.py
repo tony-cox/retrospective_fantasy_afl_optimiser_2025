@@ -138,8 +138,14 @@ def generate_round_prices(
         # Keep a history of previous *games played* scores, most-recent-first.
         prev_game_scores: List[float] = []
 
-        # Seed the history with the round-1 score if they played.
+        # Seed the history with any pre-season / opening round (round 0) score and
+        # the round-1 score if they played.
+        #
+        # Important: round-1 price is fixed to starting price and is NOT updated.
+        # Round-2 pricing may include both round-0 and round-1 scores.
         p_scores = simulated_scores.get(player, {})
+        if 0 in p_scores:
+            prev_game_scores.insert(0, float(p_scores[0]))
         if 1 in p_scores:
             prev_game_scores.insert(0, float(p_scores[1]))
 
