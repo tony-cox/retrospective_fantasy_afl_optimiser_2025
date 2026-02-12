@@ -9,28 +9,27 @@ Scaffold only: implemented later.
 
 from __future__ import annotations
 
-from typing import Any, Dict, Iterable, Mapping, Sequence
+from typing import Any, Mapping
 
-from .data import PlayerMeta, RoundPrices, SimulatedScores
+from .data import ProjectedPlayer, RoundPrices, SimulatedScores
 
 
 def build_players_final_records(
     *,
-    players: Mapping[int, PlayerMeta],
+    players: Mapping[str, ProjectedPlayer],
     simulated_scores: SimulatedScores,
     round_prices: RoundPrices,
 ) -> list[dict[str, Any]]:
     """Build a `players_final.json` compatible record list.
 
-    Returns
-    -------
-    list[dict]
-        Each entry is a dict similar to those found in `data/players_final.json`.
+    Parameters
+    ----------
+    players:
+        Keyed by player name (as found in the projections input).
 
     Notes
     -----
-    - Round keys in the JSON are typically strings ("1", "2", ...).
-    - The schema in this repo expects `stats: {"scores": ..., "prices": ...}`.
+    Still a scaffold.
     """
 
     raise NotImplementedError

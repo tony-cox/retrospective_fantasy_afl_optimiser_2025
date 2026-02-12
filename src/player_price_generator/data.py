@@ -1,65 +1,73 @@
 """Domain objects for prospective season generation.
 
-Notes
------
-These are deliberately *pure* data structures.
+This package creates prospective seasons (scores + prices) from projections.
+The intent is to export a JSON structure compatible with the retrospective
+solver's `players_final.json` format.
 
-- No file parsing (see :mod:`player_price_generator.io`).
-- No simulation logic (see :mod:`player_price_generator.simulate`).
-- No pricing logic (see :mod:`player_price_generator.pricing`).
-
-Keeping these simple makes it easy to test and reuse.
+This module contains *pure* domain objects only:
+- no file parsing (see :mod:`player_price_generator.io`)
+- no simulation logic (see :mod:`player_price_generator.simulate`)
+- no pricing logic (see :mod:`player_price_generator.pricing`)
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from pathlib import Path
-from typing import Dict, FrozenSet, Iterable, Mapping, MutableMapping, Optional
+from typing import Dict, FrozenSet, Mapping, Optional
 
 from retro_fantasy.data import Position
 
 
 @dataclass(frozen=True, slots=True)
-class PlayerMeta:
-    """Metadata required to emit a `players_final.json` compatible record."""
+class Club:
+    """AFL club metadata keyed by its fixture code (e.g. COL, STK)."""
 
-    player_id: int
-    first_name: str
-    last_name: str
-    squad_id: Optional[int]
-    original_positions: FrozenSet[Position]
+    code: str
+    fixture_name: str
+
+    early_bye_round: Optional[int]
+    mid_season_bye_round: int
+
+
+@dataclass(frozen=True, slots=True)
+class Fixture:
+    """A single match fixture."""
+
+    match_number: int
+    round_number: int
+    home_club: str
+    away_club: str
+
+
+@dataclass(slots=True)
+class ProjectedPlayer:
+    """A player's projected scoring distribution inputs (low/high/mid)."""
+
+    name: str
+    club_code: str
+    positions: FrozenSet[Position]
+    price: float
+
+    priced_at: Optional[float] = None
+
+    projection_low: float = 0.0
+    projection_high: float = 0.0
+    projection_mid: float = 0.0
+
+    simulated_scores_by_round: Dict[int, float] = field(default_factory=dict)
+
+
+@dataclass(frozen=True, slots=True)
+class ProspectiveInputData:
+    """Full prospective input dataset used to generate simulated seasons."""
+
+    clubs: Mapping[str, Club]
+    fixtures: tuple[Fixture, ...]
+    projected_players: tuple[ProjectedPlayer, ...]
 
     @property
-    def name(self) -> str:
-        return f"{self.first_name} {self.last_name}".strip()
-
-
-@dataclass(frozen=True, slots=True)
-class ProjectionInput:
-    """Projection parameters for a single player.
-
-    This is intentionally underspecified. We'll evolve this based on what
-    the actual projection files contain.
-
-    The minimal requirement for Monte Carlo is a per-round distribution.
-    A common first cut is a per-round mean and standard deviation.
-    """
-
-    player_id: int
-    # round -> mean score
-    mean_by_round: Mapping[int, float]
-    # round -> standard deviation (optional; can fall back to a global or heuristic)
-    stdev_by_round: Mapping[int, float] = field(default_factory=dict)
-
-
-@dataclass(frozen=True, slots=True)
-class ProjectionDataset:
-    """All input projections and metadata needed to produce an output season."""
-
-    players: Mapping[int, PlayerMeta]
-    projections: Mapping[int, ProjectionInput]
-    rounds: FrozenSet[int]
+    def rounds(self) -> FrozenSet[int]:
+        return frozenset({f.round_number for f in self.fixtures})
 
 
 @dataclass(frozen=True, slots=True)
@@ -68,10 +76,6 @@ class SimulationConfig:
 
     n_sims: int = 1
     seed: Optional[int] = None
-
-    # Placeholder for future config:
-    # - distribution: Literal["normal", "student_t", ...]
-    # - opponent_adjustments: bool
 
 
 @dataclass(frozen=True, slots=True)
@@ -83,14 +87,10 @@ class PricingConfig:
     """
 
     salary_cap: float
-
-    # Placeholder for future config:
-    # - rolling_window: int
-    # - magic_number: float
-    # - floor_price: float
+    magic_number: float
 
 
 # Aliases for algorithm outputs. We'll likely replace these with richer
 # dataclasses later.
-SimulatedScores = Dict[int, Dict[int, float]]  # player_id -> round -> score
-RoundPrices = Dict[int, Dict[int, float]]  # player_id -> round -> price
+SimulatedScores = Dict[str, Dict[int, float]]  # player_name -> round -> score
+RoundPrices = Dict[str, Dict[int, float]]  # player_name -> round -> price
