@@ -11,13 +11,16 @@ python -m player_price_generator.cli --data-dir ./data
 from __future__ import annotations
 
 import argparse
+import json
 from collections import Counter
 from pathlib import Path
 from typing import Sequence
 
+from .data import PricingConfig, SimulationConfig
+from .export import build_players_final_records
 from .io import load_prospective_input_data
+from .pricing import generate_round_prices
 from .simulate import simulate_round_scores
-from .data import SimulationConfig
 
 
 def _print_summary(*, prospective_data, sample_players: int) -> None:
@@ -111,6 +114,24 @@ def _build_parser() -> argparse.ArgumentParser:
         default=10,
         help="Number of sample players to print (default: 10)",
     )
+    parser.add_argument(
+        "--out-json",
+        type=Path,
+        default=None,
+        help="Write a minimal players_final-style JSON file to this path (optional)",
+    )
+    parser.add_argument(
+        "--max-round",
+        type=int,
+        default=None,
+        help="Override the last round to generate prices for (default: max fixture round)",
+    )
+    parser.add_argument(
+        "--magic-number",
+        type=float,
+        default=10502.0,
+        help="Magic number used in the pricing formula (default: 10502)",
+    )
     return parser
 
 
@@ -129,10 +150,33 @@ def main(argv: Sequence[str] | None = None) -> int:
         player_projections_csv=player_projections_csv,
     )
 
-    # Run simulation
-    simulate_round_scores(dataset=prospective_data, config=SimulationConfig())
+    simulated_scores = simulate_round_scores(dataset=prospective_data, config=SimulationConfig())
 
     _print_summary(prospective_data=prospective_data, sample_players=args.sample_players)
+
+    out_json: Path | None = args.out_json
+    if out_json is not None:
+        max_round = args.max_round or (max(prospective_data.rounds) if prospective_data.rounds else 1)
+
+        # Generate round prices for all players based on simulated scores.
+        starting_prices = {p.name: float(p.price) for p in prospective_data.projected_players}
+        round_prices = generate_round_prices(
+            starting_prices_round_1=starting_prices,
+            simulated_scores=simulated_scores,
+            max_round=max_round,
+            config=PricingConfig(salary_cap=0.0, magic_number=float(args.magic_number)),
+        )
+
+        players_by_name = {p.name: p for p in prospective_data.projected_players}
+        records = build_players_final_records(
+            players=players_by_name,
+            simulated_scores=simulated_scores,
+            round_prices=round_prices,
+        )
+
+        out_json.parent.mkdir(parents=True, exist_ok=True)
+        out_json.write_text(json.dumps(records, indent=2), encoding="utf-8")
+        print(f"\nWrote {len(records)} players to {out_json}")
 
     return 0
 
