@@ -15,6 +15,8 @@ class TradeEntry:
     player_id: int
     player_name: str
     price: float
+    acquisition_price: float
+    price_change: float
 
 
 @dataclass(frozen=True, slots=True)
@@ -82,19 +84,56 @@ def build_solution_summary(
     status = pulp.LpStatus[problem.status]
     objective_value = float(pulp.value(problem.objective) or 0.0)
 
+    # Track acquisition price for profit/loss reporting.
+    # - If selected in the starting team, acquisition is their round-1 price.
+    # - If traded in later, acquisition is their trade-in round price.
+    acquisition_price_by_player: Dict[int, float] = {}
+
+    for p in model_input_data.player_ids:
+        if _is_selected(decision_vars.x_selected.get((p, 1), 0)):
+            acquisition_price_by_player[p] = float(model_input_data.price(p, 1))
+
     # Pre-build trades by round for easy attachment.
     trades_by_round: Dict[int, RoundTradeSummary] = {}
     for r in model_input_data.idx_round_excluding_1:
         ins: List[TradeEntry] = []
         outs: List[TradeEntry] = []
 
+        # First, handle traded in so that trade-outs in the same round can reference
+        # the player as "acquired" (even though it would be invalid to in+out same round,
+        # we keep this order defensive).
         for p in model_input_data.player_ids:
             if _is_selected(decision_vars.traded_in[(p, r)]):
                 pl = model_input_data.players[p]
-                ins.append(TradeEntry(player_id=p, player_name=pl.name, price=float(model_input_data.price(p, r))))
+                trade_price = float(model_input_data.price(p, r))
+                acquisition_price_by_player[p] = trade_price
+                ins.append(
+                    TradeEntry(
+                        player_id=p,
+                        player_name=pl.name,
+                        price=trade_price,
+                        acquisition_price=trade_price,
+                        price_change=0.0,
+                    )
+                )
+
+        for p in model_input_data.player_ids:
             if _is_selected(decision_vars.traded_out[(p, r)]):
                 pl = model_input_data.players[p]
-                outs.append(TradeEntry(player_id=p, player_name=pl.name, price=float(model_input_data.price(p, r))))
+                trade_price = float(model_input_data.price(p, r))
+                acq = float(acquisition_price_by_player.get(p, trade_price))
+                outs.append(
+                    TradeEntry(
+                        player_id=p,
+                        player_name=pl.name,
+                        price=trade_price,
+                        acquisition_price=acq,
+                        price_change=trade_price - acq,
+                    )
+                )
+                # Once traded out, remove acquisition tracking. If traded back in later,
+                # it'll be set again by traded_in.
+                acquisition_price_by_player.pop(p, None)
 
         trades_by_round[r] = RoundTradeSummary(round_number=r, traded_in=ins, traded_out=outs)
 

@@ -76,8 +76,8 @@
 - Captain: **Jack Macrae**
 
 - Traded out:
-  - Daniel McStay – $547,000
-  - Jye Caldwell – $1,009,000
+  - Daniel McStay – $547,000 (+$57,000)
+  - Jye Caldwell – $1,009,000 (+$40,000)
 - Traded in:
   - Jy Farrar – $265,000
   - Jai Newcombe – $868,000
@@ -103,8 +103,8 @@
 - Captain: **Tom Liberatore**
 
 - Traded out:
-  - Jack Henry – $657,000
-  - Sam De Koning – $669,000
+  - Jack Henry – $657,000 (+$98,000)
+  - Sam De Koning – $669,000 (+$105,000)
 - Traded in:
   - John Noble – $753,000
   - Hugh McCluggage – $930,000
@@ -130,8 +130,8 @@
 - Captain: **Hugh McCluggage**
 
 - Traded out:
-  - Jy Simpkin – $887,000
-  - Tom De Koning – $1,017,000
+  - Jy Simpkin – $887,000 (+$106,000)
+  - Tom De Koning – $1,017,000 (+$117,000)
 - Traded in:
   - Tim English – $993,000
   - Kysaiah Pickett – $677,000
@@ -157,8 +157,8 @@
 - Captain: **Nick Daicos**
 
 - Traded out:
-  - Jack Macrae – $961,000
-  - Jake Soligo – $943,000
+  - Jack Macrae – $961,000 (+$229,000)
+  - Jake Soligo – $943,000 (+$154,000)
 - Traded in:
   - Max Gawn – $1,017,000
   - Nick Daicos – $989,000
@@ -184,8 +184,8 @@
 - Captain: **Nick Daicos**
 
 - Traded out:
-  - Caleb Daniel – $829,000
-  - Connor O'Sullivan – $515,000
+  - Caleb Daniel – $829,000 (+$315,000)
+  - Connor O'Sullivan – $515,000 (+$215,000)
 - Traded in:
   - Ed Richards – $880,000
   - Trent Rivers – $729,000
@@ -211,8 +211,8 @@
 - Captain: **Max Gawn**
 
 - Traded out:
-  - Jai Newcombe – $985,000
-  - Sam Davidson – $608,000
+  - Jai Newcombe – $985,000 (+$117,000)
+  - Sam Davidson – $608,000 (+$378,000)
 - Traded in:
   - Chad Warner – $842,000
   - Jack Ginnivan – $576,000
@@ -238,8 +238,8 @@
 - Captain: **Max Gawn**
 
 - Traded out:
-  - George Hewett – $1,084,000
-  - Riley Bice – $653,000
+  - George Hewett – $1,084,000 (+$232,000)
+  - Riley Bice – $653,000 (+$423,000)
 - Traded in:
   - Jack Steele – $932,000
   - Bailey Dale – $856,000
@@ -265,8 +265,8 @@
 - Captain: **Bailey Smith**
 
 - Traded out:
-  - Tim English – $1,070,000
-  - Trent Rivers – $844,000
+  - Tim English – $1,070,000 (+$77,000)
+  - Trent Rivers – $844,000 (+$115,000)
 - Traded in:
   - Brodie Grundy – $856,000
   - Nic Martin – $966,000
@@ -292,8 +292,8 @@
 - Captain: **Bailey Dale**
 
 - Traded out:
-  - Jack Gunston – $810,000
-  - Jake Bowey – $929,000
+  - Jack Gunston – $810,000 (+$235,000)
+  - Jake Bowey – $929,000 (+$288,000)
 - Traded in:
   - Jack Sinclair – $934,000
   - Matt Rowell – $830,000
@@ -319,8 +319,8 @@
 - Captain: **Nic Martin**
 
 - Traded out:
-  - Zach Reid – $722,000
-  - Ryan Maric – $792,000
+  - Zach Reid – $722,000 (+$492,000)
+  - Ryan Maric – $792,000 (+$371,000)
 - Traded in:
   - Gryan Miers – $815,000
   - Max Holmes – $896,000
@@ -346,9 +346,9 @@
 - Captain: **Hugh McCluggage**
 
 - Traded out:
-  - John Noble – $946,000
-  - Ed Richards – $1,039,000
-  - Levi Ashcroft – $795,000
+  - John Noble – $946,000 (+$193,000)
+  - Ed Richards – $1,039,000 (+$159,000)
+  - Levi Ashcroft – $795,000 (+$467,000)
 - Traded in:
   - Josh Daicos – $909,000
   - Jye Caldwell – $944,000
@@ -375,9 +375,9 @@
 - Captain: **Max Holmes**
 
 - Traded out:
-  - Hugh McCluggage – $1,037,000
-  - Chad Warner – $926,000
-  - Ned Long – $833,000
+  - Hugh McCluggage – $1,037,000 (+$107,000)
+  - Chad Warner – $926,000 (+$84,000)
+  - Ned Long – $833,000 (+$412,000)
 - Traded in:
   - Nick Blakey – $746,000
   - Dylan Moore – $707,000
@@ -404,9 +404,9 @@
 - Captain: **Caleb Serong**
 
 - Traded out:
-  - Max Gawn – $1,205,000
-  - Jack Ginnivan – $801,000
-  - Nic Martin – $1,135,000
+  - Max Gawn – $1,205,000 (+$188,000)
+  - Jack Ginnivan – $801,000 (+$225,000)
+  - Nic Martin – $1,135,000 (+$169,000)
 - Traded in:
   - Rowan Marshall – $1,011,000
   - Luke Jackson – $904,000
@@ -433,9 +433,9 @@
 - Captain: **Luke Jackson**
 
 - Traded out:
-  - Bailey Dale – $1,009,000
-  - Harry Boyd – $268,000
-  - Jye Caldwell – $1,017,000
+  - Bailey Dale – $1,009,000 (+$153,000)
+  - Harry Boyd – $268,000 (+$38,000)
+  - Jye Caldwell – $1,017,000 (+$73,000)
 - Traded in:
   - Marcus Bontempelli – $978,000
   - Isaac Heeney – $930,000
@@ -462,9 +462,9 @@
 - Captain: **Brodie Grundy**
 
 - Traded out:
-  - Matthew Kennedy – $1,094,000
-  - Adam Cerra – $1,016,000
-  - Zane Zakostelsky – $230,000
+  - Matthew Kennedy – $1,094,000 (+$303,000)
+  - Adam Cerra – $1,016,000 (+$271,000)
+  - Zane Zakostelsky – $230,000 (+$0)
 - Traded in:
   - Lloyd Meek – $838,000
   - Aaron Naughton – $566,000
@@ -491,8 +491,8 @@
 - Captain: **Nasiah Wanganeen-Milera**
 
 - Traded out:
-  - Jordan Clark – $1,005,000
-  - Caleb Serong – $1,048,000
+  - Jordan Clark – $1,005,000 (+$110,000)
+  - Caleb Serong – $1,048,000 (+$135,000)
 - Traded in:
   - Jeremy Cameron – $801,000
   - Zach Merrett – $926,000
@@ -518,8 +518,8 @@
 - Captain: **Marcus Bontempelli**
 
 - Traded out:
-  - Tom Liberatore – $949,000
-  - Max Hall – $594,000
+  - Tom Liberatore – $949,000 (+$51,000)
+  - Max Hall – $594,000 (+$364,000)
 - Traded in:
   - Lachie Whitfield – $942,000
   - Josh Dunkley – $917,000
@@ -545,8 +545,8 @@
 - Captain: **Isaac Heeney**
 
 - Traded out:
-  - Lloyd Meek – $988,000
-  - Daniel Curtin – $737,000
+  - Lloyd Meek – $988,000 (+$150,000)
+  - Daniel Curtin – $737,000 (+$437,000)
 - Traded in:
   - Alex Neal-Bullen – $602,000
   - Shaun Mannagh – $774,000
@@ -572,8 +572,8 @@
 - Captain: **Jeremy Cameron**
 
 - Traded out:
-  - Jack Steele – $1,060,000
-  - Kysaiah Pickett – $874,000
+  - Jack Steele – $1,060,000 (+$128,000)
+  - Kysaiah Pickett – $874,000 (+$197,000)
 - Traded in:
   - Luke Parker – $847,000
   - George Hewett – $879,000
@@ -599,8 +599,8 @@
 - Captain: **Brodie Grundy**
 
 - Traded out:
-  - Alex Neal-Bullen – $715,000
-  - Nick Daicos – $1,170,000
+  - Alex Neal-Bullen – $715,000 (+$113,000)
+  - Nick Daicos – $1,170,000 (+$181,000)
 - Traded in:
   - Hugh McCluggage – $940,000
   - Tristan Xerri – $949,000
@@ -626,8 +626,8 @@
 - Captain: **Jordan Dawson**
 
 - Traded out:
-  - Jy Farrar – $374,000
-  - Max Holmes – $1,082,000
+  - Jy Farrar – $374,000 (+$109,000)
+  - Max Holmes – $1,082,000 (+$186,000)
 - Traded in:
   - Andrew McGrath – $636,000
   - Zac Bailey – $814,000
@@ -653,8 +653,8 @@
 - Captain: **Harry Sheezel**
 
 - Traded out:
-  - Aaron Naughton – $867,000
-  - Matt Rowell – $1,153,000
+  - Aaron Naughton – $867,000 (+$301,000)
+  - Matt Rowell – $1,153,000 (+$323,000)
 - Traded in:
   - Mason Redman – $808,000
   - Luke Davies-Uniacke – $764,000
@@ -680,8 +680,8 @@
 - Captain: **Tristan Xerri**
 
 - Traded out:
-  - Josh Daicos – $931,000
-  - Nasiah Wanganeen-Milera – $1,163,000
+  - Josh Daicos – $931,000 (+$22,000)
+  - Nasiah Wanganeen-Milera – $1,163,000 (+$160,000)
 - Traded in:
   - Tom Papley – $558,000
   - Connor Rozee – $926,000

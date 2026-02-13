@@ -330,24 +330,32 @@
           {
             "player_id": 999715,
             "player_name": "Jy Farrar",
-            "price": 265000.0
+            "price": 265000.0,
+            "acquisition_price": 265000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1020895,
             "player_name": "Jai Newcombe",
-            "price": 868000.0
+            "price": 868000.0,
+            "acquisition_price": 868000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 297504,
             "player_name": "Daniel McStay",
-            "price": 547000.0
+            "price": 547000.0,
+            "acquisition_price": 490000.0,
+            "price_change": 57000.0
           },
           {
             "player_id": 1006103,
             "player_name": "Jye Caldwell",
-            "price": 1009000.0
+            "price": 1009000.0,
+            "acquisition_price": 969000.0,
+            "price_change": 40000.0
           }
         ]
       },
@@ -669,24 +677,32 @@
           {
             "player_id": 1000072,
             "player_name": "John Noble",
-            "price": 753000.0
+            "price": 753000.0,
+            "acquisition_price": 753000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1000978,
             "player_name": "Hugh McCluggage",
-            "price": 930000.0
+            "price": 930000.0,
+            "acquisition_price": 930000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 1000937,
             "player_name": "Jack Henry",
-            "price": 657000.0
+            "price": 657000.0,
+            "acquisition_price": 559000.0,
+            "price_change": 98000.0
           },
           {
             "player_id": 1009229,
             "player_name": "Sam De Koning",
-            "price": 669000.0
+            "price": 669000.0,
+            "acquisition_price": 564000.0,
+            "price_change": 105000.0
           }
         ]
       },
@@ -1008,24 +1024,32 @@
           {
             "player_id": 1004592,
             "player_name": "Tim English",
-            "price": 993000.0
+            "price": 993000.0,
+            "acquisition_price": 993000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1008541,
             "player_name": "Kysaiah Pickett",
-            "price": 677000.0
+            "price": 677000.0,
+            "acquisition_price": 677000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 993998,
             "player_name": "Jy Simpkin",
-            "price": 887000.0
+            "price": 887000.0,
+            "acquisition_price": 781000.0,
+            "price_change": 106000.0
           },
           {
             "player_id": 1004912,
             "player_name": "Tom De Koning",
-            "price": 1017000.0
+            "price": 1017000.0,
+            "acquisition_price": 900000.0,
+            "price_change": 117000.0
           }
         ]
       },
@@ -1347,24 +1371,32 @@
           {
             "player_id": 290528,
             "player_name": "Max Gawn",
-            "price": 1017000.0
+            "price": 1017000.0,
+            "acquisition_price": 1017000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1023261,
             "player_name": "Nick Daicos",
-            "price": 989000.0
+            "price": 989000.0,
+            "acquisition_price": 989000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 295467,
             "player_name": "Jack Macrae",
-            "price": 961000.0
+            "price": 961000.0,
+            "acquisition_price": 732000.0,
+            "price_change": 229000.0
           },
           {
             "player_id": 1017109,
             "player_name": "Jake Soligo",
-            "price": 943000.0
+            "price": 943000.0,
+            "acquisition_price": 789000.0,
+            "price_change": 154000.0
           }
         ]
       },
@@ -1686,24 +1718,32 @@
           {
             "player_id": 1008280,
             "player_name": "Ed Richards",
-            "price": 880000.0
+            "price": 880000.0,
+            "acquisition_price": 880000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1009378,
             "player_name": "Trent Rivers",
-            "price": 729000.0
+            "price": 729000.0,
+            "acquisition_price": 729000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 295136,
             "player_name": "Caleb Daniel",
-            "price": 829000.0
+            "price": 829000.0,
+            "acquisition_price": 514000.0,
+            "price_change": 315000.0
           },
           {
             "player_id": 1027877,
             "player_name": "Connor O'Sullivan",
-            "price": 515000.0
+            "price": 515000.0,
+            "acquisition_price": 300000.0,
+            "price_change": 215000.0
           }
         ]
       },
@@ -2025,24 +2065,32 @@
           {
             "player_id": 1012014,
             "player_name": "Chad Warner",
-            "price": 842000.0
+            "price": 842000.0,
+            "acquisition_price": 842000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1012857,
             "player_name": "Jack Ginnivan",
-            "price": 576000.0
+            "price": 576000.0,
+            "acquisition_price": 576000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 1020895,
             "player_name": "Jai Newcombe",
-            "price": 985000.0
+            "price": 985000.0,
+            "acquisition_price": 868000.0,
+            "price_change": 117000.0
           },
           {
             "player_id": 1036123,
             "player_name": "Sam Davidson",
-            "price": 608000.0
+            "price": 608000.0,
+            "acquisition_price": 230000.0,
+            "price_change": 378000.0
           }
         ]
       },
@@ -2364,24 +2412,32 @@
           {
             "player_id": 296205,
             "player_name": "Jack Steele",
-            "price": 932000.0
+            "price": 932000.0,
+            "acquisition_price": 932000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 996708,
             "player_name": "Bailey Dale",
-            "price": 856000.0
+            "price": 856000.0,
+            "acquisition_price": 856000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 294036,
             "player_name": "George Hewett",
-            "price": 1084000.0
+            "price": 1084000.0,
+            "acquisition_price": 852000.0,
+            "price_change": 232000.0
           },
           {
             "player_id": 1008224,
             "player_name": "Riley Bice",
-            "price": 653000.0
+            "price": 653000.0,
+            "acquisition_price": 230000.0,
+            "price_change": 423000.0
           }
         ]
       },
@@ -2703,24 +2759,32 @@
           {
             "player_id": 293957,
             "player_name": "Brodie Grundy",
-            "price": 856000.0
+            "price": 856000.0,
+            "acquisition_price": 856000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1026850,
             "player_name": "Nic Martin",
-            "price": 966000.0
+            "price": 966000.0,
+            "acquisition_price": 966000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 1004592,
             "player_name": "Tim English",
-            "price": 1070000.0
+            "price": 1070000.0,
+            "acquisition_price": 993000.0,
+            "price_change": 77000.0
           },
           {
             "player_id": 1009378,
             "player_name": "Trent Rivers",
-            "price": 844000.0
+            "price": 844000.0,
+            "acquisition_price": 729000.0,
+            "price_change": 115000.0
           }
         ]
       },
@@ -3042,24 +3106,32 @@
           {
             "player_id": 994389,
             "player_name": "Jack Sinclair",
-            "price": 934000.0
+            "price": 934000.0,
+            "acquisition_price": 934000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1009208,
             "player_name": "Matt Rowell",
-            "price": 830000.0
+            "price": 830000.0,
+            "acquisition_price": 830000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 291351,
             "player_name": "Jack Gunston",
-            "price": 810000.0
+            "price": 810000.0,
+            "acquisition_price": 575000.0,
+            "price_change": 235000.0
           },
           {
             "player_id": 1012825,
             "player_name": "Jake Bowey",
-            "price": 929000.0
+            "price": 929000.0,
+            "acquisition_price": 641000.0,
+            "price_change": 288000.0
           }
         ]
       },
@@ -3381,24 +3453,32 @@
           {
             "player_id": 1004938,
             "player_name": "Gryan Miers",
-            "price": 815000.0
+            "price": 815000.0,
+            "acquisition_price": 815000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1015889,
             "player_name": "Max Holmes",
-            "price": 896000.0
+            "price": 896000.0,
+            "acquisition_price": 896000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 1012817,
             "player_name": "Zach Reid",
-            "price": 722000.0
+            "price": 722000.0,
+            "acquisition_price": 230000.0,
+            "price_change": 492000.0
           },
           {
             "player_id": 1029416,
             "player_name": "Ryan Maric",
-            "price": 792000.0
+            "price": 792000.0,
+            "acquisition_price": 421000.0,
+            "price_change": 371000.0
           }
         ]
       },
@@ -3720,34 +3800,46 @@
           {
             "player_id": 1005054,
             "player_name": "Josh Daicos",
-            "price": 909000.0
+            "price": 909000.0,
+            "acquisition_price": 909000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1006103,
             "player_name": "Jye Caldwell",
-            "price": 944000.0
+            "price": 944000.0,
+            "acquisition_price": 944000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1006152,
             "player_name": "Jordan Clark",
-            "price": 895000.0
+            "price": 895000.0,
+            "acquisition_price": 895000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 1000072,
             "player_name": "John Noble",
-            "price": 946000.0
+            "price": 946000.0,
+            "acquisition_price": 753000.0,
+            "price_change": 193000.0
           },
           {
             "player_id": 1008280,
             "player_name": "Ed Richards",
-            "price": 1039000.0
+            "price": 1039000.0,
+            "acquisition_price": 880000.0,
+            "price_change": 159000.0
           },
           {
             "player_id": 1028560,
             "player_name": "Levi Ashcroft",
-            "price": 795000.0
+            "price": 795000.0,
+            "acquisition_price": 328000.0,
+            "price_change": 467000.0
           }
         ]
       },
@@ -4069,34 +4161,46 @@
           {
             "player_id": 1006028,
             "player_name": "Nick Blakey",
-            "price": 746000.0
+            "price": 746000.0,
+            "acquisition_price": 746000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1006314,
             "player_name": "Dylan Moore",
-            "price": 707000.0
+            "price": 707000.0,
+            "acquisition_price": 707000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1023518,
             "player_name": "Harry Sheezel",
-            "price": 1036000.0
+            "price": 1036000.0,
+            "acquisition_price": 1036000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 1000978,
             "player_name": "Hugh McCluggage",
-            "price": 1037000.0
+            "price": 1037000.0,
+            "acquisition_price": 930000.0,
+            "price_change": 107000.0
           },
           {
             "player_id": 1012014,
             "player_name": "Chad Warner",
-            "price": 926000.0
+            "price": 926000.0,
+            "acquisition_price": 842000.0,
+            "price_change": 84000.0
           },
           {
             "player_id": 1017124,
             "player_name": "Ned Long",
-            "price": 833000.0
+            "price": 833000.0,
+            "acquisition_price": 421000.0,
+            "price_change": 412000.0
           }
         ]
       },
@@ -4418,34 +4522,46 @@
           {
             "player_id": 992468,
             "player_name": "Rowan Marshall",
-            "price": 1011000.0
+            "price": 1011000.0,
+            "acquisition_price": 1011000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1009399,
             "player_name": "Luke Jackson",
-            "price": 904000.0
+            "price": 904000.0,
+            "acquisition_price": 904000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1009420,
             "player_name": "Caleb Serong",
-            "price": 913000.0
+            "price": 913000.0,
+            "acquisition_price": 913000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 290528,
             "player_name": "Max Gawn",
-            "price": 1205000.0
+            "price": 1205000.0,
+            "acquisition_price": 1017000.0,
+            "price_change": 188000.0
           },
           {
             "player_id": 1012857,
             "player_name": "Jack Ginnivan",
-            "price": 801000.0
+            "price": 801000.0,
+            "acquisition_price": 576000.0,
+            "price_change": 225000.0
           },
           {
             "player_id": 1026850,
             "player_name": "Nic Martin",
-            "price": 1135000.0
+            "price": 1135000.0,
+            "acquisition_price": 966000.0,
+            "price_change": 169000.0
           }
         ]
       },
@@ -4767,34 +4883,46 @@
           {
             "player_id": 297373,
             "player_name": "Marcus Bontempelli",
-            "price": 978000.0
+            "price": 978000.0,
+            "acquisition_price": 978000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 298539,
             "player_name": "Isaac Heeney",
-            "price": 930000.0
+            "price": 930000.0,
+            "acquisition_price": 930000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1009199,
             "player_name": "Noah Anderson",
-            "price": 975000.0
+            "price": 975000.0,
+            "acquisition_price": 975000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 996708,
             "player_name": "Bailey Dale",
-            "price": 1009000.0
+            "price": 1009000.0,
+            "acquisition_price": 856000.0,
+            "price_change": 153000.0
           },
           {
             "player_id": 1000958,
             "player_name": "Harry Boyd",
-            "price": 268000.0
+            "price": 268000.0,
+            "acquisition_price": 230000.0,
+            "price_change": 38000.0
           },
           {
             "player_id": 1006103,
             "player_name": "Jye Caldwell",
-            "price": 1017000.0
+            "price": 1017000.0,
+            "acquisition_price": 944000.0,
+            "price_change": 73000.0
           }
         ]
       },
@@ -5116,34 +5244,46 @@
           {
             "player_id": 1000980,
             "player_name": "Lloyd Meek",
-            "price": 838000.0
+            "price": 838000.0,
+            "acquisition_price": 838000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1002404,
             "player_name": "Aaron Naughton",
-            "price": 566000.0
+            "price": 566000.0,
+            "acquisition_price": 566000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1006121,
             "player_name": "Zak Butters",
-            "price": 927000.0
+            "price": 927000.0,
+            "acquisition_price": 927000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 1001398,
             "player_name": "Matthew Kennedy",
-            "price": 1094000.0
+            "price": 1094000.0,
+            "acquisition_price": 791000.0,
+            "price_change": 303000.0
           },
           {
             "player_id": 1002239,
             "player_name": "Adam Cerra",
-            "price": 1016000.0
+            "price": 1016000.0,
+            "acquisition_price": 745000.0,
+            "price_change": 271000.0
           },
           {
             "player_id": 1032650,
             "player_name": "Zane Zakostelsky",
-            "price": 230000.0
+            "price": 230000.0,
+            "acquisition_price": 230000.0,
+            "price_change": 0.0
           }
         ]
       },
@@ -5465,24 +5605,32 @@
           {
             "player_id": 293845,
             "player_name": "Jeremy Cameron",
-            "price": 801000.0
+            "price": 801000.0,
+            "acquisition_price": 801000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 992016,
             "player_name": "Zach Merrett",
-            "price": 926000.0
+            "price": 926000.0,
+            "acquisition_price": 926000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 1006152,
             "player_name": "Jordan Clark",
-            "price": 1005000.0
+            "price": 1005000.0,
+            "acquisition_price": 895000.0,
+            "price_change": 110000.0
           },
           {
             "player_id": 1009420,
             "player_name": "Caleb Serong",
-            "price": 1048000.0
+            "price": 1048000.0,
+            "acquisition_price": 913000.0,
+            "price_change": 135000.0
           }
         ]
       },
@@ -5804,24 +5952,32 @@
           {
             "player_id": 294305,
             "player_name": "Lachie Whitfield",
-            "price": 942000.0
+            "price": 942000.0,
+            "acquisition_price": 942000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 993834,
             "player_name": "Josh Dunkley",
-            "price": 917000.0
+            "price": 917000.0,
+            "acquisition_price": 917000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 290799,
             "player_name": "Tom Liberatore",
-            "price": 949000.0
+            "price": 949000.0,
+            "acquisition_price": 898000.0,
+            "price_change": 51000.0
           },
           {
             "player_id": 1020855,
             "player_name": "Max Hall",
-            "price": 594000.0
+            "price": 594000.0,
+            "acquisition_price": 230000.0,
+            "price_change": 364000.0
           }
         ]
       },
@@ -6143,24 +6299,32 @@
           {
             "player_id": 296420,
             "player_name": "Alex Neal-Bullen",
-            "price": 602000.0
+            "price": 602000.0,
+            "acquisition_price": 602000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 993878,
             "player_name": "Shaun Mannagh",
-            "price": 774000.0
+            "price": 774000.0,
+            "acquisition_price": 774000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 1000980,
             "player_name": "Lloyd Meek",
-            "price": 988000.0
+            "price": 988000.0,
+            "acquisition_price": 838000.0,
+            "price_change": 150000.0
           },
           {
             "player_id": 1024023,
             "player_name": "Daniel Curtin",
-            "price": 737000.0
+            "price": 737000.0,
+            "acquisition_price": 300000.0,
+            "price_change": 437000.0
           }
         ]
       },
@@ -6482,24 +6646,32 @@
           {
             "player_id": 290778,
             "player_name": "Luke Parker",
-            "price": 847000.0
+            "price": 847000.0,
+            "acquisition_price": 847000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 294036,
             "player_name": "George Hewett",
-            "price": 879000.0
+            "price": 879000.0,
+            "acquisition_price": 879000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 296205,
             "player_name": "Jack Steele",
-            "price": 1060000.0
+            "price": 1060000.0,
+            "acquisition_price": 932000.0,
+            "price_change": 128000.0
           },
           {
             "player_id": 1008541,
             "player_name": "Kysaiah Pickett",
-            "price": 874000.0
+            "price": 874000.0,
+            "acquisition_price": 677000.0,
+            "price_change": 197000.0
           }
         ]
       },
@@ -6821,24 +6993,32 @@
           {
             "player_id": 1000978,
             "player_name": "Hugh McCluggage",
-            "price": 940000.0
+            "price": 940000.0,
+            "acquisition_price": 940000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1004965,
             "player_name": "Tristan Xerri",
-            "price": 949000.0
+            "price": 949000.0,
+            "acquisition_price": 949000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 296420,
             "player_name": "Alex Neal-Bullen",
-            "price": 715000.0
+            "price": 715000.0,
+            "acquisition_price": 602000.0,
+            "price_change": 113000.0
           },
           {
             "player_id": 1023261,
             "player_name": "Nick Daicos",
-            "price": 1170000.0
+            "price": 1170000.0,
+            "acquisition_price": 989000.0,
+            "price_change": 181000.0
           }
         ]
       },
@@ -7160,24 +7340,32 @@
           {
             "player_id": 998102,
             "player_name": "Andrew McGrath",
-            "price": 636000.0
+            "price": 636000.0,
+            "acquisition_price": 636000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1002312,
             "player_name": "Zac Bailey",
-            "price": 814000.0
+            "price": 814000.0,
+            "acquisition_price": 814000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 999715,
             "player_name": "Jy Farrar",
-            "price": 374000.0
+            "price": 374000.0,
+            "acquisition_price": 265000.0,
+            "price_change": 109000.0
           },
           {
             "player_id": 1015889,
             "player_name": "Max Holmes",
-            "price": 1082000.0
+            "price": 1082000.0,
+            "acquisition_price": 896000.0,
+            "price_change": 186000.0
           }
         ]
       },
@@ -7499,24 +7687,32 @@
           {
             "player_id": 997078,
             "player_name": "Mason Redman",
-            "price": 808000.0
+            "price": 808000.0,
+            "acquisition_price": 808000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1002267,
             "player_name": "Luke Davies-Uniacke",
-            "price": 764000.0
+            "price": 764000.0,
+            "acquisition_price": 764000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 1002404,
             "player_name": "Aaron Naughton",
-            "price": 867000.0
+            "price": 867000.0,
+            "acquisition_price": 566000.0,
+            "price_change": 301000.0
           },
           {
             "player_id": 1009208,
             "player_name": "Matt Rowell",
-            "price": 1153000.0
+            "price": 1153000.0,
+            "acquisition_price": 830000.0,
+            "price_change": 323000.0
           }
         ]
       },
@@ -7838,24 +8034,32 @@
           {
             "player_id": 996765,
             "player_name": "Tom Papley",
-            "price": 558000.0
+            "price": 558000.0,
+            "acquisition_price": 558000.0,
+            "price_change": 0.0
           },
           {
             "player_id": 1001299,
             "player_name": "Connor Rozee",
-            "price": 926000.0
+            "price": 926000.0,
+            "acquisition_price": 926000.0,
+            "price_change": 0.0
           }
         ],
         "traded_out": [
           {
             "player_id": 1005054,
             "player_name": "Josh Daicos",
-            "price": 931000.0
+            "price": 931000.0,
+            "acquisition_price": 909000.0,
+            "price_change": 22000.0
           },
           {
             "player_id": 1015507,
             "player_name": "Nasiah Wanganeen-Milera",
-            "price": 1163000.0
+            "price": 1163000.0,
+            "acquisition_price": 1003000.0,
+            "price_change": 160000.0
           }
         ]
       },

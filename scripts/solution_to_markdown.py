@@ -380,6 +380,18 @@ def _format_player_line(*, name: str, price: float | None, score: float | None, 
     return " – ".join(parts)
 
 
+def _format_price_change(delta: float | None) -> str:
+    if delta is None:
+        return ""
+    try:
+        d = float(delta)
+    except Exception:
+        return ""
+
+    sign = "+" if d >= 0 else "-"
+    return f"({sign}{_format_currency(abs(d))})"
+
+
 def _get_round_obj(solution: Mapping[str, Any], r: int) -> Mapping[str, Any]:
     rounds_obj: Mapping[str, Any] = solution.get("rounds") or {}
     return rounds_obj.get(str(r)) or {}
@@ -409,7 +421,12 @@ def _trade_lines_for_round(solution: Mapping[str, Any], r: int) -> list[str]:
     if traded_out:
         lines.append("- Traded out:")
         for e in traded_out:
-            lines.append(f"  - {_format_player_line(name=str(e.get('player_name','?')), price=e.get('price'), score=None)}")
+            delta = e.get("price_change")
+            delta_text = _format_price_change(delta)
+            base = _format_player_line(name=str(e.get('player_name','?')), price=e.get('price'), score=None)
+            if delta_text:
+                base = f"{base} {delta_text}"
+            lines.append(f"  - {base}")
     else:
         lines.append("- Traded out: _None_")
 
