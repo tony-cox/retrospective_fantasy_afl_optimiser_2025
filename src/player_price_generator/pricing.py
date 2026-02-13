@@ -118,6 +118,27 @@ def generate_round_prices(
 
     This matches the behaviour described: the "previous score" refers to the most
     recent score in which the player played.
+
+    Opening-round (round 0) edge case
+    -------------------------------
+    If a player has a round-0 score, the game effectively has an *additional* price
+    update that occurs "between" the opening round and round 1.
+
+    - The official round-1 price remains the provided starting price.
+    - But for pricing in round 2, we should use a *hidden* updated round-1 price
+      computed from round-0 score as if round 1 were a normal update.
+
+    Concretely, when a round-0 score exists we compute:
+
+        hidden_price_r1 = f(price_r0, score_r0)
+
+    where price_r0 is assumed equal to the starting round-1 price.
+
+    Then round-2 pricing uses:
+
+        price_r2 = f(hidden_price_r1, scores=[score_r1, score_r0])
+
+    while still returning price[1] equal to the starting price.
     """
 
     if max_round < 1:
@@ -133,18 +154,28 @@ def generate_round_prices(
         if player not in starting_prices_round_1:
             raise KeyError(f"Missing starting round-1 price for player {player!r}")
 
-        p_prices: dict[int, float] = {1: float(starting_prices_round_1[player])}
+        starting_price = float(starting_prices_round_1[player])
+        p_prices: dict[int, float] = {1: starting_price}
 
         # Keep a history of previous *games played* scores, most-recent-first.
         prev_game_scores: List[float] = []
 
-        # Seed the history with any pre-season / opening round (round 0) score and
-        # the round-1 score if they played.
-        #
-        # Important: round-1 price is fixed to starting price and is NOT updated.
-        # Round-2 pricing may include both round-0 and round-1 scores.
         p_scores = simulated_scores.get(player, {})
-        if 0 in p_scores:
+        has_round0 = 0 in p_scores
+
+        # If the player played round 0, compute a hidden updated round-1 price.
+        # This is used as the base for the first published update (round 2).
+        price_prev = starting_price
+        if has_round0:
+            hidden_r1 = _compute_price_for_round(
+                price_prev=starting_price,
+                previous_game_scores_most_recent_first=[float(p_scores[0])],
+                magic_number=magic,
+            )
+            price_prev = hidden_r1
+
+        # Seed history with any opening round score and round-1 score if they played.
+        if has_round0:
             prev_game_scores.insert(0, float(p_scores[0]))
         if 1 in p_scores:
             prev_game_scores.insert(0, float(p_scores[1]))
@@ -152,14 +183,16 @@ def generate_round_prices(
         for r in range(2, max_round + 1):
             if prev_game_scores:
                 p_prices[r] = _compute_price_for_round(
-                    price_prev=p_prices[r - 1],
+                    price_prev=price_prev,
                     previous_game_scores_most_recent_first=prev_game_scores,
                     magic_number=magic,
                 )
             else:
                 # No prior games: carry forward the starting price.
-                # This is defensively defined; in realistic inputs, round 1 exists.
-                p_prices[r] = p_prices[r - 1]
+                p_prices[r] = price_prev
+
+            # Next iteration's base price is the price we just computed.
+            price_prev = p_prices[r]
 
             # After computing price[r], if player played in round r, update history.
             if r in p_scores:
